@@ -835,13 +835,19 @@ export default function PredictorPage() {
                   branches: branches.sort((x, y) => x.closing_rank - y.closing_rank)
               }));
 
+          const cleanVal = (val: string | number | undefined) => {
+              if (val === undefined) return 0;
+              if (typeof val === 'number') return val;
+              return parseFloat(val.replace(/[^\d.]/g, '')) || 0;
+          };
+
           // Apply Sorting
           switch(sortBy) {
               case 'package':
-                  grouped.sort((a, b) => b.college.avg_package - a.college.avg_package);
+                  grouped.sort((a, b) => cleanVal(b.college.avg_package) - cleanVal(a.college.avg_package));
                   break;
               case 'fee':
-                  grouped.sort((a, b) => a.college.fees - b.college.fees);
+                  grouped.sort((a, b) => cleanVal(a.college.fees) - cleanVal(b.college.fees));
                   break;
               case 'tier':
                   const tierPriority: Record<string, number> = { "Tier 1": 1, "Tier 1.5": 2, "Tier 2": 3, "Tier 3": 4 };

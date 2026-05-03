@@ -21,6 +21,9 @@ import { cn } from '@/lib/utils';
 import { College, Branch, CollegeBranch, CutoffData } from '@/lib/types';
 
 import { useColleges } from '@/lib/contexts/CollegeContext';
+import branchesData from '@/lib/data/branches.json';
+import collegeBranchesData from '@/lib/data/college_branches.json';
+import cutoffDataJson from '@/lib/data/cutoff_data.json';
 
 const branches = branchesData as Branch[];
 const collegeBranches = collegeBranchesData as CollegeBranch[];

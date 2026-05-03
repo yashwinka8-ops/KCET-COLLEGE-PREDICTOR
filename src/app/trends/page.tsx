@@ -270,9 +270,9 @@ export default function TrendsPage() {
                               <MapPin className="w-3 h-3" />
                               {college.location}
                             </td>
-                            {activeTier !== 'tier2' && <td className="px-6 py-4 text-emerald-400 text-sm font-mono">{college.fees}</td>}
+                            {activeTier !== 'tier2' && <td className="px-6 py-4 text-emerald-400 text-sm font-mono">{(college as any).fees}</td>}
                             <td className="px-6 py-4 text-primary text-sm font-black">{college.avg}</td>
-                            {activeTier === 'tier1' && <td className="px-6 py-4 text-rose-400 text-sm font-black">{college.highest}</td>}
+                            {activeTier === 'tier1' && <td className="px-6 py-4 text-rose-400 text-sm font-black">{(college as any).highest}</td>}
                             <td className="px-6 py-4 text-center">
                               <span className="bg-white/5 border border-white/10 px-2.5 py-1 rounded-full text-[10px] font-black text-amber-400">
                                 {college.rating}

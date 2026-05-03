@@ -12,6 +12,7 @@ export interface College {
   college_type: string;
   naac_grade: string;
   image_url?: string;
+  aliases?: string[];
   tier?: string;
   rating?: number;
   fees: number | string;

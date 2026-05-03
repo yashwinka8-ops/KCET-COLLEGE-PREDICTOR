@@ -171,12 +171,12 @@ export default function AdminPage() {
         });
     }, [colleges, searchQuery, filters]);
 
-    const handleEditStart = (college: College) => {
-        setEditingId(college.college_id);
+    const handleEditStart = (college: College | Partial<College>) => {
+        setEditingId(college.college_id || null);
         setEditForm(college);
     };
 
-    const [pendingChanges, setPendingChanges] = useState<Record<string, College>>({});
+    const [pendingChanges, setPendingChanges] = useState<Record<string, Partial<College>>>({});
     const [pendingDeletions, setPendingDeletions] = useState<string[]>([]);
     const { deletedIds } = useColleges();
 
@@ -216,12 +216,12 @@ export default function AdminPage() {
             const BATCH_LIMIT = 450;
             
             // 1. Process Edits
-            const changes = Object.values(pendingChanges);
-            for (let i = 0; i < changes.length; i += BATCH_LIMIT) {
+            const changeEntries = Object.entries(pendingChanges);
+            for (let i = 0; i < changeEntries.length; i += BATCH_LIMIT) {
                 const batch = writeBatch(db);
-                const chunk = changes.slice(i, i + BATCH_LIMIT);
-                chunk.forEach(c => {
-                    batch.set(doc(db, 'colleges', c.college_id), c, { merge: true });
+                const chunk = changeEntries.slice(i, i + BATCH_LIMIT);
+                chunk.forEach(([id, data]) => {
+                    batch.set(doc(db, 'colleges', id), data, { merge: true });
                 });
                 await batch.commit();
             }
