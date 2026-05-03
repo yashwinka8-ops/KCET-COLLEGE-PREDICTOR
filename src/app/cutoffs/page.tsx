@@ -342,6 +342,16 @@ export default function CutoffsExplorer() {
                onClick={() => setSelectedCollege(college)}
                className="glass-card group overflow-hidden cursor-pointer hover:border-primary/30 transition-all"
              >
+                {college.image_url && (
+                    <div className="h-32 w-full overflow-hidden relative">
+                        <img 
+                            src={college.image_url} 
+                            alt={college.full_name} 
+                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/80 to-transparent" />
+                    </div>
+                )}
                 <div className="p-8">
                    <div className="flex justify-between items-start mb-6">
                       <div className="w-14 h-14 rounded-2xl bg-white/5 flex items-center justify-center border border-white/10 group-hover:bg-primary/20 group-hover:border-primary/30 transition-all">

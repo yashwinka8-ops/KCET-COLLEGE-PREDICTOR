@@ -222,15 +222,30 @@ const CollegeDetailsModal = ({
                     exit={{ opacity: 0, scale: 0.95, y: 20 }}
                     className="relative w-full max-w-5xl max-h-[90vh] bg-zinc-950 border border-white/10 rounded-3xl shadow-2xl overflow-hidden z-10 flex flex-col"
                 >
+                    {/* Hero Image Section */}
+                    {college.image_url && (
+                        <div className="relative h-48 md:h-64 w-full overflow-hidden">
+                            <img 
+                                src={college.image_url} 
+                                alt={college.full_name} 
+                                className="w-full h-full object-cover"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/40 to-transparent" />
+                        </div>
+                    )}
+
                     {/* Header */}
-                    <div className="p-6 md:p-8 border-b border-white/5 bg-white/2">
+                    <div className={cn(
+                        "p-6 md:p-8 border-b border-white/5 bg-white/2",
+                        college.image_url && "-mt-20 relative z-10 bg-transparent border-none"
+                    )}>
                         <div className="flex justify-between items-start mb-6">
                             <div className="flex gap-5">
-                                <div className="w-16 h-16 rounded-2xl bg-primary/20 flex items-center justify-center border border-primary/30 shrink-0">
+                                <div className="w-16 h-16 rounded-2xl bg-primary/20 flex items-center justify-center border border-primary/30 shrink-0 shadow-2xl">
                                     <Building2 className="w-8 h-8 text-primary" />
                                 </div>
                                 <div>
-                                    <h2 className="text-3xl font-bold mb-2">{college.full_name}</h2>
+                                    <h2 className="text-3xl font-bold mb-2 drop-shadow-lg">{college.full_name}</h2>
                                     <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
                                         <div className="flex items-center gap-1.5">
                                             <MapPin className="w-4 h-4" />

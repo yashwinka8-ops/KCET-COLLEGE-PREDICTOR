@@ -177,17 +177,22 @@ export default function AdminPage() {
     };
 
     const [pendingChanges, setPendingChanges] = useState<Record<string, College>>({});
+    const [pendingDeletions, setPendingDeletions] = useState<string[]>([]);
+    const { deletedIds } = useColleges();
 
     // Load drafts on mount
     useEffect(() => {
-        const saved = localStorage.getItem('admin_drafts');
-        if (saved) setPendingChanges(JSON.parse(saved));
+        const savedChanges = localStorage.getItem('admin_drafts');
+        const savedDeletions = localStorage.getItem('admin_deletions');
+        if (savedChanges) setPendingChanges(JSON.parse(savedChanges));
+        if (savedDeletions) setPendingDeletions(JSON.parse(savedDeletions));
     }, []);
 
-    // Save drafts to local storage whenever they change
+    // Save drafts
     useEffect(() => {
         localStorage.setItem('admin_drafts', JSON.stringify(pendingChanges));
-    }, [pendingChanges]);
+        localStorage.setItem('admin_deletions', JSON.stringify(pendingDeletions));
+    }, [pendingChanges, pendingDeletions]);
 
     const handleEditSave = () => {
         if (!editingId || !editForm) return;
@@ -196,19 +201,22 @@ export default function AdminPage() {
             [editingId]: editForm
         }));
         setEditingId(null);
-        alert("Draft Saved! Click 'Deploy' to make it live for users.");
+        alert("Draft Saved! Click 'Deploy' to make it live.");
     };
 
     const deployChanges = async () => {
         const changeCount = Object.keys(pendingChanges).length;
-        if (changeCount === 0) return alert("No changes to deploy.");
-        if (!window.confirm(`DEPLOY ${changeCount} STAGED CHANGES TO ALL USERS?`)) return;
+        const deleteCount = pendingDeletions.length;
+        if (changeCount === 0 && deleteCount === 0) return alert("No changes to deploy.");
+        
+        if (!window.confirm(`DEPLOY ${changeCount} EDITS AND ${deleteCount} DELETIONS?`)) return;
 
         setIsLoading(true);
         try {
             const BATCH_LIMIT = 450;
+            
+            // 1. Process Edits
             const changes = Object.values(pendingChanges);
-
             for (let i = 0; i < changes.length; i += BATCH_LIMIT) {
                 const batch = writeBatch(db);
                 const chunk = changes.slice(i, i + BATCH_LIMIT);
@@ -218,13 +226,28 @@ export default function AdminPage() {
                 await batch.commit();
             }
 
-            // Update Version to trigger user cache refreshes
+            // 2. Process Deletions (Update Blacklist)
+            const newBlacklist = Array.from(new Set([...deletedIds, ...pendingDeletions]));
             const newVersion = Date.now();
-            await setDoc(doc(db, 'metadata', 'config'), { version: newVersion }, { merge: true });
+            
+            const batch = writeBatch(db);
+            // Update the Global Blacklist
+            batch.set(doc(db, 'metadata', 'config'), { 
+                deleted_ids: newBlacklist,
+                version: newVersion 
+            }, { merge: true });
+            
+            // Actually delete documents from the colleges collection too
+            pendingDeletions.forEach(id => {
+                batch.delete(doc(db, 'colleges', id));
+            });
+            await batch.commit();
 
             setPendingChanges({});
+            setPendingDeletions([]);
             localStorage.removeItem('admin_drafts');
-            alert(`🚀 DEPLOY SUCCESSFUL! All ${changeCount} changes are now live.`);
+            localStorage.removeItem('admin_deletions');
+            alert(`🚀 DEPLOY SUCCESSFUL! Site is now updated.`);
         } catch (error: any) {
             console.error(error);
             alert(`Deploy failed: ${error.message}`);
@@ -265,39 +288,45 @@ export default function AdminPage() {
         }
     };
 
-    const handleDeleteCollege = async (id: string) => {
-        if (!window.confirm("DELETE PERMANENTLY FROM FIRESTORE? This cannot be undone.")) return;
-        try {
-            await deleteDoc(doc(db, 'colleges', id));
-        } catch (error) {
-            alert("Delete failed.");
-        }
+    const handleDeleteCollege = (id: string) => {
+        if (!window.confirm("ARE YOU SURE? This will stage the college for removal. You must click 'Deploy' to make it permanent.")) return;
+        setPendingDeletions(prev => Array.from(new Set([...prev, id])));
+        alert("College staged for deletion! It will disappear once you click 'Deploy'.");
     };
 
     const handleMerge = async () => {
         const primary = colleges.find(c => c.college_id === mergePrimaryId);
         const secondary = colleges.find(c => c.college_id === mergeSecondaryId);
-        if (!primary || !secondary) return;
-
-        if (!window.confirm(`MERGE ${secondary.short_name} INTO ${primary.short_name} LIVE?`)) return;
-
-        try {
-            const batch = writeBatch(db);
-            // 1. Update Primary with Aliases
-            const primaryRef = doc(db, 'colleges', mergePrimaryId);
-            batch.update(primaryRef, {
-                aliases: [...(primary.aliases || []), secondary.full_name, secondary.short_name, secondary.college_id]
-            });
-            // 2. Delete Secondary
-            const secondaryRef = doc(db, 'colleges', mergeSecondaryId);
-            batch.delete(secondaryRef);
-
-            await batch.commit();
-            setShowMergeWizard(false);
-            alert("Live Merge Complete!");
-        } catch (error) {
-            console.error(error);
+        if (!primary || !secondary) {
+            alert("One or both College IDs not found.");
+            return;
         }
+
+        if (!window.confirm(`STAGING MERGE: Add ${secondary.short_name} as an alias to ${primary.short_name} and remove the duplicate?`)) return;
+
+        // 1. Update Primary in Drafts
+        const updatedPrimary = {
+            ...primary,
+            aliases: Array.from(new Set([
+                ...(primary.aliases || []), 
+                secondary.full_name, 
+                secondary.short_name, 
+                secondary.college_id
+            ]))
+        };
+
+        setPendingChanges(prev => ({
+            ...prev,
+            [mergePrimaryId]: updatedPrimary
+        }));
+
+        // 2. Stage Deletion for Secondary
+        setPendingDeletions(prev => Array.from(new Set([...prev, mergeSecondaryId])));
+
+        setShowMergeWizard(false);
+        setMergePrimaryId('');
+        setMergeSecondaryId('');
+        alert("Merge Staged! Both colleges are updated in your draft. Click 'Deploy' to finish.");
     };
 
     const calculateAggregate = (rawKcet: number, rawPcm: number) => {
@@ -504,7 +533,7 @@ export default function AdminPage() {
                                     className="bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-xs font-bold outline-none"
                                 >
                                     <option value="All">All Regions</option>
-                                    <option value="Bangalore">Bangalore</option>
+                                    <option value="Bengaluru">Bengaluru</option>
                                     <option value="Mysore">Mysore</option>
                                     <option value="North">North</option>
                                     <option value="Other">Other</option>
@@ -535,13 +564,15 @@ export default function AdminPage() {
                                     </thead>
                                     <tbody className="divide-y divide-white/5">
                                         {filteredColleges.map((college) => {
+                                            const isPendingDelete = pendingDeletions.includes(college.college_id);
                                             const hasPending = !!pendingChanges[college.college_id];
                                             const displayCollege = hasPending ? pendingChanges[college.college_id] : college;
 
                                             return (
                                             <tr key={college.college_id} className={cn(
                                                 "hover:bg-white/[0.02] transition-colors group",
-                                                hasPending && "bg-primary/[0.03]"
+                                                hasPending && "bg-primary/[0.03]",
+                                                isPendingDelete && "opacity-40 grayscale"
                                             )}>
                                                 <td className="px-6 py-4 font-mono text-xs text-primary font-bold">
                                                     {college.college_id}
@@ -554,6 +585,11 @@ export default function AdminPage() {
                                                                 {hasPending && (
                                                                     <span className="px-1.5 py-0.5 rounded-md bg-primary/20 border border-primary/30 text-[7px] font-black uppercase tracking-widest animate-pulse">
                                                                         Pending
+                                                                    </span>
+                                                                )}
+                                                                {isPendingDelete && (
+                                                                    <span className="px-1.5 py-0.5 rounded-md bg-rose-500/20 border border-rose-500/30 text-[7px] font-black uppercase tracking-widest text-rose-500">
+                                                                        Deleting...
                                                                     </span>
                                                                 )}
                                                             </span>
@@ -582,18 +618,29 @@ export default function AdminPage() {
                                                 </td>
                                                 <td className="px-6 py-4 text-right">
                                                     <div className="flex justify-end gap-2">
-                                                        <button 
-                                                            onClick={() => handleEditStart(college)}
-                                                            className="p-2 bg-white/5 border border-white/10 rounded-lg hover:bg-orange-500 hover:text-white transition-all"
-                                                        >
-                                                            <Edit2 className="w-3.5 h-3.5" />
-                                                        </button>
-                                                        <button 
-                                                            onClick={() => handleDeleteCollege(college.college_id)}
-                                                            className="p-2 bg-white/5 border border-white/10 rounded-lg hover:bg-rose-500 hover:text-white transition-all"
-                                                        >
-                                                            <Trash2 className="w-3.5 h-3.5" />
-                                                        </button>
+                                                        {isPendingDelete ? (
+                                                            <button 
+                                                                onClick={() => setPendingDeletions(prev => prev.filter(p => p !== college.college_id))}
+                                                                className="px-3 py-1.5 bg-emerald-500/10 text-emerald-500 rounded-lg text-[10px] font-black uppercase tracking-widest border border-emerald-500/20 hover:bg-emerald-500 hover:text-white transition-all"
+                                                            >
+                                                                Undo Delete
+                                                            </button>
+                                                        ) : (
+                                                            <>
+                                                                <button 
+                                                                    onClick={() => handleEditStart(displayCollege)}
+                                                                    className="p-2 bg-white/5 border border-white/10 rounded-lg hover:bg-orange-500 hover:text-white transition-all"
+                                                                >
+                                                                    <Edit2 className="w-3.5 h-3.5" />
+                                                                </button>
+                                                                <button 
+                                                                    onClick={() => handleDeleteCollege(college.college_id)}
+                                                                    className="p-2 bg-white/5 border border-white/10 rounded-lg hover:bg-rose-500 hover:text-white transition-all"
+                                                                >
+                                                                    <Trash2 className="w-3.5 h-3.5" />
+                                                                </button>
+                                                            </>
+                                                        )}
                                                     </div>
                                                 </td>
                                             </tr>
@@ -692,6 +739,25 @@ export default function AdminPage() {
                                 <button onClick={() => setEditingId(null)}><X className="w-6 h-6 text-muted-foreground" /></button>
                             </div>
                             <div className="p-8 grid grid-cols-2 gap-6">
+                                <div className="col-span-2 space-y-2">
+                                    <label className="text-[10px] font-black uppercase text-muted-foreground tracking-widest">College Image URL</label>
+                                    <div className="flex gap-4">
+                                        <div className="flex-1">
+                                            <input 
+                                                type="text" 
+                                                value={editForm.image_url || ''} 
+                                                onChange={(e) => setEditForm(prev => ({ ...prev, image_url: e.target.value }))} 
+                                                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:border-orange-500 outline-none" 
+                                                placeholder="https://example.com/college-image.jpg"
+                                            />
+                                        </div>
+                                        {editForm.image_url && (
+                                            <div className="w-11 h-11 rounded-lg border border-white/10 overflow-hidden shrink-0 bg-white/5">
+                                                <img src={editForm.image_url} alt="Preview" className="w-full h-full object-cover" />
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
                                 <div className="col-span-2 space-y-2">
                                     <label className="text-[10px] font-black uppercase text-muted-foreground tracking-widest">Full Name</label>
                                     <input type="text" value={editForm.full_name || ''} onChange={(e) => setEditForm(prev => ({ ...prev, full_name: e.target.value }))} className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:border-orange-500 outline-none font-bold text-white" />
