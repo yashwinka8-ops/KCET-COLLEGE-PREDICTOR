@@ -1,0 +1,44 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // 🛡️ ADMIN AUTHORIZATION HELPER
+    function isAdmin() {
+      return request.auth != null && (
+        request.auth.token.email == 'yashwinka8@gmail.com' || 
+        request.auth.token.email == 'yashwinka8@gamil.com' ||
+        request.auth.token.email == 'yashwinanand61@gmail.com'
+      );
+    }
+
+    // 📜 SYSTEM METADATA (Version Tracking)
+    match /metadata/{docId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // 🏢 INSTITUTIONAL DATABASE
+    match /colleges/{docId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // 🎓 STUDENT SUBMISSIONS
+    match /submissions/{docId} {
+      allow create: if true;
+      allow read, delete: if isAdmin();
+      allow update: if false;
+    }
+
+    // 👤 STUDENT PROFILES
+    match /profiles/{userId} {
+      allow read: if isAdmin() || (request.auth != null && request.auth.uid == userId);
+      allow write: if request.auth != null && request.auth.uid == userId;
+    }
+
+    // ❤️ WISHLISTS
+    match /wishlists/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+  }
+}

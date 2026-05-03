@@ -1,0 +1,187 @@
+[
+  {
+    "branch_id": "AI &",
+    "branch_code": "AI &",
+    "branch_name": "AI & Data Science"
+  },
+  {
+    "branch_id": "CIVI",
+    "branch_code": "CIVI",
+    "branch_name": "Civil"
+  },
+  {
+    "branch_id": "COMP",
+    "branch_code": "COMP",
+    "branch_name": "Computer Science"
+  },
+  {
+    "branch_id": "ELEC",
+    "branch_code": "ELEC",
+    "branch_name": "Electrical (EEE)"
+  },
+  {
+    "branch_id": "INFO",
+    "branch_code": "INFO",
+    "branch_name": "Information Science"
+  },
+  {
+    "branch_id": "MECH",
+    "branch_code": "MECH",
+    "branch_name": "Mechanical"
+  },
+  {
+    "branch_id": "TEXT",
+    "branch_code": "TEXT",
+    "branch_name": "Textiles"
+  },
+  {
+    "branch_id": "INDU",
+    "branch_code": "INDU",
+    "branch_name": "Industrial Engineering & Management"
+  },
+  {
+    "branch_id": "AERO",
+    "branch_code": "AERO",
+    "branch_name": "Aero Space"
+  },
+  {
+    "branch_id": "CHEM",
+    "branch_code": "CHEM",
+    "branch_name": "Chemical"
+  },
+  {
+    "branch_id": "MEDI",
+    "branch_code": "MEDI",
+    "branch_name": "Medical Electronics Engineering"
+  },
+  {
+    "branch_id": "AUTO",
+    "branch_code": "AUTO",
+    "branch_name": "Automobile"
+  },
+  {
+    "branch_id": "ROBO",
+    "branch_code": "ROBO",
+    "branch_name": "Robotics And Artificial Intelligence"
+  },
+  {
+    "branch_id": "BIO-",
+    "branch_code": "BIO-",
+    "branch_name": "Bio-"
+  },
+  {
+    "branch_id": "MINI",
+    "branch_code": "MINI",
+    "branch_name": "Mining"
+  },
+  {
+    "branch_id": "ENVI",
+    "branch_code": "ENVI",
+    "branch_name": "Environmental"
+  },
+  {
+    "branch_id": "POLY",
+    "branch_code": "POLY",
+    "branch_name": "Polymer Science"
+  },
+  {
+    "branch_id": "AGRI",
+    "branch_code": "AGRI",
+    "branch_name": "Agriculture"
+  },
+  {
+    "branch_id": "COMM",
+    "branch_code": "COMM",
+    "branch_name": "Communication"
+  },
+  {
+    "branch_id": "LIFE",
+    "branch_code": "LIFE",
+    "branch_name": "Life Style And Accessory Design"
+  },
+  {
+    "branch_id": "CONS",
+    "branch_code": "CONS",
+    "branch_name": "Construction Technology And Mgmt"
+  },
+  {
+    "branch_id": "CERA",
+    "branch_code": "CERA",
+    "branch_name": "Ceramics & Cement Engineering"
+  },
+  {
+    "branch_id": "ENER",
+    "branch_code": "ENER",
+    "branch_name": "Energy"
+  },
+  {
+    "branch_id": "MARI",
+    "branch_code": "MARI",
+    "branch_name": "Marine"
+  },
+  {
+    "branch_id": "PROD",
+    "branch_code": "PROD",
+    "branch_name": "Production"
+  },
+  {
+    "branch_id": "MATH",
+    "branch_code": "MATH",
+    "branch_name": "Mathematics and Computing"
+  },
+  {
+    "branch_id": "PETR",
+    "branch_code": "PETR",
+    "branch_name": "Petroleum Engineering"
+  },
+  {
+    "branch_id": "BIOM",
+    "branch_code": "BIOM",
+    "branch_name": "Biomedical And Robotic Engineering"
+  },
+  {
+    "branch_id": "B.TE",
+    "branch_code": "B.TE",
+    "branch_name": "B.tech In Electronics Engineering"
+  },
+  {
+    "branch_id": "PHAR",
+    "branch_code": "PHAR",
+    "branch_name": "Pharmaceutical Engineering"
+  },
+  {
+    "branch_id": "ENGI",
+    "branch_code": "ENGI",
+    "branch_name": "Engineering"
+  },
+  {
+    "branch_id": "SILK",
+    "branch_code": "SILK",
+    "branch_name": "Silk"
+  },
+  {
+    "branch_id": "FASH",
+    "branch_code": "FASH",
+    "branch_name": "Fashion"
+  },
+  {
+    "branch_id": "CYBE",
+    "branch_code": "CYBE",
+    "branch_name": "Cyber"
+  },
+  {
+    "branch_id": "B TE",
+    "branch_code": "B TE",
+    "branch_name": "B Tech In Information Technology"
+  },
+  {
+    "branch_id": "BACH",
+    "branch_code": "BACH",
+    "branch_name": "Bachelor Of Design (interior Design )"
+  },
+  {
+    "branch_id": "ARTI",
+    "branch_code": "ARTI",
+    "branch_name": "Artificial"
+  }
+]

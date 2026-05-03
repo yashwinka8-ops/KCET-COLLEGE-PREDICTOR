@@ -1,0 +1,5542 @@
+[
+  {
+    "id": "E001-AI &",
+    "college_id": "E001",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E001-CIVI",
+    "college_id": "E001",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E001-COMP",
+    "college_id": "E001",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E001-ELEC",
+    "college_id": "E001",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E001-INFO",
+    "college_id": "E001",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E001-MECH",
+    "college_id": "E001",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E002-CIVI",
+    "college_id": "E002",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E002-COMP",
+    "college_id": "E002",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E002-ELEC",
+    "college_id": "E002",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E002-TEXT",
+    "college_id": "E002",
+    "branch_id": "TEXT"
+  },
+  {
+    "id": "E003-CIVI",
+    "college_id": "E003",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E003-ELEC",
+    "college_id": "E003",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E003-INDU",
+    "college_id": "E003",
+    "branch_id": "INDU"
+  },
+  {
+    "id": "E003-MECH",
+    "college_id": "E003",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E004-CIVI",
+    "college_id": "E004",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E004-COMP",
+    "college_id": "E004",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E004-ELEC",
+    "college_id": "E004",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E004-INDU",
+    "college_id": "E004",
+    "branch_id": "INDU"
+  },
+  {
+    "id": "E004-MECH",
+    "college_id": "E004",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E005-AERO",
+    "college_id": "E005",
+    "branch_id": "AERO"
+  },
+  {
+    "id": "E005-CHEM",
+    "college_id": "E005",
+    "branch_id": "CHEM"
+  },
+  {
+    "id": "E005-CIVI",
+    "college_id": "E005",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E005-COMP",
+    "college_id": "E005",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E005-ELEC",
+    "college_id": "E005",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E005-INDU",
+    "college_id": "E005",
+    "branch_id": "INDU"
+  },
+  {
+    "id": "E005-MECH",
+    "college_id": "E005",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E006-AERO",
+    "college_id": "E006",
+    "branch_id": "AERO"
+  },
+  {
+    "id": "E006-AI &",
+    "college_id": "E006",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E006-CHEM",
+    "college_id": "E006",
+    "branch_id": "CHEM"
+  },
+  {
+    "id": "E006-CIVI",
+    "college_id": "E006",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E006-COMP",
+    "college_id": "E006",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E006-ELEC",
+    "college_id": "E006",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E006-INDU",
+    "college_id": "E006",
+    "branch_id": "INDU"
+  },
+  {
+    "id": "E006-INFO",
+    "college_id": "E006",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E006-MECH",
+    "college_id": "E006",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E006-MEDI",
+    "college_id": "E006",
+    "branch_id": "MEDI"
+  },
+  {
+    "id": "E007-AERO",
+    "college_id": "E007",
+    "branch_id": "AERO"
+  },
+  {
+    "id": "E007-AI &",
+    "college_id": "E007",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E007-AUTO",
+    "college_id": "E007",
+    "branch_id": "AUTO"
+  },
+  {
+    "id": "E007-CHEM",
+    "college_id": "E007",
+    "branch_id": "CHEM"
+  },
+  {
+    "id": "E007-CIVI",
+    "college_id": "E007",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E007-COMP",
+    "college_id": "E007",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E007-ELEC",
+    "college_id": "E007",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E007-INFO",
+    "college_id": "E007",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E007-MECH",
+    "college_id": "E007",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E007-MEDI",
+    "college_id": "E007",
+    "branch_id": "MEDI"
+  },
+  {
+    "id": "E007-ROBO",
+    "college_id": "E007",
+    "branch_id": "ROBO"
+  },
+  {
+    "id": "E008-AI &",
+    "college_id": "E008",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E008-CIVI",
+    "college_id": "E008",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E008-COMP",
+    "college_id": "E008",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E008-ELEC",
+    "college_id": "E008",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E008-INFO",
+    "college_id": "E008",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E008-MECH",
+    "college_id": "E008",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E008-ROBO",
+    "college_id": "E008",
+    "branch_id": "ROBO"
+  },
+  {
+    "id": "E009-BIO-",
+    "college_id": "E009",
+    "branch_id": "BIO-"
+  },
+  {
+    "id": "E009-COMP",
+    "college_id": "E009",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E009-ELEC",
+    "college_id": "E009",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E009-MECH",
+    "college_id": "E009",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E011-AERO",
+    "college_id": "E011",
+    "branch_id": "AERO"
+  },
+  {
+    "id": "E011-AI &",
+    "college_id": "E011",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E011-CHEM",
+    "college_id": "E011",
+    "branch_id": "CHEM"
+  },
+  {
+    "id": "E011-CIVI",
+    "college_id": "E011",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E011-COMP",
+    "college_id": "E011",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E011-ELEC",
+    "college_id": "E011",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E011-INFO",
+    "college_id": "E011",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E011-MECH",
+    "college_id": "E011",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E012-CIVI",
+    "college_id": "E012",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E012-COMP",
+    "college_id": "E012",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E012-ELEC",
+    "college_id": "E012",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E012-INFO",
+    "college_id": "E012",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E012-MECH",
+    "college_id": "E012",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E012-ROBO",
+    "college_id": "E012",
+    "branch_id": "ROBO"
+  },
+  {
+    "id": "E013-AI &",
+    "college_id": "E013",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E013-CIVI",
+    "college_id": "E013",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E013-COMP",
+    "college_id": "E013",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E013-ELEC",
+    "college_id": "E013",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E013-INFO",
+    "college_id": "E013",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E013-ROBO",
+    "college_id": "E013",
+    "branch_id": "ROBO"
+  },
+  {
+    "id": "E014-AERO",
+    "college_id": "E014",
+    "branch_id": "AERO"
+  },
+  {
+    "id": "E014-AI &",
+    "college_id": "E014",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E014-CIVI",
+    "college_id": "E014",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E014-COMP",
+    "college_id": "E014",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E014-ELEC",
+    "college_id": "E014",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E014-INFO",
+    "college_id": "E014",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E014-MECH",
+    "college_id": "E014",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E015-COMP",
+    "college_id": "E015",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E015-ELEC",
+    "college_id": "E015",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E015-MECH",
+    "college_id": "E015",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E015-MINI",
+    "college_id": "E015",
+    "branch_id": "MINI"
+  },
+  {
+    "id": "E016-CHEM",
+    "college_id": "E016",
+    "branch_id": "CHEM"
+  },
+  {
+    "id": "E016-CIVI",
+    "college_id": "E016",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E016-COMP",
+    "college_id": "E016",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E016-ELEC",
+    "college_id": "E016",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E016-INDU",
+    "college_id": "E016",
+    "branch_id": "INDU"
+  },
+  {
+    "id": "E016-INFO",
+    "college_id": "E016",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E016-MECH",
+    "college_id": "E016",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E017-AI &",
+    "college_id": "E017",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E017-BIO-",
+    "college_id": "E017",
+    "branch_id": "BIO-"
+  },
+  {
+    "id": "E017-CIVI",
+    "college_id": "E017",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E017-COMP",
+    "college_id": "E017",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E017-ELEC",
+    "college_id": "E017",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E017-INFO",
+    "college_id": "E017",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E017-MECH",
+    "college_id": "E017",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E017-ROBO",
+    "college_id": "E017",
+    "branch_id": "ROBO"
+  },
+  {
+    "id": "E018-AI &",
+    "college_id": "E018",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E018-CIVI",
+    "college_id": "E018",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E018-COMP",
+    "college_id": "E018",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E018-ELEC",
+    "college_id": "E018",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E018-INFO",
+    "college_id": "E018",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E018-MECH",
+    "college_id": "E018",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E021-CIVI",
+    "college_id": "E021",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E021-COMP",
+    "college_id": "E021",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E021-ELEC",
+    "college_id": "E021",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E021-ENVI",
+    "college_id": "E021",
+    "branch_id": "ENVI"
+  },
+  {
+    "id": "E021-INDU",
+    "college_id": "E021",
+    "branch_id": "INDU"
+  },
+  {
+    "id": "E021-MECH",
+    "college_id": "E021",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E021-POLY",
+    "college_id": "E021",
+    "branch_id": "POLY"
+  },
+  {
+    "id": "E022-CIVI",
+    "college_id": "E022",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E022-ELEC",
+    "college_id": "E022",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E022-MECH",
+    "college_id": "E022",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E023-CIVI",
+    "college_id": "E023",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E023-ELEC",
+    "college_id": "E023",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E023-MECH",
+    "college_id": "E023",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E024-CIVI",
+    "college_id": "E024",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E024-ELEC",
+    "college_id": "E024",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E024-MECH",
+    "college_id": "E024",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E028-AGRI",
+    "college_id": "E028",
+    "branch_id": "AGRI"
+  },
+  {
+    "id": "E028-AI &",
+    "college_id": "E028",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E028-CIVI",
+    "college_id": "E028",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E028-COMP",
+    "college_id": "E028",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E028-ELEC",
+    "college_id": "E028",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E029-COMP",
+    "college_id": "E029",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E029-ELEC",
+    "college_id": "E029",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E029-MECH",
+    "college_id": "E029",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E029-ROBO",
+    "college_id": "E029",
+    "branch_id": "ROBO"
+  },
+  {
+    "id": "E031-CIVI",
+    "college_id": "E031",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E031-COMP",
+    "college_id": "E031",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E031-ELEC",
+    "college_id": "E031",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E031-INDU",
+    "college_id": "E031",
+    "branch_id": "INDU"
+  },
+  {
+    "id": "E031-MECH",
+    "college_id": "E031",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E032-AI &",
+    "college_id": "E032",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E032-CIVI",
+    "college_id": "E032",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E032-COMP",
+    "college_id": "E032",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E032-ELEC",
+    "college_id": "E032",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E032-MECH",
+    "college_id": "E032",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E032-TEXT",
+    "college_id": "E032",
+    "branch_id": "TEXT"
+  },
+  {
+    "id": "E033-CIVI",
+    "college_id": "E033",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E033-COMP",
+    "college_id": "E033",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E033-ELEC",
+    "college_id": "E033",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E033-INFO",
+    "college_id": "E033",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E033-MECH",
+    "college_id": "E033",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E034-AI &",
+    "college_id": "E034",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E034-CHEM",
+    "college_id": "E034",
+    "branch_id": "CHEM"
+  },
+  {
+    "id": "E034-CIVI",
+    "college_id": "E034",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E034-COMP",
+    "college_id": "E034",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E034-ELEC",
+    "college_id": "E034",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E034-INFO",
+    "college_id": "E034",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E034-MECH",
+    "college_id": "E034",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E035-CIVI",
+    "college_id": "E035",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E035-COMP",
+    "college_id": "E035",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E035-ELEC",
+    "college_id": "E035",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E035-MECH",
+    "college_id": "E035",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E035-ROBO",
+    "college_id": "E035",
+    "branch_id": "ROBO"
+  },
+  {
+    "id": "E036-BIO-",
+    "college_id": "E036",
+    "branch_id": "BIO-"
+  },
+  {
+    "id": "E036-CHEM",
+    "college_id": "E036",
+    "branch_id": "CHEM"
+  },
+  {
+    "id": "E036-CIVI",
+    "college_id": "E036",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E036-COMP",
+    "college_id": "E036",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E036-ELEC",
+    "college_id": "E036",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E036-MECH",
+    "college_id": "E036",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E037-AERO",
+    "college_id": "E037",
+    "branch_id": "AERO"
+  },
+  {
+    "id": "E037-CIVI",
+    "college_id": "E037",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E037-COMM",
+    "college_id": "E037",
+    "branch_id": "COMM"
+  },
+  {
+    "id": "E037-COMP",
+    "college_id": "E037",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E037-ELEC",
+    "college_id": "E037",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E037-INDU",
+    "college_id": "E037",
+    "branch_id": "INDU"
+  },
+  {
+    "id": "E037-LIFE",
+    "college_id": "E037",
+    "branch_id": "LIFE"
+  },
+  {
+    "id": "E037-MECH",
+    "college_id": "E037",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E038-CIVI",
+    "college_id": "E038",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E038-COMP",
+    "college_id": "E038",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E038-ELEC",
+    "college_id": "E038",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E038-INFO",
+    "college_id": "E038",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E038-MECH",
+    "college_id": "E038",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E040-COMP",
+    "college_id": "E040",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E040-ELEC",
+    "college_id": "E040",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E040-MECH",
+    "college_id": "E040",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E041-CIVI",
+    "college_id": "E041",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E041-ELEC",
+    "college_id": "E041",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E041-INDU",
+    "college_id": "E041",
+    "branch_id": "INDU"
+  },
+  {
+    "id": "E041-MECH",
+    "college_id": "E041",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E042-AERO",
+    "college_id": "E042",
+    "branch_id": "AERO"
+  },
+  {
+    "id": "E042-CIVI",
+    "college_id": "E042",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E042-COMP",
+    "college_id": "E042",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E042-ELEC",
+    "college_id": "E042",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E042-MECH",
+    "college_id": "E042",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E043-AI &",
+    "college_id": "E043",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E043-CIVI",
+    "college_id": "E043",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E043-COMP",
+    "college_id": "E043",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E043-ELEC",
+    "college_id": "E043",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E043-INFO",
+    "college_id": "E043",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E043-MECH",
+    "college_id": "E043",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E044-CHEM",
+    "college_id": "E044",
+    "branch_id": "CHEM"
+  },
+  {
+    "id": "E044-CIVI",
+    "college_id": "E044",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E044-COMP",
+    "college_id": "E044",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E044-ELEC",
+    "college_id": "E044",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E044-MECH",
+    "college_id": "E044",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E045-CIVI",
+    "college_id": "E045",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E045-COMP",
+    "college_id": "E045",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E045-ELEC",
+    "college_id": "E045",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E045-INFO",
+    "college_id": "E045",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E045-MECH",
+    "college_id": "E045",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E046-CIVI",
+    "college_id": "E046",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E046-COMP",
+    "college_id": "E046",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E046-ELEC",
+    "college_id": "E046",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E046-MECH",
+    "college_id": "E046",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E047-CIVI",
+    "college_id": "E047",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E047-COMP",
+    "college_id": "E047",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E047-ELEC",
+    "college_id": "E047",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E047-ROBO",
+    "college_id": "E047",
+    "branch_id": "ROBO"
+  },
+  {
+    "id": "E048-AI &",
+    "college_id": "E048",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E048-CHEM",
+    "college_id": "E048",
+    "branch_id": "CHEM"
+  },
+  {
+    "id": "E048-CIVI",
+    "college_id": "E048",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E048-COMP",
+    "college_id": "E048",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E048-ELEC",
+    "college_id": "E048",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E048-MECH",
+    "college_id": "E048",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E049-AI &",
+    "college_id": "E049",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E049-AUTO",
+    "college_id": "E049",
+    "branch_id": "AUTO"
+  },
+  {
+    "id": "E049-CIVI",
+    "college_id": "E049",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E049-COMP",
+    "college_id": "E049",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E049-ELEC",
+    "college_id": "E049",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E049-INFO",
+    "college_id": "E049",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E054-COMP",
+    "college_id": "E054",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E054-ELEC",
+    "college_id": "E054",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E055-AI &",
+    "college_id": "E055",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E055-CIVI",
+    "college_id": "E055",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E055-COMP",
+    "college_id": "E055",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E055-ELEC",
+    "college_id": "E055",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E055-MECH",
+    "college_id": "E055",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E056-CIVI",
+    "college_id": "E056",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E056-ELEC",
+    "college_id": "E056",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E056-MECH",
+    "college_id": "E056",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E057-CIVI",
+    "college_id": "E057",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E057-COMP",
+    "college_id": "E057",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E057-CONS",
+    "college_id": "E057",
+    "branch_id": "CONS"
+  },
+  {
+    "id": "E057-ELEC",
+    "college_id": "E057",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E057-INFO",
+    "college_id": "E057",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E057-MECH",
+    "college_id": "E057",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E058-CIVI",
+    "college_id": "E058",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E058-COMP",
+    "college_id": "E058",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E058-ELEC",
+    "college_id": "E058",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E058-INFO",
+    "college_id": "E058",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E058-ROBO",
+    "college_id": "E058",
+    "branch_id": "ROBO"
+  },
+  {
+    "id": "E059-AI &",
+    "college_id": "E059",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E059-CERA",
+    "college_id": "E059",
+    "branch_id": "CERA"
+  },
+  {
+    "id": "E059-CIVI",
+    "college_id": "E059",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E059-COMP",
+    "college_id": "E059",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E059-ELEC",
+    "college_id": "E059",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E059-INDU",
+    "college_id": "E059",
+    "branch_id": "INDU"
+  },
+  {
+    "id": "E059-INFO",
+    "college_id": "E059",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E059-MECH",
+    "college_id": "E059",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E060-AERO",
+    "college_id": "E060",
+    "branch_id": "AERO"
+  },
+  {
+    "id": "E060-AI &",
+    "college_id": "E060",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E060-CIVI",
+    "college_id": "E060",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E060-COMP",
+    "college_id": "E060",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E060-ELEC",
+    "college_id": "E060",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E060-INFO",
+    "college_id": "E060",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E061-CIVI",
+    "college_id": "E061",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E061-COMP",
+    "college_id": "E061",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E061-ELEC",
+    "college_id": "E061",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E061-MECH",
+    "college_id": "E061",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E061-ROBO",
+    "college_id": "E061",
+    "branch_id": "ROBO"
+  },
+  {
+    "id": "E062-AI &",
+    "college_id": "E062",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E062-CHEM",
+    "college_id": "E062",
+    "branch_id": "CHEM"
+  },
+  {
+    "id": "E062-CIVI",
+    "college_id": "E062",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E062-COMP",
+    "college_id": "E062",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E062-ELEC",
+    "college_id": "E062",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E062-INFO",
+    "college_id": "E062",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E062-MECH",
+    "college_id": "E062",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E062-TEXT",
+    "college_id": "E062",
+    "branch_id": "TEXT"
+  },
+  {
+    "id": "E063-AI &",
+    "college_id": "E063",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E063-CIVI",
+    "college_id": "E063",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E063-COMP",
+    "college_id": "E063",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E063-ELEC",
+    "college_id": "E063",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E063-MECH",
+    "college_id": "E063",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E064-AI &",
+    "college_id": "E064",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E064-CIVI",
+    "college_id": "E064",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E064-COMP",
+    "college_id": "E064",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E064-ELEC",
+    "college_id": "E064",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E064-INFO",
+    "college_id": "E064",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E064-MECH",
+    "college_id": "E064",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E064-ROBO",
+    "college_id": "E064",
+    "branch_id": "ROBO"
+  },
+  {
+    "id": "E065-AI &",
+    "college_id": "E065",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E065-CIVI",
+    "college_id": "E065",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E065-COMP",
+    "college_id": "E065",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E065-ELEC",
+    "college_id": "E065",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E065-INFO",
+    "college_id": "E065",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E065-MECH",
+    "college_id": "E065",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E065-ROBO",
+    "college_id": "E065",
+    "branch_id": "ROBO"
+  },
+  {
+    "id": "E066-CIVI",
+    "college_id": "E066",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E066-COMP",
+    "college_id": "E066",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E066-ELEC",
+    "college_id": "E066",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E066-MECH",
+    "college_id": "E066",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E066-ROBO",
+    "college_id": "E066",
+    "branch_id": "ROBO"
+  },
+  {
+    "id": "E070-AI &",
+    "college_id": "E070",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E070-CIVI",
+    "college_id": "E070",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E070-COMP",
+    "college_id": "E070",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E070-ELEC",
+    "college_id": "E070",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E070-INFO",
+    "college_id": "E070",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E070-MECH",
+    "college_id": "E070",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E071-CIVI",
+    "college_id": "E071",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E071-COMP",
+    "college_id": "E071",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E071-ELEC",
+    "college_id": "E071",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E071-MECH",
+    "college_id": "E071",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E075-AI &",
+    "college_id": "E075",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E075-CIVI",
+    "college_id": "E075",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E075-COMP",
+    "college_id": "E075",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E075-ELEC",
+    "college_id": "E075",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E075-MECH",
+    "college_id": "E075",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E076-CIVI",
+    "college_id": "E076",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E076-COMP",
+    "college_id": "E076",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E076-ELEC",
+    "college_id": "E076",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E076-MECH",
+    "college_id": "E076",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E077-CIVI",
+    "college_id": "E077",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E077-COMP",
+    "college_id": "E077",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E077-ELEC",
+    "college_id": "E077",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E077-INFO",
+    "college_id": "E077",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E078-AI &",
+    "college_id": "E078",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E078-CIVI",
+    "college_id": "E078",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E078-COMP",
+    "college_id": "E078",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E078-ELEC",
+    "college_id": "E078",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E078-INFO",
+    "college_id": "E078",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E078-MECH",
+    "college_id": "E078",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E079-AERO",
+    "college_id": "E079",
+    "branch_id": "AERO"
+  },
+  {
+    "id": "E079-AI &",
+    "college_id": "E079",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E079-CIVI",
+    "college_id": "E079",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E079-COMP",
+    "college_id": "E079",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E079-ELEC",
+    "college_id": "E079",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E079-INFO",
+    "college_id": "E079",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E079-MECH",
+    "college_id": "E079",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E079-ROBO",
+    "college_id": "E079",
+    "branch_id": "ROBO"
+  },
+  {
+    "id": "E081-AI &",
+    "college_id": "E081",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E081-CIVI",
+    "college_id": "E081",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E081-COMP",
+    "college_id": "E081",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E081-ELEC",
+    "college_id": "E081",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E081-INFO",
+    "college_id": "E081",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E081-MECH",
+    "college_id": "E081",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E082-CIVI",
+    "college_id": "E082",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E082-COMP",
+    "college_id": "E082",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E082-ELEC",
+    "college_id": "E082",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E082-INFO",
+    "college_id": "E082",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E082-MECH",
+    "college_id": "E082",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E082-ROBO",
+    "college_id": "E082",
+    "branch_id": "ROBO"
+  },
+  {
+    "id": "E083-AI &",
+    "college_id": "E083",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E083-COMP",
+    "college_id": "E083",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E083-ELEC",
+    "college_id": "E083",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E083-INFO",
+    "college_id": "E083",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E083-MECH",
+    "college_id": "E083",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E085-COMP",
+    "college_id": "E085",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E085-ELEC",
+    "college_id": "E085",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E085-INFO",
+    "college_id": "E085",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E086-COMP",
+    "college_id": "E086",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E086-ELEC",
+    "college_id": "E086",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E086-INFO",
+    "college_id": "E086",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E086-MECH",
+    "college_id": "E086",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E087-AI &",
+    "college_id": "E087",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E087-CIVI",
+    "college_id": "E087",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E087-COMP",
+    "college_id": "E087",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E087-ELEC",
+    "college_id": "E087",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E087-INFO",
+    "college_id": "E087",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E087-MECH",
+    "college_id": "E087",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E090-CIVI",
+    "college_id": "E090",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E090-COMP",
+    "college_id": "E090",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E090-ELEC",
+    "college_id": "E090",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E090-MECH",
+    "college_id": "E090",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E091-AI &",
+    "college_id": "E091",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E091-COMP",
+    "college_id": "E091",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E091-ELEC",
+    "college_id": "E091",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E091-MECH",
+    "college_id": "E091",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E092-AI &",
+    "college_id": "E092",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E092-CIVI",
+    "college_id": "E092",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E092-COMP",
+    "college_id": "E092",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E092-ELEC",
+    "college_id": "E092",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E092-INFO",
+    "college_id": "E092",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E092-MECH",
+    "college_id": "E092",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E093-AI &",
+    "college_id": "E093",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E093-CIVI",
+    "college_id": "E093",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E093-COMP",
+    "college_id": "E093",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E093-ELEC",
+    "college_id": "E093",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E093-MECH",
+    "college_id": "E093",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E094-AI &",
+    "college_id": "E094",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E094-CIVI",
+    "college_id": "E094",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E094-COMP",
+    "college_id": "E094",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E094-ELEC",
+    "college_id": "E094",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E094-MECH",
+    "college_id": "E094",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E095-AERO",
+    "college_id": "E095",
+    "branch_id": "AERO"
+  },
+  {
+    "id": "E095-AI &",
+    "college_id": "E095",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E095-CIVI",
+    "college_id": "E095",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E095-COMP",
+    "college_id": "E095",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E095-ELEC",
+    "college_id": "E095",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E095-MECH",
+    "college_id": "E095",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E096-CIVI",
+    "college_id": "E096",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E096-COMP",
+    "college_id": "E096",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E096-ELEC",
+    "college_id": "E096",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E096-INFO",
+    "college_id": "E096",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E097-AI &",
+    "college_id": "E097",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E097-COMP",
+    "college_id": "E097",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E097-ELEC",
+    "college_id": "E097",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E097-INFO",
+    "college_id": "E097",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E098-AI &",
+    "college_id": "E098",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E098-CIVI",
+    "college_id": "E098",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E098-COMP",
+    "college_id": "E098",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E098-ELEC",
+    "college_id": "E098",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E098-INFO",
+    "college_id": "E098",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E098-MECH",
+    "college_id": "E098",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E098-ROBO",
+    "college_id": "E098",
+    "branch_id": "ROBO"
+  },
+  {
+    "id": "E099-AI &",
+    "college_id": "E099",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E099-COMP",
+    "college_id": "E099",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E099-ELEC",
+    "college_id": "E099",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E099-MECH",
+    "college_id": "E099",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E100-AI &",
+    "college_id": "E100",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E100-CIVI",
+    "college_id": "E100",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E100-COMP",
+    "college_id": "E100",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E100-ELEC",
+    "college_id": "E100",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E100-INFO",
+    "college_id": "E100",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E100-MECH",
+    "college_id": "E100",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E101-AI &",
+    "college_id": "E101",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E101-CIVI",
+    "college_id": "E101",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E101-COMP",
+    "college_id": "E101",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E101-ELEC",
+    "college_id": "E101",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E101-INFO",
+    "college_id": "E101",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E101-MECH",
+    "college_id": "E101",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E102-AI &",
+    "college_id": "E102",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E102-COMP",
+    "college_id": "E102",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E102-ELEC",
+    "college_id": "E102",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E102-INFO",
+    "college_id": "E102",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E103-AERO",
+    "college_id": "E103",
+    "branch_id": "AERO"
+  },
+  {
+    "id": "E103-AI &",
+    "college_id": "E103",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E103-CIVI",
+    "college_id": "E103",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E103-COMP",
+    "college_id": "E103",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E103-ELEC",
+    "college_id": "E103",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E103-INFO",
+    "college_id": "E103",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E103-MECH",
+    "college_id": "E103",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E104-CIVI",
+    "college_id": "E104",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E104-COMP",
+    "college_id": "E104",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E104-ELEC",
+    "college_id": "E104",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E104-INFO",
+    "college_id": "E104",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E106-AI &",
+    "college_id": "E106",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E106-CIVI",
+    "college_id": "E106",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E106-COMP",
+    "college_id": "E106",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E106-ELEC",
+    "college_id": "E106",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E106-INFO",
+    "college_id": "E106",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E106-MECH",
+    "college_id": "E106",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E107-COMP",
+    "college_id": "E107",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E107-ELEC",
+    "college_id": "E107",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E107-INFO",
+    "college_id": "E107",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E107-MECH",
+    "college_id": "E107",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E108-COMP",
+    "college_id": "E108",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E108-ELEC",
+    "college_id": "E108",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E109-AI &",
+    "college_id": "E109",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E109-CIVI",
+    "college_id": "E109",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E109-COMP",
+    "college_id": "E109",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E109-ELEC",
+    "college_id": "E109",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E109-INFO",
+    "college_id": "E109",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E109-MECH",
+    "college_id": "E109",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E111-CIVI",
+    "college_id": "E111",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E111-COMP",
+    "college_id": "E111",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E111-ELEC",
+    "college_id": "E111",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E111-INFO",
+    "college_id": "E111",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E111-MECH",
+    "college_id": "E111",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E112-AI &",
+    "college_id": "E112",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E112-CIVI",
+    "college_id": "E112",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E112-COMP",
+    "college_id": "E112",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E112-ELEC",
+    "college_id": "E112",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E112-MECH",
+    "college_id": "E112",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E113-AI &",
+    "college_id": "E113",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E113-COMP",
+    "college_id": "E113",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E113-ELEC",
+    "college_id": "E113",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E113-INFO",
+    "college_id": "E113",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E113-MECH",
+    "college_id": "E113",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E114-AI &",
+    "college_id": "E114",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E114-COMP",
+    "college_id": "E114",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E114-ELEC",
+    "college_id": "E114",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E114-MECH",
+    "college_id": "E114",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E115-AI &",
+    "college_id": "E115",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E115-CIVI",
+    "college_id": "E115",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E115-COMP",
+    "college_id": "E115",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E115-ELEC",
+    "college_id": "E115",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E115-INFO",
+    "college_id": "E115",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E115-MECH",
+    "college_id": "E115",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E116-COMP",
+    "college_id": "E116",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E116-ELEC",
+    "college_id": "E116",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E116-MECH",
+    "college_id": "E116",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E118-CIVI",
+    "college_id": "E118",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E118-COMP",
+    "college_id": "E118",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E118-ELEC",
+    "college_id": "E118",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E118-MECH",
+    "college_id": "E118",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E119-COMP",
+    "college_id": "E119",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E119-ELEC",
+    "college_id": "E119",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E119-MECH",
+    "college_id": "E119",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E120-CIVI",
+    "college_id": "E120",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E120-COMP",
+    "college_id": "E120",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E120-ELEC",
+    "college_id": "E120",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E120-INFO",
+    "college_id": "E120",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E120-MECH",
+    "college_id": "E120",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E121-AI &",
+    "college_id": "E121",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E121-CIVI",
+    "college_id": "E121",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E121-COMP",
+    "college_id": "E121",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E121-ELEC",
+    "college_id": "E121",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E121-MECH",
+    "college_id": "E121",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E123-AI &",
+    "college_id": "E123",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E123-COMP",
+    "college_id": "E123",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E123-ELEC",
+    "college_id": "E123",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E123-INFO",
+    "college_id": "E123",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E123-MECH",
+    "college_id": "E123",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E124-AI &",
+    "college_id": "E124",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E124-BIO-",
+    "college_id": "E124",
+    "branch_id": "BIO-"
+  },
+  {
+    "id": "E124-COMP",
+    "college_id": "E124",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E124-ELEC",
+    "college_id": "E124",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E124-INFO",
+    "college_id": "E124",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E124-MECH",
+    "college_id": "E124",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E126-AI &",
+    "college_id": "E126",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E126-CIVI",
+    "college_id": "E126",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E126-COMP",
+    "college_id": "E126",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E126-ELEC",
+    "college_id": "E126",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E126-MECH",
+    "college_id": "E126",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E127-AI &",
+    "college_id": "E127",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E127-CIVI",
+    "college_id": "E127",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E127-COMP",
+    "college_id": "E127",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E127-ELEC",
+    "college_id": "E127",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E127-INFO",
+    "college_id": "E127",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E127-MECH",
+    "college_id": "E127",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E128-AI &",
+    "college_id": "E128",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E128-CIVI",
+    "college_id": "E128",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E128-COMP",
+    "college_id": "E128",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E128-ELEC",
+    "college_id": "E128",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E128-ENER",
+    "college_id": "E128",
+    "branch_id": "ENER"
+  },
+  {
+    "id": "E128-MECH",
+    "college_id": "E128",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E129-AI &",
+    "college_id": "E129",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E129-CIVI",
+    "college_id": "E129",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E129-COMP",
+    "college_id": "E129",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E129-ELEC",
+    "college_id": "E129",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E129-MECH",
+    "college_id": "E129",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E130-AI &",
+    "college_id": "E130",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E130-CIVI",
+    "college_id": "E130",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E130-COMP",
+    "college_id": "E130",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E130-ELEC",
+    "college_id": "E130",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E130-INFO",
+    "college_id": "E130",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E130-MECH",
+    "college_id": "E130",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E132-AI &",
+    "college_id": "E132",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E132-CIVI",
+    "college_id": "E132",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E132-COMP",
+    "college_id": "E132",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E132-ELEC",
+    "college_id": "E132",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E132-MECH",
+    "college_id": "E132",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E133-AI &",
+    "college_id": "E133",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E133-COMP",
+    "college_id": "E133",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E133-ELEC",
+    "college_id": "E133",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E133-INFO",
+    "college_id": "E133",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E134-CIVI",
+    "college_id": "E134",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E134-COMP",
+    "college_id": "E134",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E134-ELEC",
+    "college_id": "E134",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E134-INFO",
+    "college_id": "E134",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E134-MECH",
+    "college_id": "E134",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E135-CIVI",
+    "college_id": "E135",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E135-COMP",
+    "college_id": "E135",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E135-ELEC",
+    "college_id": "E135",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E135-MECH",
+    "college_id": "E135",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E136-AI &",
+    "college_id": "E136",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E136-CIVI",
+    "college_id": "E136",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E136-COMP",
+    "college_id": "E136",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E136-ELEC",
+    "college_id": "E136",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E136-INFO",
+    "college_id": "E136",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E139-AI &",
+    "college_id": "E139",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E139-AUTO",
+    "college_id": "E139",
+    "branch_id": "AUTO"
+  },
+  {
+    "id": "E139-CIVI",
+    "college_id": "E139",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E139-COMP",
+    "college_id": "E139",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E139-ELEC",
+    "college_id": "E139",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E139-MECH",
+    "college_id": "E139",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E141-COMP",
+    "college_id": "E141",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E141-ELEC",
+    "college_id": "E141",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E142-AI &",
+    "college_id": "E142",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E142-CIVI",
+    "college_id": "E142",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E142-COMP",
+    "college_id": "E142",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E142-ELEC",
+    "college_id": "E142",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E142-INFO",
+    "college_id": "E142",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E142-ROBO",
+    "college_id": "E142",
+    "branch_id": "ROBO"
+  },
+  {
+    "id": "E144-AI &",
+    "college_id": "E144",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E144-AUTO",
+    "college_id": "E144",
+    "branch_id": "AUTO"
+  },
+  {
+    "id": "E144-COMP",
+    "college_id": "E144",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E144-ELEC",
+    "college_id": "E144",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E144-INFO",
+    "college_id": "E144",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E144-MARI",
+    "college_id": "E144",
+    "branch_id": "MARI"
+  },
+  {
+    "id": "E144-MECH",
+    "college_id": "E144",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E145-AI &",
+    "college_id": "E145",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E145-CIVI",
+    "college_id": "E145",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E145-COMP",
+    "college_id": "E145",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E145-ELEC",
+    "college_id": "E145",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E145-INFO",
+    "college_id": "E145",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E145-ROBO",
+    "college_id": "E145",
+    "branch_id": "ROBO"
+  },
+  {
+    "id": "E146-AERO",
+    "college_id": "E146",
+    "branch_id": "AERO"
+  },
+  {
+    "id": "E146-AI &",
+    "college_id": "E146",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E146-CIVI",
+    "college_id": "E146",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E146-COMP",
+    "college_id": "E146",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E146-ELEC",
+    "college_id": "E146",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E146-INFO",
+    "college_id": "E146",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E146-MECH",
+    "college_id": "E146",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E147-AI &",
+    "college_id": "E147",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E147-COMP",
+    "college_id": "E147",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E147-ELEC",
+    "college_id": "E147",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E147-INFO",
+    "college_id": "E147",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E149-AI &",
+    "college_id": "E149",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E149-CIVI",
+    "college_id": "E149",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E149-COMP",
+    "college_id": "E149",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E149-ELEC",
+    "college_id": "E149",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E150-AI &",
+    "college_id": "E150",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E150-CIVI",
+    "college_id": "E150",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E150-COMP",
+    "college_id": "E150",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E150-ELEC",
+    "college_id": "E150",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E150-INFO",
+    "college_id": "E150",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E150-MECH",
+    "college_id": "E150",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E151-AI &",
+    "college_id": "E151",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E151-COMP",
+    "college_id": "E151",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E151-ELEC",
+    "college_id": "E151",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E151-INFO",
+    "college_id": "E151",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E151-MECH",
+    "college_id": "E151",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E151-ROBO",
+    "college_id": "E151",
+    "branch_id": "ROBO"
+  },
+  {
+    "id": "E152-AI &",
+    "college_id": "E152",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E152-CIVI",
+    "college_id": "E152",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E152-COMP",
+    "college_id": "E152",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E152-ELEC",
+    "college_id": "E152",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E152-INFO",
+    "college_id": "E152",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E153-AGRI",
+    "college_id": "E153",
+    "branch_id": "AGRI"
+  },
+  {
+    "id": "E153-AI &",
+    "college_id": "E153",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E153-CIVI",
+    "college_id": "E153",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E153-COMP",
+    "college_id": "E153",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E153-ELEC",
+    "college_id": "E153",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E153-INFO",
+    "college_id": "E153",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E153-MECH",
+    "college_id": "E153",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E154-CIVI",
+    "college_id": "E154",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E154-COMP",
+    "college_id": "E154",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E154-ELEC",
+    "college_id": "E154",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E154-MECH",
+    "college_id": "E154",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E155-AI &",
+    "college_id": "E155",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E155-CIVI",
+    "college_id": "E155",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E155-COMP",
+    "college_id": "E155",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E155-ELEC",
+    "college_id": "E155",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E155-MECH",
+    "college_id": "E155",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E156-CIVI",
+    "college_id": "E156",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E156-COMP",
+    "college_id": "E156",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E156-ELEC",
+    "college_id": "E156",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E156-MECH",
+    "college_id": "E156",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E157-CIVI",
+    "college_id": "E157",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E157-COMP",
+    "college_id": "E157",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E157-ELEC",
+    "college_id": "E157",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E157-MECH",
+    "college_id": "E157",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E158-CIVI",
+    "college_id": "E158",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E158-COMP",
+    "college_id": "E158",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E158-ELEC",
+    "college_id": "E158",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E158-INFO",
+    "college_id": "E158",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E158-MECH",
+    "college_id": "E158",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E159-AERO",
+    "college_id": "E159",
+    "branch_id": "AERO"
+  },
+  {
+    "id": "E159-AI &",
+    "college_id": "E159",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E159-COMP",
+    "college_id": "E159",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E159-ELEC",
+    "college_id": "E159",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E159-MECH",
+    "college_id": "E159",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E160-COMP",
+    "college_id": "E160",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E160-ELEC",
+    "college_id": "E160",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E160-INFO",
+    "college_id": "E160",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E160-MECH",
+    "college_id": "E160",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E160-ROBO",
+    "college_id": "E160",
+    "branch_id": "ROBO"
+  },
+  {
+    "id": "E161-CIVI",
+    "college_id": "E161",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E161-COMP",
+    "college_id": "E161",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E161-ELEC",
+    "college_id": "E161",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E161-MECH",
+    "college_id": "E161",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E162-CIVI",
+    "college_id": "E162",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E162-COMP",
+    "college_id": "E162",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E162-ELEC",
+    "college_id": "E162",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E162-MECH",
+    "college_id": "E162",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E163-CIVI",
+    "college_id": "E163",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E163-COMP",
+    "college_id": "E163",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E163-ELEC",
+    "college_id": "E163",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E163-MECH",
+    "college_id": "E163",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E164-CIVI",
+    "college_id": "E164",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E164-COMP",
+    "college_id": "E164",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E164-ELEC",
+    "college_id": "E164",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E164-MECH",
+    "college_id": "E164",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E165-AI &",
+    "college_id": "E165",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E165-COMP",
+    "college_id": "E165",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E165-ELEC",
+    "college_id": "E165",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E165-INFO",
+    "college_id": "E165",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E165-MECH",
+    "college_id": "E165",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E167-AI &",
+    "college_id": "E167",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E167-CIVI",
+    "college_id": "E167",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E167-COMP",
+    "college_id": "E167",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E167-ELEC",
+    "college_id": "E167",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E167-MECH",
+    "college_id": "E167",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E168-AI &",
+    "college_id": "E168",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E168-CIVI",
+    "college_id": "E168",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E168-COMP",
+    "college_id": "E168",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E168-ELEC",
+    "college_id": "E168",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E168-INFO",
+    "college_id": "E168",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E168-MECH",
+    "college_id": "E168",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E169-AGRI",
+    "college_id": "E169",
+    "branch_id": "AGRI"
+  },
+  {
+    "id": "E169-AI &",
+    "college_id": "E169",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E169-CIVI",
+    "college_id": "E169",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E169-COMP",
+    "college_id": "E169",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E169-ELEC",
+    "college_id": "E169",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E169-INFO",
+    "college_id": "E169",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E169-MECH",
+    "college_id": "E169",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E171-AI &",
+    "college_id": "E171",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E171-CIVI",
+    "college_id": "E171",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E171-COMP",
+    "college_id": "E171",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E171-ELEC",
+    "college_id": "E171",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E171-INFO",
+    "college_id": "E171",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E171-MECH",
+    "college_id": "E171",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E172-AI &",
+    "college_id": "E172",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E172-CIVI",
+    "college_id": "E172",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E172-COMP",
+    "college_id": "E172",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E172-ELEC",
+    "college_id": "E172",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E172-INFO",
+    "college_id": "E172",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E172-MECH",
+    "college_id": "E172",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E173-CIVI",
+    "college_id": "E173",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E173-COMP",
+    "college_id": "E173",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E173-ELEC",
+    "college_id": "E173",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E173-INFO",
+    "college_id": "E173",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E173-MECH",
+    "college_id": "E173",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E174-CIVI",
+    "college_id": "E174",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E174-COMP",
+    "college_id": "E174",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E174-ELEC",
+    "college_id": "E174",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E174-INFO",
+    "college_id": "E174",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E174-MECH",
+    "college_id": "E174",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E175-AI &",
+    "college_id": "E175",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E175-CIVI",
+    "college_id": "E175",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E175-COMP",
+    "college_id": "E175",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E175-ELEC",
+    "college_id": "E175",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E175-MECH",
+    "college_id": "E175",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E176-CIVI",
+    "college_id": "E176",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E176-COMP",
+    "college_id": "E176",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E176-ELEC",
+    "college_id": "E176",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E176-MECH",
+    "college_id": "E176",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E177-CIVI",
+    "college_id": "E177",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E177-COMP",
+    "college_id": "E177",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E177-ELEC",
+    "college_id": "E177",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E177-INFO",
+    "college_id": "E177",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E177-MECH",
+    "college_id": "E177",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E178-COMP",
+    "college_id": "E178",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E180-AI &",
+    "college_id": "E180",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E180-CIVI",
+    "college_id": "E180",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E180-COMP",
+    "college_id": "E180",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E180-ELEC",
+    "college_id": "E180",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E180-MECH",
+    "college_id": "E180",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E181-CIVI",
+    "college_id": "E181",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E181-COMP",
+    "college_id": "E181",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E181-ELEC",
+    "college_id": "E181",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E181-MECH",
+    "college_id": "E181",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E184-AI &",
+    "college_id": "E184",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E184-CIVI",
+    "college_id": "E184",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E184-COMP",
+    "college_id": "E184",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E184-ELEC",
+    "college_id": "E184",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E184-INFO",
+    "college_id": "E184",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E184-MECH",
+    "college_id": "E184",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E185-AI &",
+    "college_id": "E185",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E185-CIVI",
+    "college_id": "E185",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E185-COMP",
+    "college_id": "E185",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E185-ELEC",
+    "college_id": "E185",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E185-MECH",
+    "college_id": "E185",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E185-ROBO",
+    "college_id": "E185",
+    "branch_id": "ROBO"
+  },
+  {
+    "id": "E186-AERO",
+    "college_id": "E186",
+    "branch_id": "AERO"
+  },
+  {
+    "id": "E186-AI &",
+    "college_id": "E186",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E186-BIO-",
+    "college_id": "E186",
+    "branch_id": "BIO-"
+  },
+  {
+    "id": "E186-COMP",
+    "college_id": "E186",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E186-ELEC",
+    "college_id": "E186",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E186-MECH",
+    "college_id": "E186",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E188-AI &",
+    "college_id": "E188",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E188-CIVI",
+    "college_id": "E188",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E188-COMP",
+    "college_id": "E188",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E188-ELEC",
+    "college_id": "E188",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E188-MECH",
+    "college_id": "E188",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E189-AI &",
+    "college_id": "E189",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E189-CIVI",
+    "college_id": "E189",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E189-COMP",
+    "college_id": "E189",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E189-ELEC",
+    "college_id": "E189",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E191-AI &",
+    "college_id": "E191",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E191-COMP",
+    "college_id": "E191",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E191-ELEC",
+    "college_id": "E191",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E191-INFO",
+    "college_id": "E191",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E191-MECH",
+    "college_id": "E191",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E193-CIVI",
+    "college_id": "E193",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E193-COMP",
+    "college_id": "E193",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E193-ELEC",
+    "college_id": "E193",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E193-MECH",
+    "college_id": "E193",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E194-CIVI",
+    "college_id": "E194",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E194-COMP",
+    "college_id": "E194",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E194-ELEC",
+    "college_id": "E194",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E194-MECH",
+    "college_id": "E194",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E196-CIVI",
+    "college_id": "E196",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E196-COMP",
+    "college_id": "E196",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E196-ELEC",
+    "college_id": "E196",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E196-MECH",
+    "college_id": "E196",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E197-CIVI",
+    "college_id": "E197",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E197-COMP",
+    "college_id": "E197",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E197-ELEC",
+    "college_id": "E197",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E197-MECH",
+    "college_id": "E197",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E198-CIVI",
+    "college_id": "E198",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E198-COMP",
+    "college_id": "E198",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E198-ELEC",
+    "college_id": "E198",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E199-CIVI",
+    "college_id": "E199",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E199-COMP",
+    "college_id": "E199",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E199-ELEC",
+    "college_id": "E199",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E199-MECH",
+    "college_id": "E199",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E201-AERO",
+    "college_id": "E201",
+    "branch_id": "AERO"
+  },
+  {
+    "id": "E201-COMP",
+    "college_id": "E201",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E201-ELEC",
+    "college_id": "E201",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E201-INFO",
+    "college_id": "E201",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E202-AI &",
+    "college_id": "E202",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E202-CIVI",
+    "college_id": "E202",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E202-COMP",
+    "college_id": "E202",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E202-ELEC",
+    "college_id": "E202",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E202-MECH",
+    "college_id": "E202",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E203-AI &",
+    "college_id": "E203",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E203-CIVI",
+    "college_id": "E203",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E203-COMP",
+    "college_id": "E203",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E203-ELEC",
+    "college_id": "E203",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E203-MECH",
+    "college_id": "E203",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E204-AI &",
+    "college_id": "E204",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E204-CIVI",
+    "college_id": "E204",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E204-COMP",
+    "college_id": "E204",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E204-ELEC",
+    "college_id": "E204",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E204-INFO",
+    "college_id": "E204",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E204-MECH",
+    "college_id": "E204",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E204-ROBO",
+    "college_id": "E204",
+    "branch_id": "ROBO"
+  },
+  {
+    "id": "E205-CIVI",
+    "college_id": "E205",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E205-COMP",
+    "college_id": "E205",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E205-ELEC",
+    "college_id": "E205",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E205-MECH",
+    "college_id": "E205",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E206-AI &",
+    "college_id": "E206",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E206-COMP",
+    "college_id": "E206",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E206-ELEC",
+    "college_id": "E206",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E206-MECH",
+    "college_id": "E206",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E207-CIVI",
+    "college_id": "E207",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E207-COMP",
+    "college_id": "E207",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E207-ELEC",
+    "college_id": "E207",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E207-MECH",
+    "college_id": "E207",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E209-AI &",
+    "college_id": "E209",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E209-CIVI",
+    "college_id": "E209",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E209-COMP",
+    "college_id": "E209",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E209-ELEC",
+    "college_id": "E209",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E209-INFO",
+    "college_id": "E209",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E209-MECH",
+    "college_id": "E209",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E210-AI &",
+    "college_id": "E210",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E210-CIVI",
+    "college_id": "E210",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E210-COMP",
+    "college_id": "E210",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E210-ELEC",
+    "college_id": "E210",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E210-MECH",
+    "college_id": "E210",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E211-AI &",
+    "college_id": "E211",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E211-CIVI",
+    "college_id": "E211",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E211-COMP",
+    "college_id": "E211",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E211-ELEC",
+    "college_id": "E211",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E211-INFO",
+    "college_id": "E211",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E211-MECH",
+    "college_id": "E211",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E212-COMP",
+    "college_id": "E212",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E212-ELEC",
+    "college_id": "E212",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E212-INFO",
+    "college_id": "E212",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E212-MECH",
+    "college_id": "E212",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E213-AI &",
+    "college_id": "E213",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E213-CIVI",
+    "college_id": "E213",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E213-COMP",
+    "college_id": "E213",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E213-ELEC",
+    "college_id": "E213",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E213-MECH",
+    "college_id": "E213",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E216-AI &",
+    "college_id": "E216",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E216-CIVI",
+    "college_id": "E216",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E216-COMP",
+    "college_id": "E216",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E216-ELEC",
+    "college_id": "E216",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E220-AERO",
+    "college_id": "E220",
+    "branch_id": "AERO"
+  },
+  {
+    "id": "E220-BIO-",
+    "college_id": "E220",
+    "branch_id": "BIO-"
+  },
+  {
+    "id": "E220-CIVI",
+    "college_id": "E220",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E220-COMP",
+    "college_id": "E220",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E220-ELEC",
+    "college_id": "E220",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E220-INFO",
+    "college_id": "E220",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E220-MECH",
+    "college_id": "E220",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E220-PROD",
+    "college_id": "E220",
+    "branch_id": "PROD"
+  },
+  {
+    "id": "E221-AI &",
+    "college_id": "E221",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E221-CIVI",
+    "college_id": "E221",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E221-COMP",
+    "college_id": "E221",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E221-ELEC",
+    "college_id": "E221",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E221-MECH",
+    "college_id": "E221",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E222-COMP",
+    "college_id": "E222",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E222-ELEC",
+    "college_id": "E222",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E222-MECH",
+    "college_id": "E222",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E227-CIVI",
+    "college_id": "E227",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E227-COMP",
+    "college_id": "E227",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E227-ELEC",
+    "college_id": "E227",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E227-INFO",
+    "college_id": "E227",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E227-MECH",
+    "college_id": "E227",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E232-AERO",
+    "college_id": "E232",
+    "branch_id": "AERO"
+  },
+  {
+    "id": "E232-AGRI",
+    "college_id": "E232",
+    "branch_id": "AGRI"
+  },
+  {
+    "id": "E232-AI &",
+    "college_id": "E232",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E232-CIVI",
+    "college_id": "E232",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E232-COMP",
+    "college_id": "E232",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E232-ELEC",
+    "college_id": "E232",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E232-INFO",
+    "college_id": "E232",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E232-MECH",
+    "college_id": "E232",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E232-ROBO",
+    "college_id": "E232",
+    "branch_id": "ROBO"
+  },
+  {
+    "id": "E235-AUTO",
+    "college_id": "E235",
+    "branch_id": "AUTO"
+  },
+  {
+    "id": "E235-AERO",
+    "college_id": "E235",
+    "branch_id": "AERO"
+  },
+  {
+    "id": "E235-CIVI",
+    "college_id": "E235",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E235-COMP",
+    "college_id": "E235",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E235-ELEC",
+    "college_id": "E235",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E235-INFO",
+    "college_id": "E235",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E235-MATH",
+    "college_id": "E235",
+    "branch_id": "MATH"
+  },
+  {
+    "id": "E235-MECH",
+    "college_id": "E235",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E235-ROBO",
+    "college_id": "E235",
+    "branch_id": "ROBO"
+  },
+  {
+    "id": "E237-AI &",
+    "college_id": "E237",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E237-CIVI",
+    "college_id": "E237",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E237-COMP",
+    "college_id": "E237",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E237-ELEC",
+    "college_id": "E237",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E237-INFO",
+    "college_id": "E237",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E237-MECH",
+    "college_id": "E237",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E237-PETR",
+    "college_id": "E237",
+    "branch_id": "PETR"
+  },
+  {
+    "id": "E237-ROBO",
+    "college_id": "E237",
+    "branch_id": "ROBO"
+  },
+  {
+    "id": "E238-AI &",
+    "college_id": "E238",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E238-CIVI",
+    "college_id": "E238",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E238-COMP",
+    "college_id": "E238",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E238-ELEC",
+    "college_id": "E238",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E238-INFO",
+    "college_id": "E238",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E238-MECH",
+    "college_id": "E238",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E239-AERO",
+    "college_id": "E239",
+    "branch_id": "AERO"
+  },
+  {
+    "id": "E239-AGRI",
+    "college_id": "E239",
+    "branch_id": "AGRI"
+  },
+  {
+    "id": "E239-COMP",
+    "college_id": "E239",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E239-ELEC",
+    "college_id": "E239",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E239-MECH",
+    "college_id": "E239",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E240-AERO",
+    "college_id": "E240",
+    "branch_id": "AERO"
+  },
+  {
+    "id": "E240-COMP",
+    "college_id": "E240",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E240-ELEC",
+    "college_id": "E240",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E240-MECH",
+    "college_id": "E240",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E240-ROBO",
+    "college_id": "E240",
+    "branch_id": "ROBO"
+  },
+  {
+    "id": "E241-AUTO",
+    "college_id": "E241",
+    "branch_id": "AUTO"
+  },
+  {
+    "id": "E241-CIVI",
+    "college_id": "E241",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E241-COMP",
+    "college_id": "E241",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E241-ELEC",
+    "college_id": "E241",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E241-MECH",
+    "college_id": "E241",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E252-CIVI",
+    "college_id": "E252",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E252-COMP",
+    "college_id": "E252",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E252-ELEC",
+    "college_id": "E252",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E252-INFO",
+    "college_id": "E252",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E252-MECH",
+    "college_id": "E252",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E254-AI &",
+    "college_id": "E254",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E254-CIVI",
+    "college_id": "E254",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E254-COMP",
+    "college_id": "E254",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E254-ELEC",
+    "college_id": "E254",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E254-INFO",
+    "college_id": "E254",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E254-MECH",
+    "college_id": "E254",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E255-COMP",
+    "college_id": "E255",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E255-ELEC",
+    "college_id": "E255",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E255-MECH",
+    "college_id": "E255",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E255-ROBO",
+    "college_id": "E255",
+    "branch_id": "ROBO"
+  },
+  {
+    "id": "E256-COMP",
+    "college_id": "E256",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E256-INFO",
+    "college_id": "E256",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E257-COMP",
+    "college_id": "E257",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E257-ELEC",
+    "college_id": "E257",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E257-INFO",
+    "college_id": "E257",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E258-AI &",
+    "college_id": "E258",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E258-CIVI",
+    "college_id": "E258",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E258-COMP",
+    "college_id": "E258",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E258-ELEC",
+    "college_id": "E258",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E258-MECH",
+    "college_id": "E258",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E264-CIVI",
+    "college_id": "E264",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E264-COMP",
+    "college_id": "E264",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E265-AI &",
+    "college_id": "E265",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E265-CIVI",
+    "college_id": "E265",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E265-COMP",
+    "college_id": "E265",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E265-ELEC",
+    "college_id": "E265",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E265-MECH",
+    "college_id": "E265",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E269-CIVI",
+    "college_id": "E269",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E269-COMP",
+    "college_id": "E269",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E269-ELEC",
+    "college_id": "E269",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E269-MECH",
+    "college_id": "E269",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E272-CIVI",
+    "college_id": "E272",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E272-COMP",
+    "college_id": "E272",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E272-ELEC",
+    "college_id": "E272",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E272-MECH",
+    "college_id": "E272",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E273-CIVI",
+    "college_id": "E273",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E273-COMP",
+    "college_id": "E273",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E273-ELEC",
+    "college_id": "E273",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E273-MECH",
+    "college_id": "E273",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E274-CIVI",
+    "college_id": "E274",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E274-COMP",
+    "college_id": "E274",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E274-ELEC",
+    "college_id": "E274",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E274-MECH",
+    "college_id": "E274",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E275-COMP",
+    "college_id": "E275",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E275-ELEC",
+    "college_id": "E275",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E278-AERO",
+    "college_id": "E278",
+    "branch_id": "AERO"
+  },
+  {
+    "id": "E278-COMP",
+    "college_id": "E278",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E278-ELEC",
+    "college_id": "E278",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E278-ROBO",
+    "college_id": "E278",
+    "branch_id": "ROBO"
+  },
+  {
+    "id": "E278-MECH",
+    "college_id": "E278",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E279-COMP",
+    "college_id": "E279",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E279-ELEC",
+    "college_id": "E279",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E279-ROBO",
+    "college_id": "E279",
+    "branch_id": "ROBO"
+  },
+  {
+    "id": "E281-AI &",
+    "college_id": "E281",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E281-AUTO",
+    "college_id": "E281",
+    "branch_id": "AUTO"
+  },
+  {
+    "id": "E281-COMP",
+    "college_id": "E281",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E283-AI &",
+    "college_id": "E283",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E283-BIOM",
+    "college_id": "E283",
+    "branch_id": "BIOM"
+  },
+  {
+    "id": "E283-CIVI",
+    "college_id": "E283",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E283-COMP",
+    "college_id": "E283",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E284-COMP",
+    "college_id": "E284",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E285-COMP",
+    "college_id": "E285",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E286-AI &",
+    "college_id": "E286",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E286-COMP",
+    "college_id": "E286",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E286-INFO",
+    "college_id": "E286",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E288-COMP",
+    "college_id": "E288",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E288-INFO",
+    "college_id": "E288",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E288-ROBO",
+    "college_id": "E288",
+    "branch_id": "ROBO"
+  },
+  {
+    "id": "E288-B.TE",
+    "college_id": "E288",
+    "branch_id": "B.TE"
+  },
+  {
+    "id": "E289-COMP",
+    "college_id": "E289",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E289-ELEC",
+    "college_id": "E289",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E290-ELEC",
+    "college_id": "E290",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E290-COMP",
+    "college_id": "E290",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E290-MECH",
+    "college_id": "E290",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E291-CIVI",
+    "college_id": "E291",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E291-COMP",
+    "college_id": "E291",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E291-ELEC",
+    "college_id": "E291",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E292-CIVI",
+    "college_id": "E292",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E292-COMP",
+    "college_id": "E292",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E292-ELEC",
+    "college_id": "E292",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E297-AI &",
+    "college_id": "E297",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E297-COMP",
+    "college_id": "E297",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E297-ELEC",
+    "college_id": "E297",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E297-INFO",
+    "college_id": "E297",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E299-COMP",
+    "college_id": "E299",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E299-ELEC",
+    "college_id": "E299",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E299-INFO",
+    "college_id": "E299",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E300-AI &",
+    "college_id": "E300",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E300-COMP",
+    "college_id": "E300",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E300-ELEC",
+    "college_id": "E300",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E300-INFO",
+    "college_id": "E300",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E300-MECH",
+    "college_id": "E300",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E301-COMP",
+    "college_id": "E301",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E301-ELEC",
+    "college_id": "E301",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E301-PHAR",
+    "college_id": "E301",
+    "branch_id": "PHAR"
+  },
+  {
+    "id": "E302-BIO-",
+    "college_id": "E302",
+    "branch_id": "BIO-"
+  },
+  {
+    "id": "E302-COMP",
+    "college_id": "E302",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E302-ELEC",
+    "college_id": "E302",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E302-B.TE",
+    "college_id": "E302",
+    "branch_id": "B.TE"
+  },
+  {
+    "id": "E303-COMP",
+    "college_id": "E303",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E303-ELEC",
+    "college_id": "E303",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E303-INFO",
+    "college_id": "E303",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E303-CIVI",
+    "college_id": "E303",
+    "branch_id": "CIVI"
+  },
+  {
+    "id": "E303-ENGI",
+    "college_id": "E303",
+    "branch_id": "ENGI"
+  },
+  {
+    "id": "E303-MECH",
+    "college_id": "E303",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E303-ROBO",
+    "college_id": "E303",
+    "branch_id": "ROBO"
+  },
+  {
+    "id": "E304-AI &",
+    "college_id": "E304",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E304-COMP",
+    "college_id": "E304",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E304-ELEC",
+    "college_id": "E304",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E305-AI &",
+    "college_id": "E305",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E305-COMP",
+    "college_id": "E305",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E305-ELEC",
+    "college_id": "E305",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E305-INFO",
+    "college_id": "E305",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E306-COMP",
+    "college_id": "E306",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E307-AI &",
+    "college_id": "E307",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E307-COMP",
+    "college_id": "E307",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E307-ELEC",
+    "college_id": "E307",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E307-INFO",
+    "college_id": "E307",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E307-MECH",
+    "college_id": "E307",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E308-COMP",
+    "college_id": "E308",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E308-ELEC",
+    "college_id": "E308",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E309-COMP",
+    "college_id": "E309",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E309-ELEC",
+    "college_id": "E309",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E310-AI &",
+    "college_id": "E310",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E310-COMP",
+    "college_id": "E310",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E310-ELEC",
+    "college_id": "E310",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E310-INFO",
+    "college_id": "E310",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E311-COMP",
+    "college_id": "E311",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E311-INFO",
+    "college_id": "E311",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E312-COMP",
+    "college_id": "E312",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E312-ELEC",
+    "college_id": "E312",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E312-INFO",
+    "college_id": "E312",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E313-COMP",
+    "college_id": "E313",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E313-ELEC",
+    "college_id": "E313",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E313-INFO",
+    "college_id": "E313",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E314-COMP",
+    "college_id": "E314",
+    "branch_id": "COMP"
+  },
+  {
+    "id": "E314-ELEC",
+    "college_id": "E314",
+    "branch_id": "ELEC"
+  },
+  {
+    "id": "E314-INFO",
+    "college_id": "E314",
+    "branch_id": "INFO"
+  },
+  {
+    "id": "E002-SILK",
+    "college_id": "E002",
+    "branch_id": "SILK"
+  },
+  {
+    "id": "E005-BIO-",
+    "college_id": "E005",
+    "branch_id": "BIO-"
+  },
+  {
+    "id": "E006-BIO-",
+    "college_id": "E006",
+    "branch_id": "BIO-"
+  },
+  {
+    "id": "E007-BIO-",
+    "college_id": "E007",
+    "branch_id": "BIO-"
+  },
+  {
+    "id": "E012-AI &",
+    "college_id": "E012",
+    "branch_id": "AI &"
+  },
+  {
+    "id": "E012-BIO-",
+    "college_id": "E012",
+    "branch_id": "BIO-"
+  },
+  {
+    "id": "E016-BIO-",
+    "college_id": "E016",
+    "branch_id": "BIO-"
+  },
+  {
+    "id": "E028-MECH",
+    "college_id": "E028",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E037-FASH",
+    "college_id": "E037",
+    "branch_id": "FASH"
+  },
+  {
+    "id": "E048-BIO-",
+    "college_id": "E048",
+    "branch_id": "BIO-"
+  },
+  {
+    "id": "E049-BIO-",
+    "college_id": "E049",
+    "branch_id": "BIO-"
+  },
+  {
+    "id": "E055-BIO-",
+    "college_id": "E055",
+    "branch_id": "BIO-"
+  },
+  {
+    "id": "E057-BIO-",
+    "college_id": "E057",
+    "branch_id": "BIO-"
+  },
+  {
+    "id": "E062-BIO-",
+    "college_id": "E062",
+    "branch_id": "BIO-"
+  },
+  {
+    "id": "E078-BIO-",
+    "college_id": "E078",
+    "branch_id": "BIO-"
+  },
+  {
+    "id": "E079-BIO-",
+    "college_id": "E079",
+    "branch_id": "BIO-"
+  },
+  {
+    "id": "E081-CYBE",
+    "college_id": "E081",
+    "branch_id": "CYBE"
+  },
+  {
+    "id": "E130-CYBE",
+    "college_id": "E130",
+    "branch_id": "CYBE"
+  },
+  {
+    "id": "E142-MECH",
+    "college_id": "E142",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E149-MECH",
+    "college_id": "E149",
+    "branch_id": "MECH"
+  },
+  {
+    "id": "E241-BIO-",
+    "college_id": "E241",
+    "branch_id": "BIO-"
+  },
+  {
+    "id": "E257-B TE",
+    "college_id": "E257",
+    "branch_id": "B TE"
+  },
+  {
+    "id": "E303-BIO-",
+    "college_id": "E303",
+    "branch_id": "BIO-"
+  },
+  {
+    "id": "E266-BACH",
+    "college_id": "E266",
+    "branch_id": "BACH"
+  },
+  {
+    "id": "E315-ARTI",
+    "college_id": "E315",
+    "branch_id": "ARTI"
+  },
+  {
+    "id": "E315-ELEC",
+    "college_id": "E315",
+    "branch_id": "ELEC"
+  }
+]
