@@ -51,6 +51,7 @@ export function Navbar() {
             <Link href="/cutoffs" className="hover:text-white transition-colors">Cutoffs</Link>
             <Link href="/compare" className="hover:text-white transition-colors">Compare</Link>
             <Link href="/trends" className="hover:text-white transition-colors">Trends</Link>
+            <Link href="/guide" className="hover:text-white transition-colors">Guide</Link>
             <Link href="/instructions" className="hover:text-white transition-colors">Instructions</Link>
             <Link href="/wishlist" className="hover:text-white transition-colors flex items-center gap-1.5 bg-rose-500/10 text-rose-400 px-3 py-1.5 rounded-full border border-rose-500/20">
               <Heart className="w-4 h-4 fill-current" />
@@ -109,6 +110,7 @@ export function Navbar() {
               <Link href="/cutoffs" onClick={closeMenu} className="py-3 border-b border-white/10 hover:text-primary transition-colors">Cutoff Explorer</Link>
               <Link href="/compare" onClick={closeMenu} className="py-3 border-b border-white/10 hover:text-primary transition-colors">Compare Colleges</Link>
               <Link href="/trends" onClick={closeMenu} className="py-3 border-b border-white/10 hover:text-primary transition-colors">Trends</Link>
+              <Link href="/guide" onClick={closeMenu} className="py-3 border-b border-white/10 hover:text-primary transition-colors">Counselling Guide</Link>
               <Link href="/instructions" onClick={closeMenu} className="py-3 border-b border-white/10 hover:text-primary transition-colors">Instructions</Link>
               
               <Link href="/wishlist" onClick={closeMenu} className="py-4 mt-2 flex items-center justify-center gap-2 bg-rose-500/10 text-rose-500 rounded-2xl border border-rose-500/20">
