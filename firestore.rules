@@ -5,9 +5,10 @@ service cloud.firestore {
     // 🛡️ ADMIN AUTHORIZATION HELPER
     function isAdmin() {
       return request.auth != null && (
-        request.auth.token.email == 'yashwinka8@gmail.com' || 
-        request.auth.token.email == 'yashwinka8@gamil.com' ||
-        request.auth.token.email == 'yashwinanand61@gmail.com'
+        request.auth.token.email.lower() == 'yashwinka8@gmail.com' || 
+        request.auth.token.email.lower() == 'yashwinka8@gamil.com' ||
+        request.auth.token.email.lower() == 'yashwinanand61@gmail.com' ||
+        request.auth.token.email.lower() == 'admin@kcetpredictor.com'
       );
     }
 
@@ -26,8 +27,9 @@ service cloud.firestore {
     // 🎓 STUDENT SUBMISSIONS
     match /submissions/{docId} {
       allow create: if true;
-      allow read, delete: if isAdmin();
-      allow update: if false;
+      // Allow update if the document already exists (supports setDoc with merge)
+      allow update: if isAdmin() || (request.auth != null && request.auth.uid == docId);
+      allow read, delete: if isAdmin() || (request.auth != null && request.auth.uid == docId);
     }
 
     // 👤 STUDENT PROFILES

@@ -5,9 +5,9 @@ import { db } from '@/lib/firebase';
 import { collection, doc, getDocs, onSnapshot, query } from 'firebase/firestore';
 import { College } from '@/lib/types';
 import { useAuth } from './AuthContext';
-import localCollegesRaw from '@/lib/data/colleges.json';
+import collegesUnifiedRaw from '@/lib/data/colleges_unified.json';
 
-const localColleges = localCollegesRaw as College[];
+const localColleges = (collegesUnifiedRaw as any).colleges as College[];
 
 interface CollegeContextType {
     colleges: College[];

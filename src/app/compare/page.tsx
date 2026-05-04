@@ -19,15 +19,11 @@ import {
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { College, Branch, CollegeBranch, CutoffData } from '@/lib/types';
-
 import { useColleges } from '@/lib/contexts/CollegeContext';
-import branchesData from '@/lib/data/branches.json';
-import collegeBranchesData from '@/lib/data/college_branches.json';
-import cutoffDataJson from '@/lib/data/cutoff_data.json';
+import collegesUnifiedRaw from '@/lib/data/colleges_unified.json';
 
-const branches = branchesData as Branch[];
-const collegeBranches = collegeBranchesData as CollegeBranch[];
-const cutoffs = cutoffDataJson as CutoffData[];
+const collegesUnified = (collegesUnifiedRaw as any).colleges as any[];
+const branches = (collegesUnifiedRaw as any).branches as Branch[];
 
 const BranchSelectorModal = ({ 
     isOpen, 
@@ -44,16 +40,17 @@ const BranchSelectorModal = ({
 }) => {
     if (!isOpen || !college) return null;
 
-    const collegeBrs = collegeBranches.filter(cb => cb.college_id === college.college_id);
-    const branchList = collegeBrs.map(cb => {
-        const branch = branches.find(b => b.branch_id === cb.branch_id)!;
-        const cutoff = cutoffs.find(c => c.college_branch_id === cb.id && c.category === 'GM' && c.round === 1 && c.year === 2024);
-        return {
-            cbId: cb.id,
-            branch,
-            cutoff: cutoff?.closing_rank || 'N/A'
-        };
-    });
+    const unifiedCollege = collegesUnified.find(c => c.college_id === college.college_id);
+    const branchList = unifiedCollege?.kcet_cutoffs
+        .filter((co: any) => co.category === 'GM')
+        .map((co: any) => {
+            const branch = branches.find(b => b.branch_id === co.branch_id) || { branch_name: co.branch_id, branch_id: co.branch_id };
+            return {
+                id: `${college.college_id}|${co.branch_id}`,
+                branch,
+                cutoff: co.r1 || 'N/A'
+            };
+        }) || [];
 
     return (
         <AnimatePresence>
@@ -85,9 +82,9 @@ const BranchSelectorModal = ({
                             const isSelected = selectedIds.includes(item.cbId);
                             return (
                                 <button
-                                    key={item.cbId}
+                                    key={item.id}
                                     onClick={() => {
-                                        onSelect(item.cbId);
+                                        onSelect(item.id);
                                         onClose();
                                     }}
                                     className={cn(
@@ -128,16 +125,19 @@ export default function ComparePage() {
 
   const selectedItems = useMemo(() => {
     if (isLoading) return [];
-    return selectedCbIds.map(cbId => {
-        const cb = collegeBranches.find(x => x.id === cbId)!;
-        const college = colleges.find(c => c.college_id === cb.college_id)!;
-        const branch = branches.find(b => b.branch_id === cb.branch_id)!;
-        const cutoff = cutoffs.find(c => c.college_branch_id === cbId && c.category === 'GM' && c.round === 1 && c.year === 2024);
+    return selectedCbIds.map(compositeId => {
+        const [collegeId, branchId] = compositeId.split('|');
+        const college = colleges.find(c => c.college_id === collegeId)!;
+        const branch = branches.find(b => b.branch_id === branchId) || { branch_name: branchId, branch_id: branchId };
+        
+        const unifiedCollege = collegesUnified.find(c => c.college_id === collegeId);
+        const cutoff = unifiedCollege?.kcet_cutoffs.find((co: any) => co.branch_id === branchId && co.category === 'GM');
+        
         return {
-            id: cbId,
+            id: compositeId,
             college,
             branch,
-            closing_rank: cutoff?.closing_rank || 'N/A'
+            closing_rank: cutoff?.r1 || 'N/A'
         };
     });
   }, [selectedCbIds, colleges, isLoading]);

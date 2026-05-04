@@ -25,18 +25,14 @@ import {
 import { cn } from '@/lib/utils';
 import { College, Branch, CollegeBranch, CutoffData, Category, Round } from '@/lib/types';
 
-import collegesData from '@/lib/data/colleges.json';
-import branchesData from '@/lib/data/branches.json';
-import collegeBranchesData from '@/lib/data/college_branches.json';
-import cutoffDataJson from '@/lib/data/cutoff_data.json';
+import collegesUnifiedRaw from '@/lib/data/colleges_unified.json';
 import { CATEGORIES } from '@/lib/predictor';
 import { useWishlist } from '@/lib/hooks/useWishlist';
 import { useColleges } from '@/lib/contexts/CollegeContext';
 import { Heart } from 'lucide-react';
 
-const branches = branchesData as Branch[];
-const collegeBranches = collegeBranchesData as CollegeBranch[];
-const cutoffs = cutoffDataJson as CutoffData[];
+const collegesUnified = (collegesUnifiedRaw as any).colleges as any[];
+const branches = (collegesUnifiedRaw as any).branches as Branch[];
 
 const CATEGORY_LIST = CATEGORIES;
 
@@ -55,19 +51,16 @@ const CollegeDetailsModal = ({
     
     if (!isOpen || !college) return null;
 
-    // Get all branches for this college
-    const collegeBrs = collegeBranches.filter(cb => cb.college_id === college.college_id);
-    const branchData = collegeBrs.map(cb => {
-        const branch = branches.find(b => b.branch_id === cb.branch_id)!;
-        const branchCutoffs = cutoffs.filter(c => c.college_branch_id === cb.id && c.year === 2024 && c.category === selectedCategory);
-        
-        return {
-            branch,
-            r1: branchCutoffs.find(c => c.round === 1)?.closing_rank || 'N/A',
-            r2: branchCutoffs.find(c => c.round === 2)?.closing_rank || 'N/A',
-            r3: branchCutoffs.find(c => c.round === 3)?.closing_rank || 'N/A',
-        };
-    });
+    // Get college data from unified source
+    const unifiedCollege = collegesUnified.find(c => c.college_id === college.college_id);
+    const branchData = unifiedCollege?.kcet_cutoffs
+        .filter((co: any) => co.category === selectedCategory)
+        .map((co: any) => ({
+            branch: branches.find(b => b.branch_id === co.branch_id) || { branch_name: co.branch_id, branch_id: co.branch_id, branch_code: co.branch_id },
+            r1: co.r1 || 'N/A',
+            r2: co.r2 || 'N/A',
+            r3: co.r3 || 'N/A',
+        })) || [];
 
     return (
         <AnimatePresence>
@@ -182,7 +175,7 @@ const CollegeDetailsModal = ({
                             <div>
                                 <h3 className="text-lg md:text-xl font-bold flex items-center justify-center md:justify-start gap-2">
                                     <BarChart className="w-4 h-4 md:w-5 md:h-5 text-primary shrink-0" />
-                                    Cutoff Trends (2024)
+                                    Cutoff Trends (2025)
                                 </h3>
                                 <p className="text-xs md:text-sm text-muted-foreground mt-1 md:mt-0">Select category to view round-wise closing ranks</p>
                             </div>
@@ -273,17 +266,38 @@ export default function CutoffsExplorer() {
   const [search, setSearch] = useState('');
   const [filterCity, setFilterCity] = useState('All');
   const [selectedCollege, setSelectedCollege] = useState<College | null>(null);
+  const [visibleCount, setVisibleCount] = useState(100);
   
   const cities = useMemo(() => ['All', ...new Set(colleges.map(c => c.city))], [colleges]);
   
   const filteredColleges = useMemo(() => {
-      return colleges.filter(c => {
+      // 1. Filter first
+      const matches = colleges.filter(c => {
           const matchesSearch = c.full_name.toLowerCase().includes(search.toLowerCase()) || 
                                c.city.toLowerCase().includes(search.toLowerCase());
           const matchesCity = filterCity === 'All' || c.city === filterCity;
           return matchesSearch && matchesCity;
-      }).slice(0, 48);
+      });
+
+      // 2. Then Sort strictly by Tier
+      const tierPriority: Record<string, number> = { 
+        "Tier 1": 1, 
+        "Tier 1.5": 2, 
+        "Tier 2": 3, 
+        "Tier 3": 4 
+      };
+
+      return matches.sort((a, b) => {
+          const pA = tierPriority[a.tier || "Tier 3"] || 5;
+          const pB = tierPriority[b.tier || "Tier 3"] || 5;
+          if (pA !== pB) return pA - pB;
+          return a.full_name.localeCompare(b.full_name);
+      });
   }, [search, filterCity, colleges]);
+
+  const displayedColleges = useMemo(() => {
+      return filteredColleges.slice(0, visibleCount);
+  }, [filteredColleges, visibleCount]);
 
   return (
     <div className="min-h-screen pt-32 pb-20 px-6">
@@ -332,8 +346,8 @@ export default function CutoffsExplorer() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-           {filteredColleges.map((college, idx) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+           {displayedColleges.map((college, idx) => (
              <motion.div
                key={college.college_id}
                initial={{ opacity: 0, y: 20 }}
@@ -417,6 +431,19 @@ export default function CutoffsExplorer() {
              </motion.div>
            ))}
         </div>
+
+        {visibleCount < filteredColleges.length && (
+            <div className="flex justify-center mt-12">
+                <button 
+                    onClick={() => setVisibleCount(prev => prev + 60)}
+                    className="group relative px-8 py-4 bg-primary/10 border border-primary/30 rounded-2xl font-bold text-primary hover:bg-primary hover:text-white transition-all flex items-center gap-3 overflow-hidden"
+                >
+                    <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:animate-shimmer" />
+                    Load More Colleges
+                    <ChevronDown className="w-5 h-5 group-hover:translate-y-1 transition-transform" />
+                </button>
+            </div>
+        )}
       </div>
     </div>
   );

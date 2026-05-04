@@ -54,13 +54,13 @@ import { AuthModal } from '@/components/AuthModal';
 import { doc, setDoc, getDoc, addDoc, collection } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 
-import branchesData from '@/lib/data/branches.json';
-import collegeBranchesData from '@/lib/data/college_branches.json';
-import cutoffDataJson from '@/lib/data/cutoff_data.json';
+import collegesUnifiedRaw from '@/lib/data/colleges_unified.json';
+import intelligenceData from '@/lib/data/intelligence.json';
 
-const branchesList = branchesData as any[];
-const collegeBranches = collegeBranchesData as any[];
-const cutoffs = cutoffDataJson as CutoffData[];
+const branchesList = (collegesUnifiedRaw as any).branches as Branch[];
+const collegesUnified = (collegesUnifiedRaw as any).colleges as any[];
+const branches = (collegesUnifiedRaw as any).branches as Branch[];
+const TOP_GEMS = (intelligenceData as any).top_gems as any[];
 
 const MultiSelectDropdown = ({ 
     label, 
@@ -172,7 +172,7 @@ const MultiSelectDropdown = ({
     );
 };
 
-const REGIONS = ['Bengaluru', 'Mysuru', 'North', 'Coastal', 'Central'];
+const REGIONS = Array.from(new Set(collegesUnified.map(c => c.region))).filter(r => r !== 'Other').sort();
 
 interface GroupedResult {
     college: College;
@@ -192,19 +192,16 @@ const CollegeDetailsModal = ({
     
     if (!isOpen || !college) return null;
 
-    // Get all branches for this college
-    const collegeBrs = collegeBranches.filter(cb => cb.college_id === college.college_id);
-    const branchData = collegeBrs.map(cb => {
-        const branch = branchesList.find(b => b.branch_id === cb.branch_id)!;
-        const branchCutoffs = cutoffs.filter(c => c.college_branch_id === cb.id && c.year === 2024 && c.category === selectedCategory);
-        
-        return {
-            branch,
-            r1: branchCutoffs.find(c => c.round === 1)?.closing_rank || 'N/A',
-            r2: branchCutoffs.find(c => c.round === 2)?.closing_rank || 'N/A',
-            r3: branchCutoffs.find(c => c.round === 3)?.closing_rank || 'N/A',
-        };
-    });
+    // Get college data from unified source
+    const unifiedCollege = collegesUnified.find(c => c.college_id === college.college_id);
+    const branchData = unifiedCollege?.kcet_cutoffs
+        .filter((co: any) => co.category === selectedCategory)
+        .map((co: any) => ({
+            branch: branchesList.find(b => b.branch_id === co.branch_id) || { branch_name: co.branch_id, branch_id: co.branch_id },
+            r1: co.r1 || 'N/A',
+            r2: co.r2 || 'N/A',
+            r3: co.r3 || 'N/A',
+        })) || [];
 
     return (
         <AnimatePresence>
@@ -281,7 +278,7 @@ const CollegeDetailsModal = ({
 
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                             <div className="bg-white/5 rounded-2xl p-4 border border-white/5">
-                                <div className="text-[10px] uppercase font-bold text-muted-foreground mb-1">Avg Package</div>
+                                <div className="text-[10px] uppercase font-bold text-muted-foreground mb-1">Avg Package (Overall)*</div>
                                 <div className="text-xl font-bold text-primary">
                                     {typeof college.avg_package === 'number' ? `${college.avg_package} LPA` : college.avg_package}
                                 </div>
@@ -406,7 +403,7 @@ const RoundDetailsModal = ({
 }: { 
     isOpen: boolean, 
     onClose: () => void, 
-    details: CutoffData[], 
+    details: { round: number, closing_rank: number | null }[], 
     collegeName: string, 
     branchName: string 
 }) => {
@@ -469,7 +466,7 @@ const RoundDetailsModal = ({
                                 <div>
                                     <h4 className="font-bold text-sm mb-1 text-primary">Admission Strategy</h4>
                                     <p className="text-xs text-muted-foreground leading-relaxed">
-                                        Historically, this branch sees a rank jump of {details.length > 1 ? Math.round(((details[details.length-1].closing_rank - details[0].closing_rank)/details[0].closing_rank)*100) : "0"}% between Round 1 and Round 3. 
+                                        Historically, this branch sees a rank jump of {details.length > 1 && details[0].closing_rank && details[details.length-1].closing_rank ? Math.round(((details[details.length-1].closing_rank! - details[0].closing_rank!)/details[0].closing_rank!)*100) : "0"}% between Round 1 and Round 3. 
                                         If your rank is slightly above the current cutoff, waiting for later rounds is highly recommended.
                                     </p>
                                 </div>
@@ -482,10 +479,13 @@ const RoundDetailsModal = ({
     );
 };
 
-const CollegeGroupCard = ({ group, category, gender, onShowRounds, onShowCollege }: { group: GroupedResult, category: string, gender: string, onShowRounds: (cbId: string, college: string, branch: string) => void, onShowCollege: (c: College) => void }) => {
+const CollegeGroupCard = ({ group, category, gender, onShowRounds, onShowCollege }: { group: GroupedResult, category: string, gender: string, onShowRounds: (collegeId: string, branchId: string, collegeName: string, branchName: string) => void, onShowCollege: (c: College) => void }) => {
   if (!group || !group.branches || group.branches.length === 0) return null;
   const { college, branches } = group;
   const { toggleWishlist, isInWishlist } = useWishlist();
+  
+  // Check if this college is a Hidden Gem
+  const gemData = TOP_GEMS.find(g => g.college_id === college.college_id);
 
   const images = [
       "https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&q=80&w=400",
@@ -498,8 +498,24 @@ const CollegeGroupCard = ({ group, category, gender, onShowRounds, onShowCollege
       layout
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="glass-card overflow-hidden border border-white/5 hover:border-primary/20 transition-all mb-6"
+      className={cn(
+        "glass-card overflow-hidden border transition-all mb-6 relative",
+        gemData ? "border-primary/30 shadow-lg shadow-primary/5" : "border-white/5 hover:border-primary/20"
+      )}
     >
+        {/* Intelligence Overlays */}
+        {gemData && (
+            <div className="absolute top-4 right-4 z-20 flex flex-col items-end gap-2">
+                <div className="bg-primary px-3 py-1.5 rounded-lg shadow-xl shadow-primary/20 flex items-center gap-2 border border-white/20">
+                    <Sparkles className="w-3.5 h-3.5 text-white" />
+                    <span className="text-[10px] font-black uppercase tracking-widest text-white">🔥 Hidden Gem</span>
+                </div>
+                <div className="bg-zinc-900/80 backdrop-blur-md px-2 py-0.5 rounded-md border border-white/10 flex items-center gap-2">
+                    <TrendingUp className="w-3 h-3 text-emerald-400" />
+                    <span className="text-[8px] font-bold text-white">ROI: {gemData.score}</span>
+                </div>
+            </div>
+        )}
       <div className="flex flex-col lg:flex-row">
         {/* Left: College Info */}
         <div className="lg:w-1/3 p-4 md:p-6 border-b lg:border-b-0 lg:border-r border-white/5 bg-white/2">
@@ -576,7 +592,12 @@ const CollegeGroupCard = ({ group, category, gender, onShowRounds, onShowCollege
             {/* Desktop Header */}
             <div className="hidden md:flex border-b border-white/5 bg-white/2 py-4 px-6 text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
                 <div className="flex-[2]">Branch</div>
-                <div className="flex-1 text-center">Avg PKG</div>
+                <div className="flex-1 text-center group/pkg relative cursor-help">
+                    Avg PKG*
+                    <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-40 p-2 bg-zinc-800 border border-white/10 rounded-lg text-[8px] normal-case font-medium leading-tight opacity-0 group-hover/pkg:opacity-100 transition-opacity pointer-events-none shadow-xl z-50 text-white text-center">
+                        *Overall institutional average across all branches.
+                    </div>
+                </div>
                 <div className="flex-1 text-center">Probability</div>
                 <div className="flex-1 text-center">Closing Rank</div>
                 <div className="flex-1 text-right">Action</div>
@@ -621,7 +642,7 @@ const CollegeGroupCard = ({ group, category, gender, onShowRounds, onShowCollege
                       
                       {/* Avg Package */}
                       <div className="flex-1 flex md:flex-col items-center md:justify-center gap-1.5 md:gap-0">
-                        <span className="md:hidden text-[10px] text-muted-foreground uppercase tracking-widest">PKG:</span>
+                        <span className="md:hidden text-[10px] text-muted-foreground uppercase tracking-widest">PKG (Avg)*:</span>
                         <span className="text-xs md:text-sm font-mono font-bold text-primary">
                             {typeof college.avg_package === 'number' ? `${college.avg_package}L` : college.avg_package}
                         </span>
@@ -642,7 +663,7 @@ const CollegeGroupCard = ({ group, category, gender, onShowRounds, onShowCollege
 
                       {/* Mobile Only Action */}
                       <div className="md:hidden flex-1 flex justify-end">
-                        <button onClick={() => onShowRounds(cbId, college.full_name, b.branch.branch_name)} className="text-[10px] font-bold text-primary hover:underline flex items-center gap-1.5">
+                        <button onClick={() => onShowRounds(college.college_id, b.branch.branch_id, college.full_name, b.branch.branch_name)} className="text-[10px] font-bold text-primary hover:underline flex items-center gap-1.5">
                             Details <ExternalLink className="w-3 h-3 shrink-0" strokeWidth={2.5} />
                         </button>
                       </div>
@@ -650,8 +671,11 @@ const CollegeGroupCard = ({ group, category, gender, onShowRounds, onShowCollege
 
                   {/* Desktop Only Action Button */}
                   <div className="hidden md:flex md:flex-1 justify-end">
-                    <button onClick={() => onShowRounds(cbId, college.full_name, b.branch.branch_name)} className="text-[10px] font-bold text-primary hover:text-white hover:bg-primary transition-all flex items-center justify-center gap-2 bg-transparent px-4 py-2.5 rounded-xl">
-                        Round Details <ExternalLink className="w-3 h-3" />
+                    <button 
+                        onClick={() => onShowRounds(college.college_id, b.branch.branch_id, college.full_name, b.branch.branch_name)} 
+                        className="text-[10px] font-bold text-white/70 hover:text-primary bg-white/5 hover:bg-primary/10 border border-white/10 hover:border-primary/40 transition-all flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl group/btn"
+                    >
+                        Round Details <ExternalLink className="w-3 h-3 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
                     </button>
                   </div>
 
@@ -777,7 +801,7 @@ export default function PredictorPage() {
     round: 3
   });
 
-  const [sortBy, setSortBy] = useState<'rank' | 'package' | 'fee' | 'tier'>('rank');
+  const [sortBy, setSortBy] = useState<'rank' | 'package' | 'fee' | 'tier'>('tier');
   const [isCalculating, setIsCalculating] = useState(false);
   const [results, setResults] = useState<{
     safe: GroupedResult[];
@@ -788,7 +812,7 @@ export default function PredictorPage() {
   // Round Details State
   const [roundModal, setRoundModal] = useState<{
       isOpen: boolean;
-      details: CutoffData[];
+      details: { round: number, closing_rank: number | null }[];
       collegeName: string;
       branchName: string;
   }>({
@@ -883,14 +907,14 @@ export default function PredictorPage() {
       if (input.rank > 0) handlePredict();
   }, [sortBy, colleges]);
 
-  const handleShowRounds = (cbId: string, college: string, branch: string) => {
-      const details = getRoundDetails(cbId, input.category, input.gender);
-      setRoundModal({
-          isOpen: true,
-          details,
-          collegeName: college,
-          branchName: branch
-      });
+  const handleShowRounds = (collegeId: string, branchId: string, collegeName: string, branchName: string) => {
+    const details = getRoundDetails(collegeId, branchId, input.category);
+    setRoundModal({
+      isOpen: true,
+      details,
+      collegeName,
+      branchName
+    });
   };
 
   const handleShowCollege = (college: College) => {
@@ -1182,10 +1206,13 @@ export default function PredictorPage() {
         {/* Results Panel (Expanded) */}
         <div className="lg:col-span-9 space-y-8">
           {results && (
-            <div className="flex flex-col md:flex-row justify-between items-center gap-4 bg-white/5 border border-white/10 p-4 rounded-2xl">
-                <div className="flex items-center gap-2">
-                    <Filter className="w-4 h-4 text-primary" />
-                    <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Sort Results By:</span>
+            <div className="flex flex-col md:flex-row justify-between items-center gap-4 bg-white/5 border border-white/10 p-4 rounded-2xl relative overflow-hidden">
+                <div className="flex flex-col gap-1">
+                    <div className="flex items-center gap-2">
+                        <Filter className="w-4 h-4 text-primary" />
+                        <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Sort Results By:</span>
+                    </div>
+                    <p className="text-[8px] text-muted-foreground/60 italic">*Average Package (PKG) represents overall institutional average across all branches.</p>
                 </div>
                 <div className="flex flex-wrap gap-2">
                     {[
@@ -1222,6 +1249,63 @@ export default function PredictorPage() {
             </div>
           ) : (
             <div className="space-y-12">
+              {/* HIDDEN GEMS SPOTLIGHT */}
+              {TOP_GEMS.length > 0 && (
+                  <section className="space-y-6">
+                      <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-3">
+                              <div className="w-10 h-10 rounded-xl bg-primary/20 flex items-center justify-center">
+                                  <Sparkles className="w-5 h-5 text-primary" />
+                              </div>
+                              <div>
+                                  <h2 className="text-2xl font-bold">Intelligence Spotlight</h2>
+                                  <p className="text-xs text-muted-foreground">Underrated colleges with exceptional ROI & Placements</p>
+                              </div>
+                          </div>
+                      </div>
+                      
+                      <div className="flex gap-4 overflow-x-auto pb-4 no-scrollbar -mx-4 px-4 md:mx-0 md:px-0">
+                          {TOP_GEMS.filter(gem => 
+                              results.safe.some(s => s.college.college_id === gem.college_id) || 
+                              results.moderate.some(m => m.college.college_id === gem.college_id)
+                          ).slice(0, 4).map((gem, i) => (
+                              <motion.div 
+                                  key={i} 
+                                  whileHover={{ y: -5 }}
+                                  className="min-w-[280px] md:min-w-[320px] bg-white/5 border border-primary/20 rounded-2xl p-6 relative overflow-hidden group cursor-pointer"
+                                  onClick={() => {
+                                      const fullCollege = collegesUnified.find(c => c.college_id === gem.college_id);
+                                      if (fullCollege) handleShowCollege(fullCollege);
+                                  }}
+                              >
+                                  <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                                      <TrendingUp className="w-20 h-20 text-primary" />
+                                  </div>
+                                  <div className="relative z-10">
+                                      <div className="flex items-center gap-2 mb-3">
+                                          <div className="bg-primary/20 p-2 rounded-lg"><Star className="w-4 h-4 text-primary" /></div>
+                                          <span className="text-[10px] font-black uppercase tracking-widest text-primary">High Value Gem</span>
+                                      </div>
+                                      <h3 className="text-lg font-bold mb-1 truncate">{gem.name}</h3>
+                                      <p className="text-xs text-muted-foreground mb-4">Avg Package: <span className="text-emerald-400 font-bold">{gem.metrics.salary.toFixed(1)} LPA</span></p>
+                                      
+                                      <div className="grid grid-cols-2 gap-4 border-t border-white/5 pt-4">
+                                          <div>
+                                              <p className="text-[9px] uppercase text-muted-foreground mb-1">ROI Score</p>
+                                              <p className="text-sm font-bold text-white">{gem.score}</p>
+                                          </div>
+                                          <div>
+                                              <p className="text-[9px] uppercase text-muted-foreground mb-1">Expected Cutoff</p>
+                                              <p className="text-sm font-bold text-white">~{(gem.metrics.cutoff / 1000).toFixed(0)}k</p>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </motion.div>
+                          ))}
+                      </div>
+                  </section>
+              )}
+
               {results.safe.length > 0 && (
                 <section className="space-y-6">
                     <div className="flex items-center gap-3">

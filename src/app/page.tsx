@@ -147,6 +147,13 @@ export default function LandingPage() {
               transition={{ delay: 0.2 }}
               className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto"
             >
+              <Link href="/rank-predictor" className="w-full sm:w-auto group relative">
+                <div className="absolute -top-3 -right-2 bg-primary text-[8px] font-black px-2 py-0.5 rounded-full z-20 shadow-xl border border-white/20 animate-bounce">AI PRO</div>
+                <button className="w-full sm:w-auto bg-white/5 border border-primary/30 text-white px-8 py-4 rounded-2xl font-bold text-lg flex items-center justify-center gap-2 transition-all hover:bg-primary hover:scale-105 hover:shadow-2xl hover:shadow-primary/40 active:scale-95 group/btn">
+                  Predict Your Rank
+                  <Zap className="w-4 h-4 text-primary group-hover/btn:text-white transition-colors" />
+                </button>
+              </Link>
               <Link href="/predictor" className="w-full sm:w-auto">
                 <button className="w-full sm:w-auto bg-primary text-white px-8 py-4 rounded-2xl font-bold text-lg flex items-center justify-center gap-2 transition-all hover:scale-105 hover:shadow-2xl hover:shadow-primary/40 active:scale-95 group">
                   Predict Colleges

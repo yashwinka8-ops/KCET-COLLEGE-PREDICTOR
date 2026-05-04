@@ -1,26 +1,30 @@
-import { 
-  College, 
-  Branch, 
-  CollegeBranch, 
-  CutoffData, 
-  PredictionResult, 
-  PredictorInput 
-} from "./types";
+import collegesUnifiedRaw from "./data/colleges_unified.json";
 
-import branchesData from "./data/branches.json";
-import collegeBranchesData from "./data/college_branches.json";
-import cutoffData from "./data/cutoff_data.json";
+interface UnifiedCutoff {
+    branch_id: string;
+    category: string;
+    r1: number | null;
+    r2: number | null;
+    r3: number | null;
+}
 
-// Cast JSON data to types
-const branches = branchesData as Branch[];
-const collegeBranches = collegeBranchesData as CollegeBranch[];
-const cutoffs = cutoffData as CutoffData[];
+interface UnifiedCollege {
+    college_id: string;
+    id: string;
+    name: string;
+    city: string;
+    region: string;
+    kcet_cutoffs: UnifiedCutoff[];
+}
 
-// Create lookups for performance (branches and mappings remain static)
+const collegesUnified = (collegesUnifiedRaw as any).colleges as UnifiedCollege[];
+const branches = (collegesUnifiedRaw as any).branches as Branch[];
+
+// Create lookups for performance
 const branchLookup = new Map(branches.map(b => [b.branch_id, b]));
-const cbLookup = new Map(collegeBranches.map(cb => [cb.id, cb]));
 
 function calculateProbability(rank: number, cutoff: number): number {
+  if (!cutoff) return 0;
   const ratio = rank / cutoff;
   if (ratio < 0.5) return 99;
   if (ratio < 0.9) return Math.round(99 - (ratio - 0.5) * 40);
@@ -30,86 +34,78 @@ function calculateProbability(rank: number, cutoff: number): number {
 }
 
 export function predictColleges(input: PredictorInput, liveColleges: College[]) {
-  // Create dynamic lookup for live colleges
-  const collegeLookup = new Map(liveColleges.map(c => [c.college_id, c]));
-
-  // 1. Identify valid combinations
-  const validCbIds = new Set<string>();
-  for (const cb of collegeBranches) {
-    const college = collegeLookup.get(cb.college_id);
-    if (!college) continue;
-    
-    const branchMatch = input.branches.length === 0 || input.branches.includes(cb.branch_id);
-    const collegeMatch = input.colleges.length === 0 || input.colleges.includes(cb.college_id);
-    const regionMatch = input.regions.length === 0 || input.regions.includes(college.region);
-    
-    if (branchMatch && collegeMatch && regionMatch) {
-      validCbIds.add(cb.id);
-    }
-  }
-
-  // 2. Filter cutoffs
-  const relevantCutoffs = cutoffs.filter(c => 
-    c.round === input.round && 
-    c.hk_quota === input.hk_quota &&
-    validCbIds.has(c.college_branch_id)
-  );
-
-  // 3. Group by college_branch_id
-  const cutoffsByCb = new Map<string, CutoffData[]>();
-  for (const c of relevantCutoffs) {
-    if (!cutoffsByCb.has(c.college_branch_id)) {
-      cutoffsByCb.set(c.college_branch_id, []);
-    }
-    cutoffsByCb.get(c.college_branch_id)!.push(c);
-  }
+  // Create dynamic lookup for live colleges (for rich metadata)
+  const collegeMetadataLookup = new Map(liveColleges.map(c => [c.college_id, c]));
 
   const safe: PredictionResult[] = [];
   const moderate: PredictionResult[] = [];
   const dream: PredictionResult[] = [];
 
-  // 4. Determine effectiveness
-  for (const [cbId, cbCutoffs] of cutoffsByCb.entries()) {
-    let effectiveCutoff = 0;
-    let isFallback = false;
+  for (const uCollege of collegesUnified) {
+    const metadata = collegeMetadataLookup.get(uCollege.college_id);
+    if (!metadata) continue;
 
-    const exactMatch = cbCutoffs.find(c => c.category === input.category);
-    const gmMatch = cbCutoffs.find(c => c.category === 'GM');
+    // Filter by Region if specified
+    const effectiveRegion = uCollege.region || metadata.region;
+    if (input.regions.length > 0 && !input.regions.includes(effectiveRegion)) continue;
+    // Filter by College if specified
+    if (input.colleges.length > 0 && !input.colleges.includes(uCollege.college_id)) continue;
 
-    if (exactMatch) {
-      effectiveCutoff = exactMatch.closing_rank;
-    } else if (gmMatch) {
-      effectiveCutoff = gmMatch.closing_rank;
-      isFallback = true;
-    } else {
-      effectiveCutoff = Math.max(...cbCutoffs.map(c => c.closing_rank));
-      isFallback = true;
-    }
+    for (const cutoff of uCollege.kcet_cutoffs) {
+        // Filter by Branch if specified
+        if (input.branches.length > 0 && !input.branches.includes(cutoff.branch_id)) continue;
+        // Filter by HK Quota
+        const isHkCategory = cutoff.category.includes('K');
+        if (input.hk_quota !== isHkCategory) continue;
 
-    const cb = cbLookup.get(cbId)!;
-    const college = collegeLookup.get(cb.college_id)!;
-    const branch = branchLookup.get(cb.branch_id)!;
+        // Determine effective cutoff for the selected round
+        let effectiveCutoff = 0;
+        let isFallback = false;
 
-    const prob = calculateProbability(input.rank, effectiveCutoff);
+        // We only care about the category the user selected, 
+        // but if it's missing, the original logic had a fallback to GM.
+        // My new unified data is grouped by branch|category.
+        
+        if (cutoff.category === input.category) {
+            effectiveCutoff = cutoff[`r${input.round}`] || 0;
+        } else if (cutoff.category === 'GM') {
+            // This loop is over all cutoffs of the college. 
+            // We only want to process the GM fallback IF the specific category is missing.
+            // So we'll skip GM here and handle it if needed.
+            continue; 
+        } else {
+            continue;
+        }
 
-    const result: PredictionResult = {
-      college,
-      branch,
-      closing_rank: effectiveCutoff,
-      level: "dream",
-      probability: prob,
-      isFallback
-    };
+        if (effectiveCutoff === 0) continue;
 
-    if (prob >= 80) {
-      result.level = "safe";
-      safe.push(result);
-    } else if (prob >= 50) {
-      result.level = "moderate";
-      moderate.push(result);
-    } else {
-      result.level = "dream";
-      dream.push(result);
+        const branch = branchLookup.get(cutoff.branch_id) || {
+            branch_id: cutoff.branch_id,
+            branch_code: cutoff.branch_id,
+            branch_name: cutoff.branch_id
+        };
+
+        const prob = calculateProbability(input.rank, effectiveCutoff);
+
+        const result: PredictionResult = {
+            college: metadata,
+            branch: branch as Branch,
+            closing_rank: effectiveCutoff,
+            level: "dream",
+            probability: prob,
+            isFallback
+        };
+
+        if (prob >= 80) {
+            result.level = "safe";
+            safe.push(result);
+        } else if (prob >= 50) {
+            result.level = "moderate";
+            moderate.push(result);
+        } else {
+            result.level = "dream";
+            dream.push(result);
+        }
     }
   }
 
@@ -122,13 +118,18 @@ export function predictColleges(input: PredictorInput, liveColleges: College[]) 
   };
 }
 
-export function getRoundDetails(collegeBranchId: string, category: string, gender: string) {
-    const rounds = cutoffs.filter(c => 
-        c.college_branch_id === collegeBranchId && 
-        c.category === category && 
-        c.gender === gender
-    );
-    return rounds.sort((a, b) => a.round - b.round);
+export function getRoundDetails(collegeId: string, branchId: string, category: string) {
+    const college = collegesUnified.find(c => c.college_id === collegeId);
+    if (!college) return [];
+    
+    const cutoff = college.kcet_cutoffs.find(co => co.branch_id === branchId && co.category === category);
+    if (!cutoff) return [];
+
+    return [
+        { round: 1, closing_rank: cutoff.r1 },
+        { round: 2, closing_rank: cutoff.r2 },
+        { round: 3, closing_rank: cutoff.r3 }
+    ].filter(r => r.closing_rank !== null);
 }
 
 export function getLevelColor(level: string) {
@@ -151,8 +152,9 @@ export const CATEGORIES = ["1G", "1K", "1R", "2AG", "2AK", "2AR", "2BG", "2BK", 
 
 export const BRANCHES = branches.map(b => ({ id: b.branch_id, name: b.branch_name }));
 
-export const CS_IT_BRANCHES = ['COMP', 'INFO', 'ARTI', 'AIML', 'DATS', 'CYBE', 'BTEC'];
-export const CORE_BRANCHES = ['MECH', 'CIVI', 'ELEE', 'ELEC', 'CHEM', 'BIOT', 'INDU'];
+export const CS_IT_BRANCHES = ['COMP', 'INFO', 'ARTI', 'AIML', 'DATS', 'CYBE', 'BTEC', 'CSE', 'ISE', 'AIDS', 'CSBS', 'CSEDS', 'CYBER', 'RAI', 'DS', 'IOT'];
+export const CORE_BRANCHES = ['MECH', 'CIVI', 'ELEE', 'ELEC', 'CHEM', 'BIOT', 'INDU', 'EEE', 'ECE', 'CIVIL', 'EIE', 'TCE', 'ECM', 'MSE', 'AUTO', 'MEC', 'AERO', 'AS', 'MARINE', 'BT', 'BME', 'MED', 'ENV', 'POLY', 'SILK', 'CERAMIC', 'MINING', 'PETRO', 'ARCH', 'PLAN', 'TEXTILE', 'PRINT', 'INST', 'CONSTR', 'AGRI', 'FOOD'];
 
 export const TOP_5_COLLEGES = ['E005', 'E009', 'E006', 'E003', 'E001'];
 export const TOP_10_COLLEGES = ['E005', 'E009', 'E006', 'E003', 'E001', 'E007', 'E008', 'E022', 'E021', 'E103'];
+

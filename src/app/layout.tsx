@@ -49,12 +49,13 @@ export default function RootLayout({
                     <div className="space-y-4">
                         <h4 className="text-sm font-black uppercase tracking-widest text-white">Quick Links</h4>
                         <div className="grid grid-cols-2 gap-2 text-sm text-muted-foreground">
-                            <Link href="/predictor" className="hover:text-primary transition-colors">Predictor</Link>
-                            <Link href="/cutoffs" className="hover:text-primary transition-colors">Cutoffs</Link>
-                            <Link href="/compare" className="hover:text-primary transition-colors">Compare</Link>
-                            <Link href="/trends" className="hover:text-primary transition-colors">Trends</Link>
-                            <Link href="/instructions" className="hover:text-primary transition-colors">Instructions</Link>
-                            <Link href="/wishlist" className="hover:text-primary transition-colors">Wishlist</Link>
+                            <Link href="/rank-predictor" className="text-primary font-bold hover:text-primary/80 transition-colors">Rank Predictor</Link>
+                            <Link href="/predictor" className="hover:text-white transition-colors">Predictor</Link>
+                            <Link href="/cutoffs" className="hover:text-white transition-colors">Cutoffs</Link>
+                            <Link href="/compare" className="hover:text-white transition-colors">Compare</Link>
+                            <Link href="/trends" className="hover:text-white transition-colors">Trends</Link>
+                            <Link href="/instructions" className="hover:text-white transition-colors">Instructions</Link>
+                            <Link href="/wishlist" className="hover:text-white transition-colors">Wishlist</Link>
                         </div>
                     </div>
 

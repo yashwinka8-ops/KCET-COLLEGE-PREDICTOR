@@ -22,7 +22,7 @@ import { CATEGORIES } from '@/lib/predictor';
 import { Category } from '@/lib/types';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
-import cutoffDataJson from '@/lib/data/cutoff_data.json';
+import collegesUnifiedRaw from '@/lib/data/colleges_unified.json';
 import { useAuth } from '@/lib/contexts/AuthContext';
 import { AuthModal } from '@/components/AuthModal';
 
@@ -47,15 +47,17 @@ export default function WishlistPage() {
         doc.text('Based on 2025 Official Data - Prepared by Yashwin Anand', 14, 35);
 
         const tableData = wishlist.map((item, idx) => {
-            const cutoffs = (cutoffDataJson as any[]).filter(c => 
-                c.college_branch_id === item.id && 
-                c.category === exportCategory && 
-                c.year === 2024
+            const [collegeId, branchId] = item.id.split('-');
+            const collegesUnified = (collegesUnifiedRaw as any).colleges as any[];
+            const unifiedCollege = collegesUnified.find(c => c.college_id === collegeId);
+            const cutoff = unifiedCollege?.kcet_cutoffs.find((co: any) => 
+                co.branch_id === branchId && 
+                co.category === exportCategory
             );
 
-            const r1 = cutoffs.find(c => c.round === 1)?.closing_rank || '-';
-            const r2 = cutoffs.find(c => c.round === 2)?.closing_rank || '-';
-            const r3 = cutoffs.find(c => c.round === 3)?.closing_rank || '-';
+            const r1 = cutoff?.r1 || '-';
+            const r2 = cutoff?.r2 || '-';
+            const r3 = cutoff?.r3 || '-';
 
             return [
                 idx + 1,
