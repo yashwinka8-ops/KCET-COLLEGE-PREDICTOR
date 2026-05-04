@@ -55,30 +55,34 @@ export function predictColleges(input: PredictorInput, liveColleges: College[]) 
     for (const cutoff of uCollege.kcet_cutoffs) {
         // Filter by Branch if specified
         if (input.branches.length > 0 && !input.branches.includes(cutoff.branch_id)) continue;
-        // Filter by HK Quota
-        const isHkCategory = cutoff.category.includes('K');
-        if (input.hk_quota !== isHkCategory) continue;
-
-        // Determine effective cutoff for the selected round
+        
+        // Determine effective cutoff for the selected round with fallback
         let effectiveCutoff = 0;
         let isFallback = false;
-
-        // We only care about the category the user selected, 
-        // but if it's missing, the original logic had a fallback to GM.
-        // My new unified data is grouped by branch|category.
         
-        if (cutoff.category === input.category) {
-            effectiveCutoff = cutoff[`r${input.round}`] || 0;
-        } else if (cutoff.category === 'GM') {
-            // This loop is over all cutoffs of the college. 
-            // We only want to process the GM fallback IF the specific category is missing.
-            // So we'll skip GM here and handle it if needed.
-            continue; 
+        // Logical Match: You qualify for your specific category OR the open GM category
+        const isTargetCategory = cutoff.category === input.category;
+        const isGMFallback = cutoff.category === 'GM' && input.category !== 'GM';
+
+        if (isTargetCategory || isGMFallback) {
+            const r3 = cutoff.r3 || 0;
+            const r2 = cutoff.r2 || 0;
+            const r1 = cutoff.r1 || 0;
+
+            if (input.round === 3) {
+                effectiveCutoff = r3 || r2 || r1;
+            } else if (input.round === 2) {
+                effectiveCutoff = r2 || r1;
+            } else {
+                effectiveCutoff = r1;
+            }
+            
+            if (isGMFallback) isFallback = true;
         } else {
             continue;
         }
 
-        if (effectiveCutoff === 0) continue;
+        if (effectiveCutoff <= 0) continue;
 
         const branch = branchLookup.get(cutoff.branch_id) || {
             branch_id: cutoff.branch_id,
@@ -97,6 +101,9 @@ export function predictColleges(input: PredictorInput, liveColleges: College[]) 
             isFallback
         };
 
+        // If we have multiple cutoffs for the same branch (Target vs GM), 
+        // we should prefer the one that gives a better probability or is the specific category.
+        // For now, we'll push all and handle the UI or let them see both options.
         if (prob >= 80) {
             result.level = "safe";
             safe.push(result);

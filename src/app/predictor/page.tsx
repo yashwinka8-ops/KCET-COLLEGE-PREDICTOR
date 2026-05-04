@@ -62,20 +62,27 @@ const collegesUnified = (collegesUnifiedRaw as any).colleges as any[];
 const branches = (collegesUnifiedRaw as any).branches as Branch[];
 const TOP_GEMS = (intelligenceData as any).top_gems as any[];
 
+interface GroupedResult {
+    college: College;
+    branches: PredictionResult[];
+}
+
 const MultiSelectDropdown = ({ 
     label, 
     options, 
     selected, 
     onToggle, 
     placeholder = "Select options...",
-    icon: Icon
+    icon: Icon,
+    compact
 }: { 
     label: string, 
     options: { id: string, name: string }[], 
     selected: string[], 
     onToggle: (id: string) => void,
     placeholder?: string,
-    icon?: any
+    icon?: any,
+    compact?: boolean
 }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [search, setSearch] = useState("");
@@ -86,22 +93,23 @@ const MultiSelectDropdown = ({
     );
 
     return (
-        <div className="space-y-2 relative">
-            <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1 flex items-center gap-2">
+        <div className={cn("space-y-1 relative", compact ? "space-y-1" : "space-y-2")}>
+            <label className={cn("font-black uppercase tracking-widest text-muted-foreground ml-1 flex items-center gap-2", compact ? "text-[8px]" : "text-xs")}>
                 {Icon && <Icon className="w-3 h-3" />} {label}
             </label>
             <div className="relative">
                 <button 
                     onClick={() => setIsOpen(!isOpen)}
                     className={cn(
-                        "w-full bg-white/5 border border-white/10 rounded-xl py-3 px-4 flex items-center justify-between text-sm transition-all hover:border-white/20",
+                        "w-full bg-zinc-900 border border-white/10 rounded-lg flex items-center justify-between text-sm transition-all hover:border-white/20 shadow-inner",
+                        compact ? "py-2 px-3 text-[11px] font-bold" : "py-3 px-4",
                         isOpen && "border-primary/50 ring-4 ring-primary/10"
                     )}
                 >
                     <span className={cn("truncate mr-2", selected.length === 0 && "text-muted-foreground")}>
                         {selected.length === 0 ? placeholder : `${selected.length} Selected`}
                     </span>
-                    <ChevronDown className={cn("w-4 h-4 transition-transform", isOpen && "rotate-180")} />
+                    <ChevronDown className={cn("w-3 h-3 transition-transform opacity-50", isOpen && "rotate-180")} />
                 </button>
 
                 <AnimatePresence>
@@ -322,7 +330,7 @@ const CollegeDetailsModal = ({
                             <div>
                                 <h3 className="text-xl font-bold flex items-center gap-2">
                                     <BarChart className="w-5 h-5 text-primary" />
-                                    Cutoff Trends (2024)
+                                    Cutoff Intelligence (2024)
                                 </h3>
                                 <p className="text-sm text-muted-foreground">Select category to view round-wise closing ranks</p>
                             </div>
@@ -768,6 +776,8 @@ export default function PredictorPage() {
     }, [user, isGuest, isLoading]);
   const [inputMode, setInputMode] = useState<'rank' | 'marks'>('rank');
   const [marks, setMarks] = useState({ kcet: 0, pcm: 0 });
+  const [currentPage, setCurrentPage] = useState(1);
+  const ITEMS_PER_PAGE = 6;
 
   const calculateRank = (kcet: number, pcm: number) => {
     if (!kcet || !pcm) return 0;
@@ -838,6 +848,7 @@ export default function PredictorPage() {
     // Save to Firestore
     saveSubmission(data, marks);
 
+    setCurrentPage(1);
     setIsCalculating(true);
     setTimeout(() => {
       const predictionResults = predictColleges(data, colleges);
@@ -967,7 +978,7 @@ export default function PredictorPage() {
   };
 
   return (
-    <div className="min-h-screen pt-24 pb-12 px-4 md:px-8 lg:px-12">
+    <div className="min-h-screen pt-20 md:pt-24 pb-12 px-3 sm:px-6 md:px-8 lg:px-12">
       <RoundDetailsModal 
         isOpen={roundModal.isOpen}
         onClose={() => setRoundModal({ ...roundModal, isOpen: false })}
@@ -981,230 +992,154 @@ export default function PredictorPage() {
         onClose={() => setCollegeModal({ ...collegeModal, isOpen: false })}
         college={collegeModal.college}
       />
-
-      <div className="max-w-[1700px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10">
-        {/* Input Panel (Compact Sidebar) */}
-        <div className="lg:col-span-3 space-y-4">
-          <div className="glass-card p-4 md:p-6 sticky top-28">
+         {/* SOLID COMMAND HEADER */}
+      <div className="w-full max-w-[1700px] mx-auto mb-8 border border-white/10 bg-white/5 rounded-xl md:rounded-2xl overflow-hidden md:overflow-visible relative">
+        <div className="p-4 md:px-5 md:py-4 flex flex-col lg:flex-row lg:items-center gap-4 lg:gap-5">
             
-            {/* Header / Mobile Toggle */}
-            <div 
-              className="flex items-center justify-between mb-2 md:mb-6 cursor-pointer lg:cursor-default"
-              onClick={() => setIsMobileFiltersOpen(!isMobileFiltersOpen)}
-            >
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-primary/20 flex items-center justify-center shadow-[0_0_20px_rgba(var(--primary-rgb),0.3)] shrink-0">
-                  <Zap className="w-5 h-5 text-primary" />
+            {/* 1. PRIMARY METRICS STATION */}
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 bg-white/5 p-1.5 rounded-xl border border-white/5 shrink-0">
+                <div className="flex items-center justify-between sm:justify-start gap-2 px-2 sm:border-r border-white/5">
+                    <div className="flex items-center gap-2">
+                        <div className="w-8 h-8 rounded-lg bg-rose-500/20 flex items-center justify-center">
+                            <Zap className="w-4 h-4 text-rose-500" />
+                        </div>
+                        <div className="block lg:hidden xl:block">
+                            <p className="text-[7px] font-black uppercase tracking-widest text-muted-foreground leading-none">Smart</p>
+                            <p className="text-[9px] font-black uppercase tracking-tight text-white leading-none mt-0.5">Predictor</p>
+                        </div>
+                    </div>
                 </div>
-                <div>
-                  <h2 className="font-bold text-lg leading-tight">Smart Predictor</h2>
-                  <p className="text-[9px] text-muted-foreground font-black uppercase tracking-widest">Based on <span className="text-primary">2025 OFFICIAL DATA</span></p>
+                
+                <div className="flex items-center justify-between sm:justify-start gap-3">
+                    <div className="space-y-1">
+                        <label className="block text-[8px] font-black uppercase tracking-widest text-muted-foreground ml-1">Rank</label>
+                        <input
+                            type="number"
+                            placeholder="Rank"
+                            className="w-24 bg-zinc-900 border border-white/10 rounded-lg py-2 px-3 text-sm font-mono font-bold focus:outline-none focus:border-rose-500/50 transition-all text-rose-500 shadow-inner"
+                            value={input.rank || ''}
+                            onChange={(e) => setInput({ ...input, rank: parseInt(e.target.value) || 0 })}
+                        />
+                    </div>
+                    <div className="space-y-1">
+                        <label className="block text-[8px] font-black uppercase tracking-widest text-muted-foreground ml-1">Score</label>
+                        <input
+                            type="number"
+                            placeholder="180"
+                            className="w-16 bg-zinc-900 border border-white/10 rounded-lg py-2 px-2 text-sm font-mono font-bold focus:outline-none focus:border-rose-500/50 text-center shadow-inner"
+                            value={marks.kcet || ''}
+                            onChange={(e) => setMarks({ ...marks, kcet: parseInt(e.target.value) || 0 })}
+                        />
+                    </div>
+                    <div className="space-y-1">
+                        <label className="block text-[8px] font-black uppercase tracking-widest text-muted-foreground ml-1">PCM</label>
+                        <input
+                            type="number"
+                            placeholder="300"
+                            className="w-16 bg-zinc-900 border border-white/10 rounded-lg py-2 px-2 text-sm font-mono font-bold focus:outline-none focus:border-rose-500/50 text-center shadow-inner"
+                            value={marks.pcm || ''}
+                            onChange={(e) => setMarks({ ...marks, pcm: parseInt(e.target.value) || 0 })}
+                        />
+                    </div>
                 </div>
-              </div>
-              <ChevronDown className={cn("w-5 h-5 text-muted-foreground transition-transform lg:hidden", isMobileFiltersOpen && "rotate-180")} />
             </div>
 
-            {/* Expandable Content */}
-            <div className={cn("space-y-4 transition-all overflow-hidden lg:!block", isMobileFiltersOpen ? "block mt-6" : "hidden")}>
-                <div className="space-y-1.5">
-                  <label className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground ml-1">Your KCET Rank</label>
-                  <div className="relative group">
-                    <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted-foreground group-focus-within:text-primary transition-colors" />
-                    <input
-                      type="number"
-                      placeholder="e.g. 15000"
-                      className="w-full bg-white/5 border border-white/10 rounded-xl py-3 pl-11 pr-4 focus:outline-none focus:border-primary/50 focus:ring-4 focus:ring-primary/10 transition-all font-mono text-base"
-                      value={input.rank || ''}
-                      onChange={(e) => {
-                          const val = parseInt(e.target.value) || 0;
-                          setInput({ ...input, rank: val });
-                      }}
+            {/* 2. COUNSELING & FILTERS STATION */}
+            <div className="flex-1 flex flex-col sm:flex-row items-stretch sm:items-center gap-4 min-w-0">
+                <div className="flex items-center justify-between sm:justify-start gap-3 sm:pr-4 sm:border-r border-white/10 shrink-0">
+                    <div className="space-y-1">
+                        <label className="block text-[8px] font-black uppercase tracking-widest text-muted-foreground ml-1">Category</label>
+                        <div className="relative w-full sm:w-24">
+                            <select
+                                className="w-full sm:w-24 bg-zinc-900 border border-white/10 rounded-lg py-2 px-3 pr-8 text-[11px] font-bold focus:outline-none focus:border-rose-500/50 cursor-pointer appearance-none text-center shadow-inner hover:bg-zinc-800 transition-colors"
+                                value={input.category}
+                                onChange={(e) => setInput({ ...input, category: e.target.value as Category })}
+                            >
+                                {CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
+                            </select>
+                            <ChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 w-3 h-3 text-muted-foreground pointer-events-none opacity-50" />
+                        </div>
+                    </div>
+                    <div className="space-y-1">
+                        <label className="block text-[8px] font-black uppercase tracking-widest text-muted-foreground ml-1">Round</label>
+                        <div className="relative w-full sm:w-20">
+                            <select
+                                className="w-full sm:w-20 bg-zinc-900 border border-white/10 rounded-lg py-2 px-3 pr-8 text-[11px] font-bold focus:outline-none focus:border-rose-500/50 cursor-pointer appearance-none text-center shadow-inner hover:bg-zinc-800 transition-colors"
+                                value={input.round}
+                                onChange={(e) => setInput({ ...input, round: parseInt(e.target.value) as Round })}
+                            >
+                                <option value="1">R1</option>
+                                <option value="2">R2</option>
+                                <option value="3">R3</option>
+                            </select>
+                            <ChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 w-3 h-3 text-muted-foreground pointer-events-none opacity-50" />
+                        </div>
+                    </div>
+                </div>
+
+                <div className="flex flex-col sm:flex-row flex-1 items-stretch sm:items-center gap-3">
+                    <MultiSelectDropdown 
+                        label="Regions"
+                        icon={Globe}
+                        options={REGIONS.map(r => ({ id: r, name: r }))}
+                        selected={input.regions}
+                        onToggle={toggleRegion}
+                        placeholder="All Regions"
+                        compact={true}
                     />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-2 gap-3">
-                  <div className="space-y-1.5">
-                    <label className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground ml-1">KCET Score <span className="text-primary/60">(/180)</span></label>
-                    <input
-                      type="number"
-                      max="180"
-                      placeholder="Score"
-                      className={cn(
-                        "w-full bg-white/5 border rounded-xl py-2.5 px-3 focus:outline-none transition-all font-mono text-base",
-                        marks.kcet > 180 ? "border-rose-500/50 text-rose-500 ring-4 ring-rose-500/10" : "border-white/10 focus:border-primary/50"
-                      )}
-                      value={marks.kcet || ''}
-                      onChange={(e) => {
-                          let val = parseInt(e.target.value) || 0;
-                          if (val > 180) val = 180; // Hard cap
-                          setMarks({ ...marks, kcet: val });
-                      }}
+                    <MultiSelectDropdown 
+                        label="Branches"
+                        icon={BookOpen}
+                        options={BRANCHES.map(b => ({ id: b.id, name: b.name }))}
+                        selected={input.branches}
+                        onToggle={toggleBranch}
+                        placeholder="All Branches"
+                        compact={true}
                     />
-                  </div>
-                  <div className="space-y-1.5">
-                    <label className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground ml-1">PCM Board <span className="text-primary/60">(/300)</span></label>
-                    <input
-                      type="number"
-                      max="300"
-                      placeholder="Marks"
-                      className={cn(
-                        "w-full bg-white/5 border rounded-xl py-2.5 px-3 focus:outline-none transition-all font-mono text-base",
-                        marks.pcm > 300 ? "border-rose-500/50 text-rose-500 ring-4 ring-rose-500/10" : "border-white/10 focus:border-primary/50"
-                      )}
-                      value={marks.pcm || ''}
-                      onChange={(e) => {
-                          let val = parseInt(e.target.value) || 0;
-                          if (val > 300) val = 300; // Hard cap
-                          setMarks({ ...marks, pcm: val });
-                      }}
+                    <MultiSelectDropdown 
+                        label="Colleges"
+                        icon={Building2}
+                        options={colleges.map(c => ({ id: c.college_id, name: c.full_name }))}
+                        selected={input.colleges}
+                        onToggle={(id) => {
+                            const newInput = {
+                                ...input,
+                                colleges: input.colleges.includes(id)
+                                    ? input.colleges.filter(c => c !== id)
+                                    : [...input.colleges, id]
+                            };
+                            setInput(newInput);
+                            if (input.rank > 0) handlePredict(newInput);
+                        }}
+                        placeholder="Colleges"
+                        compact={true}
                     />
-                  </div>
                 </div>
+            </div>
 
-              <div className="grid grid-cols-2 gap-3">
-                <div className="space-y-1.5">
-                  <label className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground ml-1">Category</label>
-                  <select
-                    className="w-full bg-white/5 border border-white/10 rounded-xl py-2.5 px-3 focus:outline-none focus:border-primary/50 text-[11px] appearance-none cursor-pointer"
-                    value={input.category}
-                    onChange={(e) => {
-                        const newInput = { ...input, category: e.target.value as Category };
-                        setInput(newInput);
-                        if (input.rank > 0) handlePredict(newInput);
-                    }}
-                  >
-                    {CATEGORIES.map(c => <option key={c} value={c} className="bg-zinc-900 text-foreground">{c}</option>)}
-                  </select>
-                </div>
-                <div className="space-y-1.5">
-                  <label className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground ml-1">Round</label>
-                  <select
-                    className="w-full bg-white/5 border border-white/10 rounded-xl py-2.5 px-3 focus:outline-none focus:border-primary/50 text-[11px] appearance-none cursor-pointer"
-                    value={input.round}
-                    onChange={(e) => {
-                        const newInput = { ...input, round: parseInt(e.target.value) as Round };
-                        setInput(newInput);
-                        if (input.rank > 0) handlePredict(newInput);
-                    }}
-                  >
-                    <option value="1" className="bg-zinc-900 text-foreground">Round 1</option>
-                    <option value="2" className="bg-zinc-900 text-foreground">Round 2</option>
-                    <option value="3" className="bg-zinc-900 text-foreground">Round 3</option>
-                  </select>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-2 gap-3">
-                <MultiSelectDropdown 
-                  label="Regions"
-                  icon={Globe}
-                  options={REGIONS.map(r => ({ id: r, name: r }))}
-                  selected={input.regions}
-                  onToggle={toggleRegion}
-                  placeholder="All Regions"
-                />
-
-                <MultiSelectDropdown 
-                  label="Branches"
-                  icon={BookOpen}
-                  options={BRANCHES.map(b => ({ id: b.id, name: b.name }))}
-                  selected={input.branches}
-                  onToggle={toggleBranch}
-                  placeholder="All Branches"
-                />
-              </div>
-
-              <MultiSelectDropdown 
-                label="Specific Colleges"
-                icon={Building2}
-                options={colleges.map(c => ({ id: c.college_id, name: c.full_name }))}
-                selected={input.colleges}
-                onToggle={(id) => {
-                    const newInput = {
-                        ...input,
-                        colleges: input.colleges.includes(id)
-                            ? input.colleges.filter(c => c !== id)
-                            : [...input.colleges, id]
-                    };
-                    setInput(newInput);
-                    if (input.rank > 0) handlePredict(newInput);
-                }}
-                placeholder="All Colleges"
-              />
-
-              <div className="space-y-2">
-                <label className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground ml-1">Quick Filters</label>
-                <div className="grid grid-cols-2 gap-2">
-                    <button 
-                        onClick={() => applyQuickFilter('TOP_5')} 
-                        className={cn(
-                            "py-1.5 px-3 rounded-lg border text-[9px] font-bold text-center transition-all",
-                            input.colleges.length === TOP_5_COLLEGES.length ? "bg-primary/20 border-primary/50 text-primary" : "bg-white/2 border-white/5 hover:bg-white/10"
-                        )}
-                    >
-                        TOP 5
-                    </button>
-                    <button 
-                        onClick={() => applyQuickFilter('TOP_10')} 
-                        className={cn(
-                            "py-1.5 px-3 rounded-lg border text-[9px] font-bold text-center transition-all",
-                            input.colleges.length === TOP_10_COLLEGES.length ? "bg-primary/20 border-primary/50 text-primary" : "bg-white/2 border-white/5 hover:bg-white/10"
-                        )}
-                    >
-                        TOP 10
-                    </button>
-                    <button 
-                        onClick={() => applyQuickFilter('CS_IT')} 
-                        className={cn(
-                            "py-1.5 px-3 rounded-lg border text-[9px] font-bold text-center transition-all",
-                            input.branches.length === CS_IT_BRANCHES.length ? "bg-primary/20 border-primary/50 text-primary" : "bg-white/2 border-white/5 hover:bg-white/10"
-                        )}
-                    >
-                        CS & IT
-                    </button>
-                    <button 
-                        onClick={() => applyQuickFilter('CORE')} 
-                        className={cn(
-                            "py-1.5 px-3 rounded-lg border text-[9px] font-bold text-center transition-all",
-                            input.branches.length === CORE_BRANCHES.length ? "bg-primary/20 border-primary/50 text-primary" : "bg-white/2 border-white/5 hover:bg-white/10"
-                        )}
-                    >
-                        CORE
-                    </button>
-                </div>
-              </div>
-
-              <button
-                onClick={() => handlePredict()}
-                disabled={isCalculating || !input.rank}
-                className="w-full bg-primary text-primary-foreground py-3.5 rounded-xl font-bold text-xs shadow-lg shadow-primary/25 hover:shadow-primary/40 hover:-translate-y-0.5 transition-all disabled:opacity-50 disabled:translate-y-0 flex items-center justify-center gap-2 group mt-2"
-              >
-                {isCalculating ? (
-                  <>
-                    <div className="w-3.5 h-3.5 border-2 border-primary-foreground/30 border-t-primary-foreground rounded-full animate-spin" />
-                    Calculating...
-                  </>
-                ) : (
-                  <>
-                    Get Predicted Colleges
-                    <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                  </>
-                )}
-              </button>
-
-              <div className="p-4 rounded-xl bg-amber-500/5 border border-amber-500/10 flex gap-3">
-                  <Info className="w-4 h-4 text-amber-500 shrink-0 mt-0.5 opacity-60" />
-                  <p className="text-[10px] text-amber-200/50 leading-relaxed font-medium italic">
-                    Predictions are based on historical official data (2025). Do not solely rely on these for final counseling.
-                  </p>
-              </div>
-            </div> {/* End Expandable Content */}
-          </div>
+            {/* 3. EXECUTE STATION */}
+            <div className="shrink-0 w-full lg:w-auto">
+                <button
+                    onClick={() => handlePredict()}
+                    disabled={isCalculating || !input.rank}
+                    className="w-full lg:w-auto h-11 px-8 bg-linear-to-r from-rose-600 to-rose-500 hover:from-rose-500 hover:to-rose-400 text-white font-black rounded-xl transition-all shadow-[0_10px_20px_rgba(225,29,72,0.2)] flex items-center justify-center gap-3 group disabled:opacity-50 active:scale-[0.95]"
+                >
+                    {isCalculating ? (
+                        <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                    ) : (
+                        <>
+                            <span className="text-[10px] uppercase tracking-widest whitespace-nowrap">Run Predictor</span>
+                            <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                        </>
+                    )}
+                </button>
+            </div>
         </div>
+      </div>
 
-        {/* Results Panel (Expanded) */}
-        <div className="lg:col-span-9 space-y-8">
+      <div className="w-full">
+        {/* Results Area */}
+        <div className="w-full space-y-12">
           {results && (
             <div className="flex flex-col md:flex-row justify-between items-center gap-4 bg-white/5 border border-white/10 p-4 rounded-2xl relative overflow-hidden">
                 <div className="flex flex-col gap-1">
@@ -1240,12 +1175,12 @@ export default function PredictorPage() {
           )}
 
           {!results ? (
-            <div className="h-full flex flex-col items-center justify-center text-center p-12 glass-card border-dashed border-white/10">
-              <div className="w-20 h-20 rounded-full bg-white/5 flex items-center justify-center mb-6">
-                <GraduationCap className="w-10 h-10 text-muted-foreground" />
+            <div className="h-full flex flex-col items-center justify-center text-center p-8 md:p-12 glass-card border-dashed border-white/10">
+              <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-white/5 flex items-center justify-center mb-6">
+                <GraduationCap className="w-8 h-8 md:w-10 md:h-10 text-muted-foreground" />
               </div>
-              <h3 className="text-2xl font-bold mb-2 text-white/80">Admission Prediction Ready</h3>
-              <p className="text-muted-foreground max-w-sm">Enter your rank to see personalized college and branch recommendations.</p>
+              <h3 className="text-xl md:text-2xl font-bold mb-2 text-white/80">Admission Prediction Ready</h3>
+              <p className="text-xs md:text-sm text-muted-foreground max-w-sm">Enter your rank to see personalized college and branch recommendations.</p>
             </div>
           ) : (
             <div className="space-y-12">
@@ -1306,52 +1241,123 @@ export default function PredictorPage() {
                   </section>
               )}
 
-              {results.safe.length > 0 && (
-                <section className="space-y-6">
-                    <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-xl bg-emerald-500/20 flex items-center justify-center">
-                            <Check className="w-5 h-5 text-emerald-400" />
-                        </div>
-                        <div>
-                            <h2 className="text-2xl font-bold">Safe Chances</h2>
-                            <p className="text-xs text-muted-foreground">High probability of admission based on current sorting</p>
-                        </div>
-                    </div>
-                    {results.safe.map((group, i) => <CollegeGroupCard key={i} group={group} category={input.category} gender={input.gender} onShowRounds={handleShowRounds} onShowCollege={handleShowCollege} />)}
-                </section>
-              )}
+              {results && (
+                <div className="space-y-12">
+              {(() => {
+                const allGroups = [
+                  ...results.safe.map(g => ({ ...g, sectionType: 'safe' })),
+                  ...results.moderate.map(g => ({ ...g, sectionType: 'moderate' })),
+                  ...results.dream.map(g => ({ ...g, sectionType: 'dream' }))
+                ];
+                
+                const totalItems = allGroups.length;
+                const paginatedGroups = allGroups.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
 
-              {results.moderate.length > 0 && (
-                <section className="space-y-6">
-                    <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-xl bg-amber-500/20 flex items-center justify-center">
-                            <Sparkles className="w-5 h-5 text-amber-400" />
-                        </div>
-                        <div>
-                            <h2 className="text-2xl font-bold">Moderate Chances</h2>
-                            <p className="text-xs text-muted-foreground">Competitive options where you have a fair chance</p>
-                        </div>
-                    </div>
-                    {results.moderate.map((group, i) => <CollegeGroupCard key={i} group={group} category={input.category} gender={input.gender} onShowRounds={handleShowRounds} onShowCollege={handleShowCollege} />)}
-                </section>
-              )}
+                let lastType = '';
 
-              {results.dream.length > 0 && (
-                <section className="space-y-6">
-                    <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-xl bg-rose-500/20 flex items-center justify-center">
-                            <Star className="w-5 h-5 text-rose-400" />
-                        </div>
-                        <div>
-                            <h2 className="text-2xl font-bold">Dream Options</h2>
-                            <p className="text-xs text-muted-foreground">Aspirational targets for your rank profile</p>
-                        </div>
+                return (
+                  <div className="space-y-12">
+                    <div className="grid grid-cols-1 gap-10">
+                      {paginatedGroups.map((group, idx) => {
+                        const showHeader = group.sectionType !== lastType;
+                        lastType = group.sectionType;
+
+                        return (
+                          <div key={`${group.college.college_id}-${idx}`} className="space-y-6">
+                            {showHeader && (
+                              <div className="flex items-center gap-3 pt-4 border-t border-white/5 first:border-0 first:pt-0">
+                                <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${
+                                  group.sectionType === 'safe' ? 'bg-emerald-500/20' : 
+                                  group.sectionType === 'moderate' ? 'bg-amber-500/20' : 'bg-rose-500/20'
+                                }`}>
+                                  {group.sectionType === 'safe' ? <Check className="w-5 h-5 text-emerald-400" /> : 
+                                   group.sectionType === 'moderate' ? <Sparkles className="w-5 h-5 text-amber-400" /> : 
+                                   <Star className="w-5 h-5 text-rose-400" />}
+                                </div>
+                                <div>
+                                  <h2 className="text-2xl font-bold uppercase tracking-tight">
+                                    {group.sectionType === 'safe' ? 'Safe Chances' : 
+                                     group.sectionType === 'moderate' ? 'Moderate Chances' : 'Dream Options'}
+                                  </h2>
+                                  <p className="text-xs text-muted-foreground uppercase tracking-widest font-black opacity-60">
+                                    {group.sectionType === 'safe' ? 'High probability of admission' : 
+                                     group.sectionType === 'moderate' ? 'Competitive but realistic options' : 'Aspirational targets for your profile'}
+                                  </p>
+                                </div>
+                              </div>
+                            )}
+                            <CollegeGroupCard group={group} category={input.category} gender={input.gender} onShowRounds={handleShowRounds} onShowCollege={handleShowCollege} />
+                          </div>
+                        );
+                      })}
                     </div>
-                    {results.dream.map((group, i) => <CollegeGroupCard key={i} group={group} category={input.category} gender={input.gender} onShowRounds={handleShowRounds} onShowCollege={handleShowCollege} />)}
-                </section>
-              )}
-            </div>
-          )}
+
+                    {/* PAGINATION NAVIGATION */}
+                    {totalItems > ITEMS_PER_PAGE && (
+                      <div className="flex flex-col md:flex-row justify-between items-center gap-8 py-12 border-t border-white/10">
+                        <div className="flex flex-col gap-1">
+                          <p className="text-xs font-black uppercase tracking-[0.2em] text-muted-foreground">Predictor Results</p>
+                          <p className="text-sm font-bold text-white">
+                            Showing <span className="text-rose-500">{(currentPage - 1) * ITEMS_PER_PAGE + 1}-{Math.min(currentPage * ITEMS_PER_PAGE, totalItems)}</span> of {totalItems} matches
+                          </p>
+                        </div>
+                        
+                        <div className="flex items-center gap-2 bg-white/5 p-2 rounded-2xl border border-white/5 shadow-2xl">
+                          <button
+                            onClick={() => {
+                                setCurrentPage(prev => Math.max(1, prev - 1));
+                                window.scrollTo({ top: 0, behavior: 'smooth' });
+                            }}
+                            disabled={currentPage === 1}
+                            className="w-12 h-12 rounded-xl bg-zinc-900 border border-white/10 flex items-center justify-center text-muted-foreground hover:text-white hover:border-white/20 disabled:opacity-20 transition-all active:scale-90"
+                          >
+                            <ChevronRight className="w-6 h-6 rotate-180" />
+                          </button>
+                          
+                          <div className="flex items-center gap-1 px-4 border-x border-white/5">
+                            {Array.from({ length: Math.ceil(totalItems / ITEMS_PER_PAGE) }).map((_, i) => {
+                              const pageNum = i + 1;
+                              if (Math.abs(pageNum - currentPage) > 2 && pageNum !== 1 && pageNum !== Math.ceil(totalItems / ITEMS_PER_PAGE)) return null;
+                              
+                              return (
+                                <button
+                                  key={pageNum}
+                                  onClick={() => {
+                                      setCurrentPage(pageNum);
+                                      window.scrollTo({ top: 0, behavior: 'smooth' });
+                                  }}
+                                  className={`w-12 h-12 rounded-xl text-xs font-black transition-all border ${
+                                    currentPage === pageNum 
+                                    ? 'bg-rose-500 border-rose-400 text-white shadow-xl shadow-rose-500/30' 
+                                    : 'bg-transparent border-transparent text-muted-foreground hover:bg-white/5'
+                                  }`}
+                                >
+                                  {pageNum}
+                                </button>
+                              );
+                            })}
+                          </div>
+
+                          <button
+                            onClick={() => {
+                                setCurrentPage(prev => Math.min(Math.ceil(totalItems / ITEMS_PER_PAGE), prev + 1));
+                                window.scrollTo({ top: 0, behavior: 'smooth' });
+                            }}
+                            disabled={currentPage >= Math.ceil(totalItems / ITEMS_PER_PAGE)}
+                            className="w-12 h-12 rounded-xl bg-zinc-900 border border-white/10 flex items-center justify-center text-muted-foreground hover:text-white hover:border-white/20 disabled:opacity-20 transition-all active:scale-90"
+                          >
+                            <ChevronRight className="w-6 h-6" />
+                          </button>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                );
+              })()}
+                  </div>
+                )}
+              </div>
+            )}
         </div>
       </div>
       <AuthModal 

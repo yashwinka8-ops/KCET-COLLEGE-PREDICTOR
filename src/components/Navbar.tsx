@@ -2,20 +2,21 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { Zap, Heart, LogOut, User as UserIcon, Menu, X } from "lucide-react";
+import { Zap, Heart, LogOut, User as UserIcon, Menu, X, ChevronDown } from "lucide-react";
 import { useAuth } from "@/lib/contexts/AuthContext";
 import { AnimatePresence, motion } from 'framer-motion';
 
 export function Navbar() {
   const { user, logout, isAdmin } = useAuth();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [guideHovered, setGuideHovered] = useState(false);
 
   const closeMenu = () => setMobileMenuOpen(false);
 
   return (
     <>
-      <nav className="absolute top-0 left-0 right-0 z-[100] px-4 md:px-6 py-4 flex justify-center pointer-events-none">
-        <div className="bg-black/40 backdrop-blur-xl px-4 md:px-6 py-3 rounded-full flex items-center gap-4 md:gap-8 border border-white/10 max-w-[1200px] w-full justify-between pointer-events-auto shadow-[0_8px_32px_rgba(0,0,0,0.4)]">
+      <nav className="absolute top-0 left-0 right-0 z-[100] px-3 md:px-6 py-4 flex justify-center pointer-events-none">
+        <div className="bg-black/40 backdrop-blur-xl px-4 md:px-5 py-3 rounded-full flex items-center gap-3 border border-white/10 max-w-[1500px] w-full justify-between pointer-events-auto shadow-[0_8px_32px_rgba(0,0,0,0.4)]">
           
           <div className="flex items-center gap-3">
             {/* Mobile Menu Toggle */}
@@ -32,29 +33,69 @@ export function Navbar() {
               </div>
               <span className="font-bold tracking-tight text-lg hidden sm:block">KCET Predictor</span>
             </Link>
-
-            {/* Spiritual Accent - Visible everywhere */}
-            <div className="flex items-center ml-1 sm:ml-2 sm:border-l sm:border-white/10 sm:pl-3 h-6 pointer-events-none select-none">
-                <span className="text-[9px] sm:text-[11px] font-serif text-orange-500 tracking-[0.05em] sm:tracking-[0.1em] drop-shadow-[0_0_8px_rgba(249,115,22,0.5)]">
-                    श्रद्धावान् लभते ज्ञानम्
-                </span>
-            </div>
           </div>
 
-          <div className="hidden lg:flex items-center gap-6 text-sm font-medium text-muted-foreground">
-            <Link href="/" className="hover:text-white transition-colors">Home</Link>
-            <Link href="/rank-predictor" className="text-primary hover:text-primary/80 font-bold flex items-center gap-1.5 transition-colors">
+          <div className="hidden lg:flex items-center gap-4 xl:gap-5 text-[13px] font-bold text-muted-foreground">
+            <Link href="/rank-predictor" className="text-primary hover:text-primary/80 flex items-center gap-1.5 transition-colors">
               Rank Predictor
-              <div className="bg-primary/20 text-[8px] px-1.5 py-0.5 rounded-md border border-primary/30">PRO</div>
+              <div className="bg-primary/20 text-[7px] px-1.5 py-0.5 rounded-md border border-primary/30">PRO</div>
             </Link>
             <Link href="/predictor" className="hover:text-white transition-colors">Predictor</Link>
             <Link href="/cutoffs" className="hover:text-white transition-colors">Cutoffs</Link>
             <Link href="/compare" className="hover:text-white transition-colors">Compare</Link>
             <Link href="/trends" className="hover:text-white transition-colors">Trends</Link>
-            <Link href="/guide" className="hover:text-white transition-colors">Guide</Link>
+            
+            <Link href="/tracker" className="hover:text-white transition-colors flex items-center gap-1.5 relative group">
+              Tracker
+              <div className="w-1.5 h-1.5 rounded-full bg-rose-500 animate-pulse" />
+              {/* Tooltip on hover */}
+              <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+                <div className="bg-rose-500 text-white text-[7px] px-2 py-1 rounded font-black whitespace-nowrap">KEA LIVE</div>
+              </div>
+            </Link>
+
+            {/* Resources Dropdown */}
+            <div 
+              className="relative"
+              onMouseEnter={() => setGuideHovered(true)}
+              onMouseLeave={() => setGuideHovered(false)}
+            >
+              <div className="hover:text-white transition-colors flex items-center gap-1 cursor-pointer py-2">
+                Resources
+                <motion.div
+                  animate={{ rotate: guideHovered ? 180 : 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <ChevronDown className="w-3 h-3 opacity-50" />
+                </motion.div>
+              </div>
+              <AnimatePresence>
+                {guideHovered && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                    className="absolute top-full left-0 pt-2 w-56 pointer-events-auto"
+                  >
+                    <div className="bg-zinc-950/95 backdrop-blur-2xl border border-white/10 rounded-2xl p-2 shadow-2xl overflow-hidden">
+                      <Link href="/guide" className="flex flex-col p-3 rounded-xl hover:bg-white/5 transition-colors group">
+                        <span className="text-white text-[11px] font-bold">Counselling Roadmap</span>
+                        <span className="text-[8px] text-muted-foreground group-hover:text-primary/70 transition-colors uppercase font-black tracking-widest">Strategy</span>
+                      </Link>
+                      <Link href="/documents" className="flex flex-col p-3 rounded-xl hover:bg-white/5 transition-colors group">
+                        <span className="text-white text-[11px] font-bold">Document Vault</span>
+                        <span className="text-[8px] text-muted-foreground group-hover:text-emerald-400 transition-colors uppercase font-black tracking-widest">Full Checklist</span>
+                      </Link>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+
             <Link href="/instructions" className="hover:text-white transition-colors">Instructions</Link>
-            <Link href="/wishlist" className="hover:text-white transition-colors flex items-center gap-1.5 bg-rose-500/10 text-rose-400 px-3 py-1.5 rounded-full border border-rose-500/20">
-              <Heart className="w-4 h-4 fill-current" />
+
+            <Link href="/wishlist" className="hover:text-white transition-colors flex items-center gap-1.5 bg-rose-500/10 text-rose-400 px-2.5 py-1 rounded-full border border-rose-500/20 text-[11px] font-black uppercase tracking-widest">
+              <Heart className="w-3 h-3 fill-current" />
               Wishlist
             </Link>
           </div>
@@ -98,7 +139,7 @@ export function Navbar() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="fixed inset-0 z-[90] bg-black/95 backdrop-blur-xl lg:hidden flex flex-col pt-24 px-6 pb-6"
+            className="fixed inset-0 z-[90] bg-black/95 backdrop-blur-xl lg:hidden flex flex-col pt-24 px-6 pb-6 overflow-y-auto"
           >
             <div className="flex flex-col gap-4 text-xl font-bold">
               <Link href="/" onClick={closeMenu} className="py-3 border-b border-white/10 hover:text-primary transition-colors">Home</Link>
@@ -110,7 +151,17 @@ export function Navbar() {
               <Link href="/cutoffs" onClick={closeMenu} className="py-3 border-b border-white/10 hover:text-primary transition-colors">Cutoff Explorer</Link>
               <Link href="/compare" onClick={closeMenu} className="py-3 border-b border-white/10 hover:text-primary transition-colors">Compare Colleges</Link>
               <Link href="/trends" onClick={closeMenu} className="py-3 border-b border-white/10 hover:text-primary transition-colors">Trends</Link>
-              <Link href="/guide" onClick={closeMenu} className="py-3 border-b border-white/10 hover:text-primary transition-colors">Counselling Guide</Link>
+              
+              <div className="flex flex-col border-b border-white/10">
+                <span className="text-xs font-black uppercase tracking-widest text-muted-foreground mt-4 mb-2">Counselling Hub</span>
+                <Link href="/tracker" onClick={closeMenu} className="py-3 pl-4 text-rose-400 flex items-center justify-between transition-colors">
+                  KEA Live Tracker
+                  <div className="w-2 h-2 rounded-full bg-rose-500 animate-ping mr-4" />
+                </Link>
+                <Link href="/guide" onClick={closeMenu} className="py-3 pl-4 hover:text-primary transition-colors">Roadmap 2025</Link>
+                <Link href="/documents" onClick={closeMenu} className="py-3 pl-4 hover:text-emerald-400 transition-colors">Document Vault</Link>
+              </div>
+
               <Link href="/instructions" onClick={closeMenu} className="py-3 border-b border-white/10 hover:text-primary transition-colors">Instructions</Link>
               
               <Link href="/wishlist" onClick={closeMenu} className="py-4 mt-2 flex items-center justify-center gap-2 bg-rose-500/10 text-rose-500 rounded-2xl border border-rose-500/20">
