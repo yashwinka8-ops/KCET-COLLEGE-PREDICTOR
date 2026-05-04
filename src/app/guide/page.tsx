@@ -70,21 +70,43 @@ const documents = [
     icon: School,
     color: "emerald",
     items: [
-      { name: "SSLC / 10th Marks Card", detail: "Original + 3 Sets Photocopy" },
-      { name: "2nd PUC / 12th Marks Card", detail: "Original + 3 Sets Photocopy" },
-      { name: "10th/12th Study Certificates", detail: "Verified by BEO / DDPI" },
-      { name: "Transfer Certificate (TC)", detail: "From last attended college" }
+      { name: "SSLC / 10th Marks Card", detail: "Original + 3 Photocopies + 1 Personal Copy" },
+      { name: "2nd PUC / 12th Marks Card", detail: "Original + 3 Photocopies + 1 Personal Copy" },
+      { name: "10th Study Certificate", detail: "Issued by school (3 Copies + 1 Personal)" },
+      { name: "12th Study Certificate", detail: "Includes SSLC/PUC details (3 Copies + 1 Personal)" },
+      { name: "Transfer Certificate (TC)", detail: "From last institution (3 Copies + 1 Personal)" }
     ]
   },
   {
-    category: "KEA Essentials",
+    category: "KEA & Exam Essentials",
     icon: FileText,
     color: "primary",
     items: [
-      { name: "Verification Slip 2025", detail: "The most important KEA doc" },
-      { name: "KCET Application Form", detail: "Final submitted copy" },
-      { name: "Admit Card (Hall Ticket)", detail: "Used during the entrance" },
-      { name: "Fee Payment Receipt", detail: "Original bank/online receipt" }
+      { name: "KEA Verification Slip 2025", detail: "Official KEA document (3 Copies + 1 Personal)" },
+      { name: "Online Application Form", detail: "Final submitted version (3 Copies + 1 Personal)" },
+      { name: "Admit Card / Hall Ticket", detail: "Used during entrance (3 Copies + 1 Personal)" },
+      { name: "Confirmation Page", detail: "Post-submission proof (3 Copies + 1 Personal)" },
+      { name: "Fee Payment Receipt", detail: "Original + Copies of proof" }
+    ]
+  },
+  {
+    category: "Identity & Personal",
+    icon: UserCheck,
+    color: "blue",
+    items: [
+      { name: "Valid Photo ID Proof", detail: "Aadhaar / PAN / Passport / Voter ID (Original + 3 Copies)" },
+      { name: "Aadhaar Card", detail: "Mandatory verification (3 Photocopies)" },
+      { name: "Passport Size Photos", detail: "Recent copies (Carry at least 8 copies)" }
+    ]
+  },
+  {
+    category: "Reservation & Category",
+    icon: Zap,
+    color: "amber",
+    items: [
+      { name: "Caste / Income Certificate", detail: "Issued by Karnataka Tahsildar (3 Copies + 1 Personal)" },
+      { name: "371(j) / HK Certificate", detail: "For regional reservation claims (3 Copies + 1 Personal)" },
+      { name: "Rural Quota Certificate", detail: "If applying under rural reservation (3 Copies + 1 Personal)" }
     ]
   }
 ];
@@ -195,7 +217,6 @@ export default function CounsellingGuide() {
                     <h4 className="text-xs font-black uppercase tracking-widest text-emerald-500 mb-4">Pro Insight</h4>
                     <p className="text-xs text-muted-foreground leading-relaxed">Most students lose seats by failing to report within the stipulated deadline. Mark your calendar.</p>
                   </div>
-                </div>
               </div>
             </motion.div>
           </AnimatePresence>
@@ -255,6 +276,31 @@ export default function CounsellingGuide() {
              <button className="md:ml-auto bg-amber-500/10 hover:bg-amber-500/20 text-amber-500 px-8 py-4 rounded-2xl font-black text-xs transition-all border border-amber-500/20 uppercase tracking-widest">
                 View Requirements
              </button>
+          </div>
+
+          {/* MASTER GUIDELINES */}
+          <div className="mt-8 glass-card p-10 border-rose-500/30 bg-rose-500/[0.02]">
+            <h4 className="text-sm font-black uppercase tracking-widest text-rose-500 mb-8 flex items-center gap-3">
+                <div className="w-8 h-8 rounded-lg bg-rose-500/20 flex items-center justify-center">
+                    <Info className="w-4 h-4" />
+                </div>
+                Submission & Verification Guidelines
+            </h4>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {[
+                    { t: "The 4-Copy Rule", d: "Keep 4 copies of every document (3 for submission + 1 backup backup)." },
+                    { t: "Perfect Sequence", d: "Arrange documents in the exact same order as listed in the Vault above." },
+                    { t: "Personal Archive", d: "Maintain a separate personal file with all copies for college admission." },
+                    { t: "Document Integrity", d: "Ensure all originals are crystal clear and free from any damage or folds." },
+                    { t: "Local Authority", d: "Category certificates must be issued by authorized Karnataka Tahsildars." },
+                    { t: "Applicability", d: '“If Applicable” documents are only required for eligible quota candidates.' }
+                ].map((rule, i) => (
+                    <div key={i} className="space-y-2">
+                        <h5 className="text-sm font-bold text-white">{rule.t}</h5>
+                        <p className="text-[11px] leading-relaxed text-muted-foreground">{rule.d}</p>
+                    </div>
+                ))}
+            </div>
           </div>
         </section>
 
