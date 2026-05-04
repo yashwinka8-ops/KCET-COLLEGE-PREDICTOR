@@ -296,7 +296,6 @@ export default function RankPredictor() {
                                             fill="#ef4444"
                                             stroke="#fff"
                                             strokeWidth={3}
-                                            isFront
                                             label={{ value: `You`, position: 'top', fill: '#ef4444', fontSize: 11, fontWeight: 900 }}
                                         />
                                     </>

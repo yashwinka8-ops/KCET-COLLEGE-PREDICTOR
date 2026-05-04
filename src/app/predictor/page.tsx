@@ -34,7 +34,7 @@ import {
   AlertTriangle
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { PredictorInput, Category, Gender, Round, PredictionResult, College, CutoffData } from '@/lib/types';
+import { PredictorInput, Category, Gender, Round, PredictionResult, College, CutoffData, Branch } from '@/lib/types';
 import { 
   predictColleges, 
   CATEGORIES, 
@@ -351,7 +351,7 @@ const CollegeDetailsModal = ({
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {branchData.map((row, idx) => (
+                                    {branchData.map((row: any, idx: number) => (
                                         <tr key={idx} className="border-t border-white/5 hover:bg-white/2 transition-colors">
                                             <td className="p-4">
                                                 <div className="font-bold text-sm">{row.branch.branch_name}</div>

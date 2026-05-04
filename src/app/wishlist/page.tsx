@@ -46,7 +46,7 @@ export default function WishlistPage() {
         doc.text(`Category: ${exportCategory} | Generated on: ${new Date().toLocaleDateString()}`, 14, 30);
         doc.text('Based on 2025 Official Data - Prepared by Yashwin Anand', 14, 35);
 
-        const tableData = wishlist.map((item, idx) => {
+        const tableData = wishlist.map((item: any, idx: number) => {
             const [collegeId, branchId] = item.id.split('-');
             const collegesUnified = (collegesUnifiedRaw as any).colleges as any[];
             const unifiedCollege = collegesUnified.find(c => c.college_id === collegeId);
@@ -133,7 +133,7 @@ export default function WishlistPage() {
                             onReorder={setWishlist}
                             className="space-y-1"
                         >
-                            {wishlist.map((item, idx) => (
+                            {wishlist.map((item: any, idx: number) => (
                                 <Reorder.Item
                                     key={item.id}
                                     value={item}
@@ -210,7 +210,7 @@ export default function WishlistPage() {
                                         onChange={(e) => setExportCategory(e.target.value as Category)}
                                         className="bg-transparent text-xs font-bold text-white focus:outline-none cursor-pointer"
                                     >
-                                        {CATEGORIES.map(cat => <option key={cat} value={cat} className="bg-zinc-900">{cat}</option>)}
+                                        {CATEGORIES.map((cat: string) => <option key={cat} value={cat} className="bg-zinc-900">{cat}</option>)}
                                     </select>
                                 </div>
 

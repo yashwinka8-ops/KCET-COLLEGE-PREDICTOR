@@ -78,7 +78,7 @@ const BranchSelectorModal = ({
                         <p className="text-sm text-muted-foreground">{college.full_name}</p>
                     </div>
                     <div className="p-4 max-h-[60vh] overflow-y-auto space-y-2">
-                        {branchList.map(item => {
+                        {branchList.map((item: any) => {
                             const isSelected = selectedIds.includes(item.cbId);
                             return (
                                 <button

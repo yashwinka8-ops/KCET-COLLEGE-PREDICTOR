@@ -306,7 +306,7 @@ export default function TrendsPage() {
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                   <div className="lg:col-span-2">
                     <div className="flex flex-wrap gap-2">
-                      {tier3Colleges.map((college, idx) => (
+                      {tier3Colleges.map((college: string, idx: number) => (
                         <div key={idx} className="px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-xs font-bold text-muted-foreground hover:border-white/20 hover:text-white transition-all cursor-default">
                           {college}
                         </div>
@@ -352,7 +352,7 @@ export default function TrendsPage() {
             <div className="glass-card overflow-hidden">
               <table className="w-full text-left">
                 <tbody className="divide-y divide-white/5">
-                  {rankRanges.map((r, idx) => (
+                  {rankRanges.map((r: any, idx: number) => (
                     <tr key={idx} className="hover:bg-white/2 transition-colors">
                       <td className="px-4 py-4 text-xs font-black text-primary uppercase whitespace-nowrap">{r.range}</td>
                       <td className="px-4 py-4 text-[10px] font-bold text-muted-foreground leading-tight">{r.colleges}</td>
@@ -372,7 +372,7 @@ export default function TrendsPage() {
             <div className="space-y-3">
               {[
                 'RVCE', 'PES University', 'MSRIT', 'BMSCE', 'DSCE', 'RNSIT', 'BMSIT', 'BIT Bengaluru', 'NIE Mysuru', 'REVA University'
-              ].map((name, idx) => (
+              ].map((name: string, idx: number) => (
                 <div key={idx} className="flex items-center gap-3 px-4 py-3 rounded-2xl bg-white/5 border border-white/10 group hover:border-blue-400/30 transition-all">
                   <span className="text-xs font-black text-blue-400/50 w-4">{idx + 1}</span>
                   <span className="text-sm font-bold">{name}</span>
@@ -396,7 +396,7 @@ export default function TrendsPage() {
                 { name: 'NIE Mysuru', detail: '₹1L–2L/yr | Historic Legacy' },
                 { name: 'SIT Tumakuru', detail: '₹80K–1.2L/yr | Great Placements' },
                 { name: 'KLE Tech', detail: '₹2L–3L/yr | Best Coding Culture' },
-              ].map((item, idx) => (
+              ].map((item: any, idx: number) => (
                 <div key={idx} className="p-4 rounded-2xl bg-emerald-500/5 border border-emerald-500/10">
                   <h4 className="text-sm font-black text-emerald-400 mb-1">{item.name}</h4>
                   <p className="text-[10px] font-bold text-muted-foreground">{item.detail}</p>
@@ -423,7 +423,7 @@ export default function TrendsPage() {
                 { name: 'REVA University', note: 'Growing AI programs' },
                 { name: 'RV University', note: 'Modern curriculum' },
                 { name: 'Alliance University', note: 'Industry exposure' },
-              ].map((item, idx) => (
+              ].map((item: any, idx: number) => (
                 <div key={idx} className="flex flex-col p-3 rounded-xl bg-white/5 border border-white/10">
                   <span className="text-sm font-black text-white">{item.name}</span>
                   <span className="text-[10px] text-muted-foreground">{item.note}</span>
@@ -443,7 +443,7 @@ export default function TrendsPage() {
                 'RVCE', 'PES University', 'MSRIT', 'BMSCE', 'UVCE', 'JSSSTU', 'SIT Tumakuru', 
                 'NIE Mysuru', 'DSCE', 'RNSIT', 'BIT Bengaluru', 'BMSIT', 'KLE Tech', 
                 'REVA University', 'BNMIT'
-              ].map((name, idx) => (
+              ].map((name: string, idx: number) => (
                 <div key={idx} className="px-4 py-2 rounded-xl bg-amber-400/5 border border-amber-400/20 text-xs font-bold text-amber-400">
                   <span className="mr-2 text-[10px] opacity-50">#{idx + 1}</span>
                   {name}

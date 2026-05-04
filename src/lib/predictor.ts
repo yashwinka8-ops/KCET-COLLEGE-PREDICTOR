@@ -1,4 +1,5 @@
 import collegesUnifiedRaw from "./data/colleges_unified.json";
+import { Branch, PredictorInput, College, PredictionResult } from "./types";
 
 interface UnifiedCutoff {
     branch_id: string;

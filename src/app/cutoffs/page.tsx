@@ -201,7 +201,7 @@ const CollegeDetailsModal = ({
                             </div>
                             
                             <div className="divide-y divide-white/5">
-                                {branchData.map((item, idx) => {
+                                {branchData.map((item: any, idx: number) => {
                                     const cbId = `${college.college_id}-${item.branch.branch_id}`;
                                     const isWishlisted = isInWishlist(cbId);
                                     
