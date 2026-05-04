@@ -11,7 +11,8 @@ import {
   School,
   ChevronRight,
   Info,
-  ExternalLink
+  ExternalLink,
+  Zap
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
