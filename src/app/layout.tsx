@@ -56,6 +56,7 @@ export default function RootLayout({
                             <Link href="/trends" className="hover:text-white transition-colors">Trends</Link>
                             <Link href="/instructions" className="hover:text-white transition-colors">Instructions</Link>
                             <Link href="/wishlist" className="hover:text-white transition-colors">Wishlist</Link>
+                            <Link href="/privacy" className="hover:text-white transition-colors">Privacy & Disclaimer</Link>
                         </div>
                     </div>
 

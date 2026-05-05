@@ -29,12 +29,16 @@ import {
   GitMerge,
   Filter,
   ArrowRight,
-  RefreshCw
+  RefreshCw,
+  Clock,
+  Activity,
+  Calendar,
+  RotateCcw
 } from 'lucide-react';
 import { useAuth } from '@/lib/contexts/AuthContext';
 import { useColleges } from '@/lib/contexts/CollegeContext';
 import { db } from '@/lib/firebase';
-import { collection, getDocs, query, orderBy, deleteDoc, doc, setDoc, writeBatch, limit } from 'firebase/firestore';
+import { collection, getDocs, getDoc, query, orderBy, deleteDoc, doc, setDoc, writeBatch, limit } from 'firebase/firestore';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import jsPDF from 'jspdf';
@@ -65,10 +69,19 @@ export default function AdminPage() {
         alert("✅ Dashboard synced with latest Cloud data!");
         setIsLoading(false);
     };
-    const [activeTab, setActiveTab] = useState<'submissions' | 'colleges'>('submissions');
+    const [activeTab, setActiveTab] = useState<'submissions' | 'colleges' | 'simulator'>('submissions');
     const [profiles, setProfiles] = useState<StudentProfile[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [isSeeding, setIsSeeding] = useState(false);
+    
+    // Simulator State
+    const [simConfig, setSimConfig] = useState({
+        currentRound: 1,
+        isResultsLive: false,
+        resultsReleaseDate: "",
+        nextRoundStartDate: ""
+    });
+    const [isSavingSim, setIsSavingSim] = useState(false);
     
     const [searchQuery, setSearchQuery] = useState('');
     const [editingId, setEditingId] = useState<string | null>(null);
@@ -129,6 +142,55 @@ export default function AdminPage() {
             console.error("Error fetching admin data:", error);
         } finally {
             setIsLoading(false);
+        }
+
+        // Fetch Simulator Config
+        try {
+            const simSnap = await getDoc(doc(db, 'config', 'simulation_state'));
+            if (simSnap.exists()) {
+                setSimConfig(simSnap.data() as any);
+            }
+        } catch (err) {
+            console.error("Error fetching sim config:", err);
+        }
+    };
+
+    const handleSaveSimConfig = async () => {
+        setIsSavingSim(true);
+        try {
+            await setDoc(doc(db, 'config', 'simulation_state'), simConfig);
+            alert("🚀 Simulator configuration updated globally!");
+        } catch (err) {
+            alert("Failed to update config");
+        } finally {
+            setIsSavingSim(false);
+        }
+    };
+
+    const handleResetSimulator = async () => {
+        const confirm1 = window.confirm("⚠️ DANGER: You are about to RESET the entire counseling simulation. This will revert the round to 1 and hide all results. Continue?");
+        if (!confirm1) return;
+        
+        const confirm2 = window.confirm("FINAL WARNING: This action is irreversible. All global simulator settings will be restored to defaults. Reset now?");
+        if (!confirm2) return;
+
+        setIsSavingSim(true);
+        try {
+            const defaultSim = {
+                currentRound: 1,
+                isResultsLive: false,
+                resultsReleaseDate: new Date().toISOString(),
+                nextRoundStartDate: new Date().toISOString(),
+                updatedAt: new Date().toISOString()
+            };
+            await setDoc(doc(db, 'config', 'simulation_state'), defaultSim);
+            setSimConfig(defaultSim);
+            alert("🧹 Simulator has been reset to defaults!");
+        } catch (err) {
+            console.error(err);
+            alert("Failed to reset simulator");
+        } finally {
+            setIsSavingSim(false);
         }
     };
 
@@ -398,6 +460,9 @@ export default function AdminPage() {
                                 <button onClick={() => setActiveTab('colleges')} className={cn("text-[10px] font-black uppercase tracking-widest pb-1 border-b-2 transition-all", activeTab === 'colleges' ? "text-orange-500 border-orange-500" : "text-muted-foreground border-transparent")}>
                                     Live Database
                                 </button>
+                                <button onClick={() => setActiveTab('simulator')} className={cn("text-[10px] font-black uppercase tracking-widest pb-1 border-b-2 transition-all", activeTab === 'simulator' ? "text-orange-500 border-orange-500" : "text-muted-foreground border-transparent")}>
+                                    Simulator Control
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -437,7 +502,7 @@ export default function AdminPage() {
                     </div>
                 </header>
 
-                {activeTab === 'submissions' ? (
+                {activeTab === 'submissions' && (
                     <div className="space-y-12">
                         {/* Stats Grid */}
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -500,7 +565,9 @@ export default function AdminPage() {
                             </div>
                         </div>
                     </div>
-                ) : (
+                )}
+
+                {activeTab === 'colleges' && (
                     <div className="space-y-8">
                         {/* Advanced Filters */}
                         <div className="flex flex-wrap gap-4 items-center bg-white/2 p-6 rounded-3xl border border-white/5">
@@ -648,6 +715,158 @@ export default function AdminPage() {
                                         })}
                                     </tbody>
                                 </table>
+                            </div>
+                        </div>
+                    </div>
+                )}
+
+                {/* --- SIMULATOR CONTROL TAB --- */}
+                {activeTab === 'simulator' && (
+                    <div className="space-y-8 pb-20">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            {/* Round Control Card */}
+                            <div className="bg-[#0a0a0b] border border-white/10 rounded-3xl p-8 space-y-6">
+                                <div className="flex items-center gap-4">
+                                    <div className="p-3 bg-blue-500/20 rounded-2xl"><RefreshCw className="w-6 h-6 text-blue-500" /></div>
+                                    <div>
+                                        <h3 className="text-xl font-bold">Round Management</h3>
+                                        <p className="text-xs text-muted-foreground">Select the active counseling phase.</p>
+                                    </div>
+                                </div>
+
+                                <div className="space-y-4">
+                                    <div className="grid grid-cols-3 gap-3">
+                                        {[1, 2, 3].map((r) => (
+                                            <button
+                                                key={r}
+                                                onClick={() => setSimConfig({ ...simConfig, currentRound: r })}
+                                                className={cn(
+                                                    "py-4 rounded-xl border font-black transition-all",
+                                                    simConfig.currentRound === r 
+                                                    ? "bg-blue-600 border-blue-400 text-white shadow-lg shadow-blue-500/20" 
+                                                    : "bg-white/5 border-white/10 text-gray-400 hover:bg-white/10"
+                                                )}
+                                            >
+                                                Round {r}
+                                            </button>
+                                        ))}
+                                    </div>
+                                    <div className="p-4 bg-amber-500/10 border border-amber-500/20 rounded-xl flex items-start gap-3">
+                                        <AlertCircle className="w-4 h-4 text-amber-500 mt-0.5" />
+                                        <p className="text-[10px] text-amber-200/60 leading-relaxed font-bold uppercase tracking-wider">
+                                            Warning: Changing the round will instantly update the interface for all active students. Ensure results for the current round are processed.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Results & Scheduling Card */}
+                            <div className="bg-[#0a0a0b] border border-white/10 rounded-3xl p-8 space-y-6">
+                                <div className="flex items-center gap-4">
+                                    <div className="p-3 bg-emerald-500/20 rounded-2xl"><Clock className="w-6 h-6 text-emerald-500" /></div>
+                                    <div>
+                                        <h3 className="text-xl font-bold">Results & Scheduling</h3>
+                                        <p className="text-xs text-muted-foreground">Automate result release times.</p>
+                                    </div>
+                                </div>
+
+                                <div className="space-y-5">
+                                    <div className="space-y-2">
+                                        <label className="text-[10px] font-black text-gray-500 uppercase tracking-widest">Mock Results Release Date</label>
+                                        <input 
+                                            type="datetime-local" 
+                                            value={simConfig.resultsReleaseDate}
+                                            onChange={(e) => setSimConfig({ ...simConfig, resultsReleaseDate: e.target.value })}
+                                            className="w-full bg-white/5 border border-white/10 rounded-xl p-4 text-sm focus:outline-none focus:border-blue-500 transition-all"
+                                        />
+                                    </div>
+                                    <div className="space-y-2">
+                                        <label className="text-[10px] font-black text-gray-500 uppercase tracking-widest">Next Round Start Date</label>
+                                        <input 
+                                            type="datetime-local" 
+                                            value={simConfig.nextRoundStartDate}
+                                            onChange={(e) => setSimConfig({ ...simConfig, nextRoundStartDate: e.target.value })}
+                                            className="w-full bg-white/5 border border-white/10 rounded-xl p-4 text-sm focus:outline-none focus:border-blue-500 transition-all"
+                                        />
+                                    </div>
+                                    <div className="flex items-center justify-between p-4 bg-white/5 border border-white/10 rounded-xl">
+                                        <div className="space-y-1">
+                                            <p className="text-xs font-bold uppercase">Results Live Status</p>
+                                            <p className="text-[9px] text-gray-400 font-medium">Toggle manual override for results.</p>
+                                        </div>
+                                        <button 
+                                            onClick={() => setSimConfig({ ...simConfig, isResultsLive: !simConfig.isResultsLive })}
+                                            className={cn(
+                                                "px-4 py-2 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all",
+                                                simConfig.isResultsLive 
+                                                ? "bg-emerald-500 text-black" 
+                                                : "bg-rose-500 text-white"
+                                            )}
+                                        >
+                                            {simConfig.isResultsLive ? 'Live' : 'Hidden'}
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Save Action Bar */}
+                        <div className="flex flex-col gap-6">
+                            <div className="p-8 bg-white/5 border border-rose-500/20 rounded-3xl space-y-6">
+                                <div className="flex items-center gap-4">
+                                    <div className="p-3 bg-rose-500/20 rounded-2xl"><RotateCcw className="w-6 h-6 text-rose-500" /></div>
+                                    <div>
+                                        <h3 className="text-xl font-bold text-rose-400 uppercase tracking-tight">Emergency Reset</h3>
+                                        <p className="text-[10px] font-black text-rose-500 uppercase tracking-widest">Danger Zone :: Season End Only</p>
+                                    </div>
+                                </div>
+                                <p className="text-xs text-rose-200/50 leading-relaxed max-w-xl">
+                                    Resetting will restore the simulator to Round 1 (Hidden). Use this only to clear experimental data or at the start of a new counseling session.
+                                </p>
+                                <button 
+                                    onClick={handleResetSimulator}
+                                    className="bg-rose-500/10 border border-rose-500/30 text-rose-500 hover:bg-rose-500 hover:text-white px-8 py-3 rounded-xl font-black text-[10px] uppercase tracking-widest transition-all active:scale-95 flex items-center gap-3"
+                                >
+                                    <Trash2 className="w-4 h-4" />
+                                    Purge Simulator Config
+                                </button>
+                            </div>
+
+                            <div className="bg-[#0a0a0b] border border-white/10 rounded-3xl p-6 flex items-center justify-between shadow-2xl shadow-blue-500/10">
+                                <div className="flex items-center gap-4">
+                                    <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse" />
+                                    <span className="text-xs font-bold text-gray-300 uppercase tracking-widest">Global Simulation Controller</span>
+                                </div>
+                                <button 
+                                    onClick={handleSaveSimConfig}
+                                    disabled={isSavingSim}
+                                    className="bg-white text-black px-10 py-4 rounded-xl font-black text-xs uppercase tracking-widest hover:scale-105 transition-all active:scale-95 disabled:opacity-50 flex items-center gap-3"
+                                >
+                                    {isSavingSim ? <RefreshCw className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
+                                    Sync Config to Cloud
+                                </button>
+                            </div>
+                        </div>
+
+                        {/* Quick Stats Grid */}
+                        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                            <div className="p-6 bg-white/5 border border-white/10 rounded-2xl space-y-2">
+                                <span className="text-[10px] font-black text-gray-500 uppercase">Active Round</span>
+                                <p className="text-2xl font-black">R{simConfig.currentRound}</p>
+                            </div>
+                            <div className="p-6 bg-white/5 border border-white/10 rounded-2xl space-y-2">
+                                <span className="text-[10px] font-black text-gray-500 uppercase">Results State</span>
+                                <p className={cn("text-2xl font-black", simConfig.isResultsLive ? "text-emerald-500" : "text-rose-500")}>
+                                    {simConfig.isResultsLive ? "LIVE" : "PENDING"}
+                                </p>
+                            </div>
+                            <div className="p-6 bg-white/5 border border-white/10 rounded-2xl space-y-2">
+                                <span className="text-[10px] font-black text-gray-500 uppercase">Total Candidates</span>
+                                <p className="text-2xl font-black">{profiles.length}</p>
+                            </div>
+                            <div className="p-6 bg-white/5 border border-white/10 rounded-2xl space-y-2">
+                                <span className="text-[10px] font-black text-gray-500 uppercase">Next Round Start</span>
+                                <p className="text-sm font-bold text-blue-400">June 20, 2025</p>
                             </div>
                         </div>
                     </div>

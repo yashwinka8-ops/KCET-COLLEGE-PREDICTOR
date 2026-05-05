@@ -20,7 +20,9 @@ import {
   Link as LinkIcon,
   BookOpen,
   Trophy,
-  AlertTriangle
+  AlertTriangle,
+  Eye,
+  EyeOff
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { College, Branch, CollegeBranch, CutoffData, Category, Round } from '@/lib/types';
@@ -86,7 +88,10 @@ const CollegeDetailsModal = ({
                                     <Building2 className="w-6 h-6 md:w-8 md:h-8 text-primary" />
                                 </div>
                                 <div className="pr-2 md:pr-0">
-                                    <h2 className="text-xl md:text-3xl font-bold mb-2 leading-tight">{college.full_name}</h2>
+                                    <div className="flex items-center gap-2 mb-2">
+                                        <span className="bg-primary/20 text-primary text-[10px] font-black px-2 py-0.5 rounded border border-primary/30 uppercase tracking-widest">{college.college_id}</span>
+                                        <span className="text-white/40 text-[10px] font-bold uppercase tracking-widest">Institutional Profile</span>
+                                    </div>
                                     <div className="flex flex-wrap gap-2 md:gap-4 text-xs md:text-sm text-muted-foreground">
                                         <div className="flex items-center gap-1.5">
                                             <MapPin className="w-3 h-3 md:w-4 md:h-4 shrink-0" />
@@ -267,6 +272,7 @@ export default function CutoffsExplorer() {
   const [filterCity, setFilterCity] = useState('All');
   const [selectedCollege, setSelectedCollege] = useState<College | null>(null);
   const [visibleCount, setVisibleCount] = useState(100);
+  const [hideNames, setHideNames] = useState(false);
   
   const cities = useMemo(() => ['All', ...new Set(colleges.map(c => c.city))], [colleges]);
   
@@ -326,23 +332,33 @@ export default function CutoffsExplorer() {
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground group-focus-within:text-primary transition-colors" />
             <input 
               type="text" 
-              placeholder="Search by college name or location..." 
-              className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 pl-12 pr-4 focus:outline-none focus:border-primary/50 transition-all text-lg"
+              placeholder="Search by name..." 
+              className="w-full bg-white/5 border border-white/10 rounded-2xl py-3.5 md:py-4 pl-12 pr-4 focus:outline-none focus:border-primary/50 transition-all text-sm md:text-lg"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
             />
           </div>
-          <div className="flex gap-4">
-             <div className="relative">
+          <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
+             <div className="relative flex-1 sm:flex-none">
                 <select 
-                  className="bg-white/5 border border-white/10 rounded-2xl py-4 px-6 appearance-none focus:outline-none focus:border-primary/50 cursor-pointer min-w-[160px] text-foreground"
+                  className="w-full sm:min-w-[140px] bg-white/5 border border-white/10 rounded-2xl py-3.5 md:py-4 px-5 appearance-none focus:outline-none focus:border-primary/50 cursor-pointer text-sm md:text-base text-foreground"
                   value={filterCity}
                   onChange={(e) => setFilterCity(e.target.value)}
                 >
                   {cities.map(city => <option key={city} value={city} className="bg-background text-foreground">{city}</option>)}
                 </select>
-                <Filter className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
+                <Filter className="absolute right-4 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted-foreground pointer-events-none" />
              </div>
+             <button 
+                onClick={() => setHideNames(!hideNames)}
+                className={cn(
+                    "flex-1 sm:flex-none flex items-center justify-center gap-2 px-6 py-3.5 md:py-4 rounded-2xl border transition-all font-bold text-xs md:text-sm whitespace-nowrap",
+                    hideNames ? "bg-primary/20 border-primary/50 text-primary" : "bg-white/5 border-white/10 text-muted-foreground hover:border-white/30"
+                )}
+             >
+                {hideNames ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                {hideNames ? "Names Hidden" : "Hide Names"}
+             </button>
           </div>
         </div>
 
@@ -391,7 +407,12 @@ export default function CutoffsExplorer() {
                    </div>
                    
                    <h3 className="text-xl font-bold mb-2 leading-tight group-hover:text-primary transition-colors min-h-[3.5rem] line-clamp-2">
-                      {college.full_name}
+                      {hideNames ? (
+                          <div className="flex items-center gap-2">
+                              <span className="bg-primary/10 text-primary text-[10px] font-black px-2 py-0.5 rounded border border-primary/20 uppercase tracking-widest">{college.college_id}</span>
+                              <span className="text-muted-foreground/40 text-xs italic font-medium">Name Hidden</span>
+                          </div>
+                      ) : college.full_name}
                    </h3>
                    
                    <div className="flex items-center gap-2 text-sm text-muted-foreground mb-8">

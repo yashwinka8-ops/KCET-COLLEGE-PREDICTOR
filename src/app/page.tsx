@@ -11,7 +11,10 @@ import {
   BarChart3, 
   ShieldCheck, 
   Smartphone,
-  Target
+  Target,
+  User as UserIcon,
+  Monitor,
+  Clock
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -114,6 +117,24 @@ export default function LandingPage() {
               <div className="w-px h-16 bg-linear-to-b from-orange-500/60 to-transparent mt-8 relative z-10" />
             </motion.div>
 
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.5 }}
+              className="mb-8"
+            >
+              <Link href="/simulator" className="group relative inline-flex items-center gap-3 bg-white/5 border border-white/10 hover:border-primary/50 px-4 py-2 rounded-full transition-all hover:bg-white/10">
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 rounded-full bg-primary animate-ping" />
+                  <span className="text-[10px] font-black uppercase tracking-widest text-white/80">Counseling Simulator 2025</span>
+                </div>
+                <div className="w-px h-3 bg-white/20" />
+                <span className="text-[9px] font-bold text-primary group-hover:translate-x-0.5 transition-transform flex items-center gap-1">
+                  Try Now <ArrowRight className="w-2.5 h-2.5" />
+                </span>
+              </Link>
+            </motion.div>
+
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -132,36 +153,32 @@ export default function LandingPage() {
               Predict your engineering college instantly with 2025 official data and high-fidelity counseling analytics.
             </motion.p>
 
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-              className="text-lg md:text-xl text-muted-foreground mb-12 max-w-2xl mx-auto leading-relaxed"
-            >
-              Accurate college predictions using previous KCET cutoff trends and smart analytics. Plan your counseling with confidence.
-            </motion.p>
-
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto"
+              className="flex flex-wrap items-center justify-center gap-4 w-full sm:w-auto"
             >
-              <Link href="/rank-predictor" className="w-full sm:w-auto group relative">
-                <div className="absolute -top-3 -right-2 bg-primary text-[8px] font-black px-2 py-0.5 rounded-full z-20 shadow-xl border border-white/20 animate-bounce">AI PRO</div>
-                <button className="w-full sm:w-auto bg-white/5 border border-primary/30 text-white px-8 py-4 rounded-2xl font-bold text-lg flex items-center justify-center gap-2 transition-all hover:bg-primary hover:scale-105 hover:shadow-2xl hover:shadow-primary/40 active:scale-95 group/btn">
-                  Predict Your Rank
-                  <Zap className="w-4 h-4 text-primary group-hover/btn:text-white transition-colors" />
-                </button>
-              </Link>
               <Link href="/predictor" className="w-full sm:w-auto">
                 <button className="w-full sm:w-auto bg-primary text-white px-8 py-4 rounded-2xl font-bold text-lg flex items-center justify-center gap-2 transition-all hover:scale-105 hover:shadow-2xl hover:shadow-primary/40 active:scale-95 group">
                   Predict Colleges
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </button>
               </Link>
+              <Link href="/simulator" className="w-full sm:w-auto">
+                <button className="w-full sm:w-auto glass text-white px-8 py-4 rounded-2xl font-bold text-lg flex items-center justify-center gap-2 transition-all hover:bg-white/10 hover:scale-105 active:scale-95 group">
+                  <Monitor className="w-5 h-5 text-primary" />
+                  Counseling Simulator
+                </button>
+              </Link>
+              <Link href="/rank-predictor" className="w-full sm:w-auto group relative">
+                <button className="w-full sm:w-auto bg-white/5 border border-white/10 text-white px-6 py-4 rounded-2xl font-bold text-sm flex items-center justify-center gap-2 transition-all hover:border-primary/50 hover:scale-105 active:scale-95 group/btn">
+                  Rank Predictor
+                  <Zap className="w-4 h-4 text-primary group-hover/btn:text-white transition-colors" />
+                </button>
+              </Link>
               <Link href="/cutoffs" className="w-full sm:w-auto">
-                <button className="w-full sm:w-auto glass text-white px-8 py-4 rounded-2xl font-bold text-lg transition-all hover:bg-white/10 hover:scale-105 active:scale-95">
+                <button className="w-full sm:w-auto glass text-white px-8 py-4 rounded-2xl font-bold text-sm transition-all hover:bg-white/10 hover:scale-105 active:scale-95">
                   Explore Cutoffs
                 </button>
               </Link>
@@ -228,54 +245,147 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Interactive Preview Section */}
-      <section className="py-24 relative overflow-hidden">
-         <div className="container mx-auto px-6">
-            <div className="glass-card max-w-5xl mx-auto p-12 flex flex-col lg:flex-row items-center gap-12 border border-primary/20">
-              <div className="flex-1">
-                <h2 className="text-4xl font-bold mb-6 text-gradient">Realistic Simulator</h2>
-                <p className="text-muted-foreground mb-8 text-lg">Experience the power of our prediction engine. Enter your rank and see how the platform categorizes colleges into Dream, Moderate, and Safe zones.</p>
-                <Link href="/predictor">
-                  <button className="bg-primary/20 hover:bg-primary/30 text-primary border border-primary/40 px-6 py-3 rounded-xl font-bold transition-all hover:scale-105">
-                    Try Live Predictor
-                  </button>
-                </Link>
+      {/* Premium Simulator Showcase */}
+      <section className="py-32 relative overflow-hidden">
+        {/* Background Decorative Elements */}
+        <div className="absolute top-1/2 left-0 -translate-y-1/2 w-[500px] h-[500px] bg-primary/10 rounded-full blur-[120px] -z-10" />
+        
+        <div className="container mx-auto px-6">
+          <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
+            {/* Visual Side (Mock Interface Preview) */}
+            <motion.div 
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="flex-1 w-full relative"
+            >
+              <div className="relative group">
+                <div className="absolute -inset-1 bg-linear-to-r from-primary to-rose-500 rounded-[2.5rem] blur opacity-20 group-hover:opacity-40 transition duration-1000 group-hover:duration-200" />
+                <div className="relative bg-zinc-950 border border-white/10 rounded-[2rem] overflow-hidden shadow-2xl">
+                  {/* Mock Portal Header */}
+                  <div className="bg-[#E9ECEF] p-4 flex items-center justify-between border-b border-gray-300">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-white rounded shadow-sm flex items-center justify-center p-1">
+                        <img src="https://www.crustindia.com/wp-content/uploads/2019/06/KEA-Logo.png" className="h-full object-contain" />
+                      </div>
+                      <div className="hidden sm:block">
+                        <p className="text-[8px] font-black text-gray-800 uppercase leading-none">Government of Karnataka</p>
+                        <p className="text-[10px] font-bold text-[#00529B] leading-tight">Common Entrance Test 2025</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-4">
+                      <div className="h-8 w-px bg-gray-300" />
+                      <div className="w-8 h-8 rounded-full bg-blue-100 border border-blue-200 flex items-center justify-center">
+                        <UserIcon className="w-4 h-4 text-[#00529B]" />
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Mock Content */}
+                  <div className="p-8 space-y-6">
+                    <div className="flex items-center justify-between">
+                      <h4 className="text-sm font-black text-white/90 uppercase tracking-widest">Mock Allotment Status</h4>
+                      <div className="bg-emerald-500/20 text-emerald-500 px-3 py-1 rounded-full text-[8px] font-black border border-emerald-500/30 animate-pulse">LIVE SYSTEM</div>
+                    </div>
+                    
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="bg-white/5 border border-white/10 p-4 rounded-2xl space-y-2">
+                        <p className="text-[8px] font-bold text-muted-foreground uppercase">College Allotted</p>
+                        <p className="text-xs font-black text-primary">RV College of Engineering</p>
+                      </div>
+                      <div className="bg-white/5 border border-white/10 p-4 rounded-2xl space-y-2">
+                        <p className="text-[8px] font-bold text-muted-foreground uppercase">Course Name</p>
+                        <p className="text-xs font-black text-white">Computer Science (CSE)</p>
+                      </div>
+                    </div>
+                    
+                    <div className="p-4 bg-primary/10 border border-primary/20 rounded-2xl flex items-center justify-between group/row cursor-default">
+                      <div className="flex items-center gap-3">
+                         <div className="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center border border-primary/30">
+                            <Monitor className="w-4 h-4 text-primary" />
+                         </div>
+                         <p className="text-[10px] font-bold text-white">Enter Round 1 Option Entry</p>
+                      </div>
+                      <ArrowRight className="w-3 h-3 text-primary group-hover:translate-x-1 transition-transform" />
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Floating Elements */}
+                <motion.div 
+                  animate={{ y: [0, -10, 0] }}
+                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                  className="absolute -top-6 -right-6 bg-white p-4 rounded-2xl shadow-2xl border border-gray-100 flex items-center gap-3 z-20"
+                >
+                  <div className="w-10 h-10 bg-emerald-50 rounded-xl flex items-center justify-center">
+                    <ShieldCheck className="w-6 h-6 text-emerald-500" />
+                  </div>
+                  <div>
+                    <p className="text-[8px] font-black text-gray-400 uppercase tracking-tighter">System Fidelity</p>
+                    <p className="text-xs font-bold text-gray-800">100% KEA Logic</p>
+                  </div>
+                </motion.div>
               </div>
-              <div className="flex-1 w-full relative">
-                <div className="glass p-8 rounded-2xl border-white/10 relative overflow-hidden group">
-                   <div className="absolute inset-0 bg-linear-to-tr from-primary/5 to-transparent pointer-events-none" />
-                   <div className="flex flex-col gap-6">
-                      <div className="space-y-2">
-                        <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Your KCET Rank</label>
-                        <div className="h-12 glass rounded-xl border-white/10 flex items-center px-4 text-xl font-mono text-primary group-hover:border-primary/50 transition-colors">
-                          1248
-                        </div>
-                      </div>
-                      <div className="grid grid-cols-2 gap-4">
-                        <div className="h-20 glass rounded-xl border-white/10 flex flex-col justify-center items-center text-center p-2">
-                           <div className="text-[10px] uppercase font-bold text-muted-foreground mb-1">Category</div>
-                           <div className="font-semibold">General</div>
-                        </div>
-                        <div className="h-20 glass rounded-xl border-white/10 flex flex-col justify-center items-center text-center p-2">
-                           <div className="text-[10px] uppercase font-bold text-muted-foreground mb-1">Round</div>
-                           <div className="font-semibold">Round 1</div>
-                        </div>
-                      </div>
-                      <div className="h-32 glass rounded-xl border-primary/30 flex flex-col justify-center items-center relative overflow-hidden">
-                        <div className="absolute top-0 left-0 w-full h-1 bg-primary/20">
-                          <motion.div 
-                            className="h-full bg-primary"
-                            animate={{ width: ["0%", "100%", "0%"] }}
-                            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                          />
-                        </div>
-                        <span className="text-sm font-semibold animate-pulse">Calculating Predictions...</span>
-                      </div>
-                   </div>
+            </motion.div>
+
+            {/* Text Side */}
+            <motion.div 
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="flex-1 space-y-8"
+            >
+              <div className="inline-flex items-center gap-2 bg-primary/10 border border-primary/20 px-3 py-1.5 rounded-full">
+                <Sparkles className="w-3.5 h-3.5 text-primary" />
+                <span className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">Advanced Training Tool</span>
+              </div>
+              
+              <div className="space-y-4">
+                <h2 className="text-4xl md:text-5xl font-black tracking-tight leading-tight">
+                  Master the KEA Portal <br />
+                  <span className="text-primary">Before Results Day.</span>
+                </h2>
+                <p className="text-lg text-muted-foreground leading-relaxed">
+                  Don't risk mistakes during the real counseling window. Our high-fidelity simulator lets you practice option entry and experience mock allotments in a risk-free environment.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div className="flex items-start gap-4">
+                  <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center shrink-0 border border-white/10">
+                    <Target className="w-5 h-5 text-rose-500" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold mb-1">Option Entry Prep</h4>
+                    <p className="text-xs text-muted-foreground leading-relaxed">Practice adding, deleting, and re-ordering colleges exactly like the official portal.</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4">
+                  <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center shrink-0 border border-white/10">
+                    <ShieldCheck className="w-5 h-5 text-emerald-400" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold mb-1">Choice-1/2/3/4 Logic</h4>
+                    <p className="text-xs text-muted-foreground leading-relaxed">Understand the complex "Accept & Upgrade" flows with real-time feedback.</p>
+                  </div>
                 </div>
               </div>
-            </div>
-         </div>
+
+              <div className="pt-4">
+                <Link href="/simulator">
+                  <button className="bg-white text-black px-8 py-4 rounded-2xl font-black text-xs uppercase tracking-[0.2em] flex items-center gap-3 hover:bg-primary hover:text-white transition-all shadow-2xl hover:scale-105 active:scale-95 group">
+                    Launch KCET Simulator
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </button>
+                </Link>
+                <p className="mt-4 text-[10px] text-muted-foreground font-medium flex items-center gap-2">
+                  <span className="w-1 h-1 rounded-full bg-emerald-500 animate-pulse" />
+                  Free for all KCET 2025 Aspirants
+                </p>
+              </div>
+            </motion.div>
+          </div>
+        </div>
       </section>
 
       {/* Main Global Footer is handled by layout.tsx */}

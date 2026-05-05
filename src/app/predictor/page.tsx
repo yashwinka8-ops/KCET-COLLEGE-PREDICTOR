@@ -31,10 +31,14 @@ import {
   Phone,
   BookOpen,
   Image as ImageIcon,
-  AlertTriangle
+  FileDown,
+  AlertTriangle,
+  ArrowUpRight,
+  ChevronUp
 } from 'lucide-react';
+import { exportPredictorToPDF } from '@/lib/utils/pdf-export';
 import { cn } from '@/lib/utils';
-import { PredictorInput, Category, Gender, Round, PredictionResult, College, CutoffData, Branch } from '@/lib/types';
+import { PredictorInput, Category, Gender, Round, PredictionResult, College, CutoffData, Branch, GroupedResult } from '@/lib/types';
 import { 
   predictColleges, 
   CATEGORIES, 
@@ -61,11 +65,6 @@ const branchesList = (collegesUnifiedRaw as any).branches as Branch[];
 const collegesUnified = (collegesUnifiedRaw as any).colleges as any[];
 const branches = (collegesUnifiedRaw as any).branches as Branch[];
 const TOP_GEMS = (intelligenceData as any).top_gems as any[];
-
-interface GroupedResult {
-    college: College;
-    branches: PredictionResult[];
-}
 
 const MultiSelectDropdown = ({ 
     label, 
@@ -182,11 +181,6 @@ const MultiSelectDropdown = ({
 
 const REGIONS = Array.from(new Set(collegesUnified.map(c => c.region))).filter(r => r !== 'Other').sort();
 
-interface GroupedResult {
-    college: College;
-    branches: PredictionResult[];
-}
-
 const CollegeDetailsModal = ({ 
     isOpen, 
     onClose, 
@@ -197,19 +191,29 @@ const CollegeDetailsModal = ({
     college: College | null 
 }) => {
     const [selectedCategory, setSelectedCategory] = useState<Category>('GM');
+    const [branchSearch, setBranchSearch] = useState("");
+    const [showMetrics, setShowMetrics] = useState(true);
+    const [showHeader, setShowHeader] = useState(true);
     
     if (!isOpen || !college) return null;
 
     // Get college data from unified source
     const unifiedCollege = collegesUnified.find(c => c.college_id === college.college_id);
-    const branchData = unifiedCollege?.kcet_cutoffs
+    const branchData = (unifiedCollege?.kcet_cutoffs || [])
         .filter((co: any) => co.category === selectedCategory)
-        .map((co: any) => ({
-            branch: branchesList.find(b => b.branch_id === co.branch_id) || { branch_name: co.branch_id, branch_id: co.branch_id },
-            r1: co.r1 || 'N/A',
-            r2: co.r2 || 'N/A',
-            r3: co.r3 || 'N/A',
-        })) || [];
+        .map((co: any) => {
+            const branch = branchesList.find(b => b.branch_id === co.branch_id) || { branch_name: co.branch_id, branch_id: co.branch_id };
+            return {
+                branch,
+                r1: co.r1 || 'N/A',
+                r2: co.r2 || 'N/A',
+                r3: co.r3 || 'N/A',
+            };
+        })
+        .filter((row: any) => 
+            row.branch.branch_name.toLowerCase().includes(branchSearch.toLowerCase()) ||
+            row.branch.branch_id.toLowerCase().includes(branchSearch.toLowerCase())
+        );
 
     return (
         <AnimatePresence>
@@ -221,12 +225,12 @@ const CollegeDetailsModal = ({
                     onClick={onClose}
                     className="absolute inset-0 bg-black/90 backdrop-blur-md" 
                 />
-                <motion.div 
-                    initial={{ opacity: 0, scale: 0.95, y: 20 }}
-                    animate={{ opacity: 1, scale: 1, y: 0 }}
-                    exit={{ opacity: 0, scale: 0.95, y: 20 }}
-                    className="relative w-full max-w-5xl max-h-[90vh] bg-zinc-950 border border-white/10 rounded-3xl shadow-2xl overflow-hidden z-10 flex flex-col"
-                >
+                    <motion.div 
+                        initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                        animate={{ opacity: 1, scale: 1, y: 0 }}
+                        exit={{ opacity: 0, scale: 0.95, y: 20 }}
+                        className="relative w-full max-w-5xl max-h-[95vh] bg-zinc-950 border border-white/10 rounded-3xl shadow-2xl overflow-hidden z-10 flex flex-col mx-2 sm:mx-0"
+                    >
                     {/* Hero Image Section */}
                     {college.image_url && (
                         <div className="relative h-48 md:h-64 w-full overflow-hidden">
@@ -241,39 +245,37 @@ const CollegeDetailsModal = ({
 
                     {/* Header */}
                     <div className={cn(
-                        "p-6 md:p-8 border-b border-white/5 bg-white/2",
-                        college.image_url && "-mt-20 relative z-10 bg-transparent border-none"
+                        "p-5 md:p-8 border-b border-white/5 bg-white/2",
+                        college.image_url && "md:-mt-20 relative z-10 bg-zinc-950 md:bg-transparent border-none pt-6 md:pt-0"
                     )}>
                         <div className="flex justify-between items-start mb-6">
                             <div className="flex gap-5">
-                                <div className="w-16 h-16 rounded-2xl bg-primary/20 flex items-center justify-center border border-primary/30 shrink-0 shadow-2xl">
-                                    <Building2 className="w-8 h-8 text-primary" />
+                                <div className="w-12 h-12 md:w-16 md:h-16 rounded-2xl bg-primary/20 flex items-center justify-center border border-primary/30 shrink-0 shadow-2xl">
+                                    <Building2 className="w-6 h-6 md:w-8 md:h-8 text-primary" />
                                 </div>
-                                <div>
-                                    <h2 className="text-3xl font-bold mb-2 drop-shadow-lg">{college.full_name}</h2>
-                                    <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
+                                <div className="min-w-0">
+                                    <div className="flex items-center gap-2 mb-2">
+                                        <span className="bg-primary/20 text-primary text-[10px] font-black px-2 py-0.5 rounded border border-primary/30 uppercase tracking-widest">{college.college_id}</span>
+                                        <span className="text-white/40 text-[10px] font-bold uppercase tracking-widest">Institutional Profile</span>
+                                    </div>
+                                    <div className="flex flex-wrap gap-x-4 gap-y-2 text-[10px] md:text-sm text-muted-foreground font-medium">
                                         <div className="flex items-center gap-1.5">
-                                            <MapPin className="w-4 h-4" />
-                                            {college.city}, {college.region}
+                                            <MapPin className="w-3.5 h-3.5 md:w-4 md:h-4" />
+                                            {college.city}
                                         </div>
                                         <div className="flex items-center gap-1.5">
                                             <TrophyIcon className={cn(
-                                                "w-4 h-4 shrink-0",
+                                                "w-3.5 h-3.5 md:w-4 md:h-4 shrink-0",
                                                 college.tier === "Tier 1" ? "text-amber-400" : 
                                                 college.tier === "Tier 1.5" ? "text-blue-400" : 
                                                 college.tier === "Tier 2" ? "text-emerald-400" : "text-zinc-400"
                                             )} />
                                             <span className="font-bold">{college.tier || "Tier 3"}</span>
-                                            {college.rating && (
-                                                <span className="bg-white/10 px-1.5 py-0.5 rounded text-[10px] font-black text-amber-400">
-                                                    {college.rating}
-                                                </span>
-                                            )}
                                         </div>
                                         {college.website && (
                                             <a href={`https://${college.website}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-primary hover:underline">
-                                                <LinkIcon className="w-4 h-4" />
-                                                {college.website}
+                                                <LinkIcon className="w-3.5 h-3.5 md:w-4 md:h-4" />
+                                                <span className="truncate max-w-[120px]">{college.website}</span>
                                             </a>
                                         )}
                                     </div>
@@ -284,30 +286,51 @@ const CollegeDetailsModal = ({
                             </button>
                         </div>
 
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                            <div className="bg-white/5 rounded-2xl p-4 border border-white/5">
-                                <div className="text-[10px] uppercase font-bold text-muted-foreground mb-1">Avg Package (Overall)*</div>
-                                <div className="text-xl font-bold text-primary">
-                                    {typeof college.avg_package === 'number' ? `${college.avg_package} LPA` : college.avg_package}
-                                </div>
-                            </div>
-                            <div className="bg-white/5 rounded-2xl p-4 border border-white/5">
-                                <div className="text-[10px] uppercase font-bold text-muted-foreground mb-1">Highest Package</div>
-                                <div className="text-xl font-bold text-rose-400">
-                                    {typeof college.highest_package === 'number' ? `${college.highest_package} LPA` : college.highest_package}
-                                </div>
-                            </div>
-                            <div className="bg-white/5 rounded-2xl p-4 border border-white/5">
-                                <div className="text-[10px] uppercase font-bold text-muted-foreground mb-1">College Fees</div>
-                                <div className="text-xl font-bold text-emerald-400">
-                                    {typeof college.fees === 'number' ? `₹${(college.fees/1000).toFixed(0)}k/yr` : college.fees}
-                                </div>
-                            </div>
-                            <div className="bg-white/5 rounded-2xl p-4 border border-white/5">
-                                <div className="text-[10px] uppercase font-bold text-muted-foreground mb-1">Type</div>
-                                <div className="text-xl font-bold text-amber-400">{college.college_type}</div>
-                            </div>
+                        <div className="flex items-center justify-between mb-4">
+                            <button 
+                                onClick={() => setShowMetrics(!showMetrics)}
+                                className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-muted-foreground hover:text-white transition-colors"
+                            >
+                                {showMetrics ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />}
+                                {showMetrics ? "Hide Institutional Details" : "Show Institutional Details"}
+                            </button>
                         </div>
+
+                        <AnimatePresence>
+                            {showMetrics && (
+                                <motion.div 
+                                    initial={{ height: 0, opacity: 0 }}
+                                    animate={{ height: 'auto', opacity: 1 }}
+                                    exit={{ height: 0, opacity: 0 }}
+                                    className="overflow-hidden"
+                                >
+                                    <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 mb-6">
+                                        <div className="bg-white/5 rounded-xl md:rounded-2xl p-3 md:p-4 border border-white/5">
+                                            <div className="text-[8px] md:text-[10px] uppercase font-black tracking-widest text-muted-foreground mb-1">Avg PKG*</div>
+                                            <div className="text-sm md:text-xl font-bold text-primary truncate">
+                                                {typeof college.avg_package === 'number' ? `₹${college.avg_package} LPA` : college.avg_package}
+                                            </div>
+                                        </div>
+                                        <div className="bg-white/5 rounded-xl md:rounded-2xl p-3 md:p-4 border border-white/5">
+                                            <div className="text-[8px] md:text-[10px] uppercase font-black tracking-widest text-muted-foreground mb-1">Highest PKG</div>
+                                            <div className="text-sm md:text-xl font-bold text-rose-400 truncate">
+                                                {typeof college.highest_package === 'number' ? `₹${college.highest_package} LPA` : college.highest_package}
+                                            </div>
+                                        </div>
+                                        <div className="bg-white/5 rounded-xl md:rounded-2xl p-3 md:p-4 border border-white/5">
+                                            <div className="text-[8px] md:text-[10px] uppercase font-black tracking-widest text-muted-foreground mb-1">Fees</div>
+                                            <div className="text-sm md:text-xl font-bold text-emerald-400 truncate">
+                                                {typeof college.fees === 'number' ? `₹${(college.fees/1000).toFixed(0)}k/yr` : college.fees}
+                                            </div>
+                                        </div>
+                                        <div className="bg-white/5 rounded-xl md:rounded-2xl p-3 md:p-4 border border-white/5">
+                                            <div className="text-[8px] md:text-[10px] uppercase font-black tracking-widest text-muted-foreground mb-1">Type</div>
+                                            <div className="text-sm md:text-xl font-bold text-amber-400 truncate">{college.college_type}</div>
+                                        </div>
+                                    </div>
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
 
                         {college.tier === "Tier 3" && (
                             <div className="mt-4 p-3 bg-rose-500/10 border border-rose-500/20 rounded-xl flex items-start gap-3">
@@ -326,29 +349,69 @@ const CollegeDetailsModal = ({
 
                     {/* Content */}
                     <div className="flex-1 overflow-y-auto p-6 md:p-8">
-                        <div className="flex flex-col md:flex-row justify-between items-center gap-4 mb-8">
-                            <div>
-                                <h3 className="text-xl font-bold flex items-center gap-2">
-                                    <BarChart className="w-5 h-5 text-primary" />
-                                    Cutoff Intelligence (2024)
+                        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
+                            <div className="flex-1 min-w-0">
+                                <h3 className="text-lg md:text-xl font-bold flex items-center gap-2 mb-1">
+                                    <BarChart className="w-4 h-4 md:w-5 md:h-5 text-primary" />
+                                    Cutoff Intelligence
                                 </h3>
-                                <p className="text-sm text-muted-foreground">Select category to view round-wise closing ranks</p>
+                                <div className="flex items-center gap-2">
+                                    <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                                    <p className="text-[10px] md:text-sm text-muted-foreground font-medium uppercase tracking-widest">Official 2024 Final Ranks</p>
+                                </div>
                             </div>
-                            <div className="flex items-center gap-3 bg-white/5 p-1.5 rounded-xl border border-white/10">
-                                <span className="text-xs font-bold text-muted-foreground ml-2">Category:</span>
-                                <select 
-                                    className="bg-zinc-800 border border-white/10 rounded-lg py-1.5 px-3 text-xs font-bold focus:outline-none focus:border-primary transition-all cursor-pointer"
-                                    value={selectedCategory}
-                                    onChange={(e) => setSelectedCategory(e.target.value as Category)}
-                                >
-                                    {CATEGORIES.map(cat => (
-                                        <option key={cat} value={cat}>{cat}</option>
-                                    ))}
-                                </select>
+                            
+                            <div className="flex flex-wrap items-center gap-2 w-full md:w-auto">
+                                <div className="flex-1 md:flex-none relative">
+                                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3 h-3 text-muted-foreground" />
+                                    <input 
+                                        type="text" 
+                                        placeholder="Search Branch..." 
+                                        className="w-full md:w-48 bg-white/5 border border-white/10 rounded-xl py-2 pl-8 pr-4 text-[10px] font-bold focus:outline-none focus:border-primary transition-all shadow-inner"
+                                        value={branchSearch}
+                                        onChange={(e) => setBranchSearch(e.target.value)}
+                                    />
+                                </div>
+                                <div className="flex items-center gap-2 bg-white/5 p-1 rounded-xl border border-white/10">
+                                    <select 
+                                        className="bg-transparent border-none py-1 px-3 text-[10px] font-bold focus:outline-none cursor-pointer appearance-none text-primary"
+                                        value={selectedCategory}
+                                        onChange={(e) => setSelectedCategory(e.target.value as Category)}
+                                    >
+                                        {CATEGORIES.map(cat => (
+                                            <option key={cat} value={cat} className="bg-zinc-900">{cat}</option>
+                                        ))}
+                                    </select>
+                                    <ChevronDown className="w-3 h-3 text-muted-foreground mr-2" />
+                                </div>
                             </div>
                         </div>
 
-                        <div className="overflow-x-auto rounded-2xl border border-white/5">
+                        {/* Mobile Cutoff List */}
+                        <div className="md:hidden space-y-2">
+                            {branchData.map((row: any, idx: number) => (
+                                <div key={idx} className="bg-white/5 border border-white/10 rounded-xl p-3">
+                                    <div className="font-bold text-xs mb-2 text-white">{row.branch.branch_name}</div>
+                                    <div className="grid grid-cols-3 gap-2">
+                                        <div className="bg-zinc-900 rounded-lg p-2 border border-white/5">
+                                            <div className="text-[7px] font-black text-muted-foreground uppercase mb-1">R1</div>
+                                            <div className="text-[10px] font-mono font-bold text-primary">{row.r1}</div>
+                                        </div>
+                                        <div className="bg-zinc-900 rounded-lg p-2 border border-white/5">
+                                            <div className="text-[7px] font-black text-muted-foreground uppercase mb-1">R2</div>
+                                            <div className="text-[10px] font-mono font-bold text-primary">{row.r2}</div>
+                                        </div>
+                                        <div className="bg-zinc-900 rounded-lg p-2 border border-white/5">
+                                            <div className="text-[7px] font-black text-muted-foreground uppercase mb-1">R3</div>
+                                            <div className="text-[10px] font-mono font-bold text-primary">{row.r3}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+
+                        {/* Desktop Cutoff Table */}
+                        <div className="hidden md:block overflow-x-auto rounded-2xl border border-white/5">
                             <table className="w-full text-left border-collapse">
                                 <thead>
                                     <tr className="bg-white/5">
@@ -433,49 +496,49 @@ const RoundDetailsModal = ({
                     exit={{ opacity: 0, scale: 0.95, y: 20 }}
                     className="relative w-full max-w-2xl bg-zinc-900 border border-white/10 rounded-3xl shadow-2xl overflow-hidden z-10"
                 >
-                    <div className="p-8">
-                        <div className="flex justify-between items-start mb-6">
-                            <div>
-                                <div className="flex items-center gap-2 text-primary mb-2">
-                                    <Calendar className="w-4 h-4" />
-                                    <span className="text-[10px] font-bold uppercase tracking-widest">Counseling History</span>
+                    <div className="p-5 md:p-8">
+                        <div className="flex justify-between items-start mb-5">
+                            <div className="min-w-0 flex-1">
+                                <div className="flex items-center gap-2 text-primary mb-1">
+                                    <Calendar className="w-3 h-3 md:w-4 h-4" />
+                                    <span className="text-[9px] font-black uppercase tracking-widest">Counseling History</span>
                                 </div>
-                                <h2 className="text-2xl font-bold">{collegeName}</h2>
-                                <p className="text-muted-foreground text-sm font-medium">{branchName}</p>
+                                <h2 className="text-lg md:text-2xl font-bold line-clamp-2 leading-tight">{collegeName}</h2>
+                                <p className="text-muted-foreground text-[10px] md:text-sm font-medium mt-1">{branchName}</p>
                             </div>
-                            <button onClick={onClose} className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-white/10 transition-colors">
-                                <X className="w-5 h-5" />
+                            <button onClick={onClose} className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-white/10 transition-colors shrink-0 ml-4">
+                                <X className="w-4 h-4 md:w-5 md:h-5" />
                             </button>
                         </div>
 
-                        <div className="grid grid-cols-3 gap-4 mb-8">
+                        <div className="grid grid-cols-3 gap-2 md:gap-4 mb-5">
                             {[1, 2, 3].map(roundNum => {
                                 const roundData = details.find(d => d.round === roundNum);
                                 return (
                                     <div key={roundNum} className={cn(
-                                        "p-6 rounded-2xl border transition-all",
+                                        "p-3 md:p-6 rounded-xl md:rounded-2xl border transition-all",
                                         roundData ? "bg-white/5 border-white/10" : "bg-transparent border-dashed border-white/5 opacity-50"
                                     )}>
-                                        <div className="text-[10px] font-bold text-muted-foreground uppercase mb-2">Round {roundNum}</div>
-                                        <div className="text-3xl font-mono font-bold">
+                                        <div className="text-[8px] md:text-[10px] font-bold text-muted-foreground uppercase mb-1">Round {roundNum}</div>
+                                        <div className="text-xl md:text-3xl font-mono font-bold leading-none">
                                             {roundData ? roundData.closing_rank : "N/A"}
                                         </div>
-                                        <div className="text-[10px] text-muted-foreground mt-1 uppercase font-bold tracking-tight">Closing Rank</div>
+                                        <div className="text-[8px] text-muted-foreground mt-1 uppercase font-bold tracking-tight">Closing</div>
                                     </div>
                                 );
                             })}
                         </div>
 
-                        <div className="bg-primary/10 border border-primary/20 rounded-2xl p-6">
-                             <div className="flex items-start gap-4">
-                                <div className="w-10 h-10 rounded-xl bg-primary/20 flex items-center justify-center shrink-0">
-                                    <TrendingUp className="w-5 h-5 text-primary" />
+                        <div className="bg-primary/10 border border-primary/20 rounded-xl md:rounded-2xl p-4 md:p-6">
+                             <div className="flex items-start gap-3 md:gap-4">
+                                <div className="w-8 h-8 md:w-10 md:h-10 rounded-lg md:rounded-xl bg-primary/20 flex items-center justify-center shrink-0">
+                                    <TrendingUp className="w-4 h-4 md:w-5 md:h-5 text-primary" />
                                 </div>
                                 <div>
-                                    <h4 className="font-bold text-sm mb-1 text-primary">Admission Strategy</h4>
-                                    <p className="text-xs text-muted-foreground leading-relaxed">
+                                    <h4 className="font-bold text-[10px] md:text-sm mb-0.5 text-primary">Admission Strategy</h4>
+                                    <p className="text-[10px] md:text-xs text-muted-foreground leading-relaxed">
                                         Historically, this branch sees a rank jump of {details.length > 1 && details[0].closing_rank && details[details.length-1].closing_rank ? Math.round(((details[details.length-1].closing_rank! - details[0].closing_rank!)/details[0].closing_rank!)*100) : "0"}% between Round 1 and Round 3. 
-                                        If your rank is slightly above the current cutoff, waiting for later rounds is highly recommended.
+                                        If your rank is slightly above the current cutoff, waiting for later rounds is recommended.
                                     </p>
                                 </div>
                              </div>
@@ -507,8 +570,8 @@ const CollegeGroupCard = ({ group, category, gender, onShowRounds, onShowCollege
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       className={cn(
-        "glass-card overflow-hidden border transition-all mb-6 relative",
-        gemData ? "border-primary/30 shadow-lg shadow-primary/5" : "border-white/5 hover:border-primary/20"
+        "glass-card overflow-hidden border transition-all mb-6 relative backdrop-blur-2xl",
+        gemData ? "border-primary/40 shadow-2xl shadow-primary/10" : "border-white/5 hover:border-primary/20"
       )}
     >
         {/* Intelligence Overlays */}
@@ -526,21 +589,30 @@ const CollegeGroupCard = ({ group, category, gender, onShowRounds, onShowCollege
         )}
       <div className="flex flex-col lg:flex-row">
         {/* Left: College Info */}
-        <div className="lg:w-1/3 p-4 md:p-6 border-b lg:border-b-0 lg:border-r border-white/5 bg-white/2">
+        <div className="lg:w-1/3 p-4 md:p-6 border-b lg:border-b-0 lg:border-r border-white/5 bg-white/[0.01]">
           <div className="flex items-start gap-4 mb-4">
             <div className="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center border border-primary/30 shrink-0">
                <GraduationCap className="w-6 h-6 text-primary" />
             </div>
-            <div className="min-w-0">
+            <div className="min-w-0 flex-1">
               <h3 
                 onClick={() => onShowCollege(college)}
-                className="text-xl font-bold leading-tight mb-1 break-words line-clamp-3 cursor-pointer hover:text-primary transition-colors decoration-primary/30 hover:decoration-primary underline underline-offset-4 decoration-dotted"
+                className="text-lg md:text-xl font-bold leading-tight mb-1 break-words line-clamp-2 md:line-clamp-3 cursor-pointer hover:text-primary transition-colors decoration-primary/30 hover:decoration-primary underline underline-offset-4 decoration-dotted"
               >
                 {college.full_name}
               </h3>
-              <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                <MapPin className="w-3 h-3 shrink-0" />
-                <span className="truncate">{college.city}</span>
+              <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                    <MapPin className="w-3 h-3 shrink-0" />
+                    <span className="truncate">{college.city}</span>
+                  </div>
+                  {/* MOBILE PROFILE LINK */}
+                  <button 
+                    onClick={() => onShowCollege(college)}
+                    className="md:hidden flex items-center gap-1.5 px-3 py-1 bg-primary/10 border border-primary/20 rounded-lg text-[9px] font-black uppercase tracking-widest text-primary animate-pulse"
+                  >
+                    Profile <ArrowUpRight className="w-3 h-3" />
+                  </button>
               </div>
             </div>
           </div>
@@ -579,11 +651,18 @@ const CollegeGroupCard = ({ group, category, gender, onShowRounds, onShowCollege
 
           {/* Campus Hero Image - Hidden on Mobile for compactness */}
           <div className="hidden md:block aspect-video w-full rounded-xl overflow-hidden mb-4 relative group/img border border-white/5 bg-white/5">
-              <img 
-                src="https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&q=80&w=600" 
-                className="w-full h-full object-cover group-hover/img:scale-105 transition-transform duration-700" 
-                alt="Campus Hero" 
-              />
+              {college.image_url ? (
+                <img 
+                  src={college.image_url} 
+                  className="w-full h-full object-cover group-hover/img:scale-105 transition-transform duration-700" 
+                  alt={college.full_name} 
+                />
+              ) : (
+                <div className="w-full h-full bg-zinc-900/50 flex flex-col items-center justify-center gap-2 border-2 border-dashed border-white/5 group-hover/img:bg-zinc-900/80 transition-colors">
+                    <ImageIcon className="w-8 h-8 text-white/20" />
+                    <span className="text-[10px] font-black uppercase tracking-widest text-white/30">Campus Image Coming Soon</span>
+                </div>
+              )}
               <div className="absolute inset-0 bg-linear-to-t from-black/40 to-transparent pointer-events-none" />
           </div>
 
@@ -598,7 +677,7 @@ const CollegeGroupCard = ({ group, category, gender, onShowRounds, onShowCollege
         {/* Right: Branch List (Ultra-Compact Mobile) */}
         <div className="lg:w-2/3 flex flex-col">
             {/* Desktop Header */}
-            <div className="hidden md:flex border-b border-white/5 bg-white/2 py-4 px-6 text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
+            <div className="hidden md:flex border-b border-white/5 bg-white/[0.01] py-4 px-6 text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
                 <div className="flex-[2]">Branch</div>
                 <div className="flex-1 text-center group/pkg relative cursor-help">
                     Avg PKG*
@@ -618,61 +697,52 @@ const CollegeGroupCard = ({ group, category, gender, onShowRounds, onShowCollege
                 const isWishlisted = isInWishlist(cbId);
                 
                 return (
-                <div key={idx} className="flex flex-col md:flex-row md:items-center border-b border-white/5 hover:bg-white/2 transition-colors group/row py-3 md:py-5 px-4 md:px-6 gap-1 md:gap-0">
+                <div key={idx} className="flex flex-col md:flex-row md:items-center border-b border-white/5 hover:bg-white/[0.03] transition-colors group/row py-2 md:py-5 px-3 md:px-6 gap-0.5 md:gap-0">
                   
                   {/* Top Mobile Row / Left Desktop */}
-                  <div className="flex-[2] flex items-center justify-between md:justify-start gap-3">
-                        <div className="flex items-center gap-2.5">
+                  <div className="flex-[2] flex items-center justify-between md:justify-start gap-2 md:gap-3">
+                        <div className="flex items-center gap-2 md:gap-2.5">
                             <button 
                                 onClick={() => toggleWishlist({ id: cbId, collegeName: college.full_name, branchName: b.branch.branch_name, collegeId: college.college_id })}
                                 className={cn(
-                                    "shrink-0 w-6 h-6 md:w-8 md:h-8 rounded-full border transition-all flex items-center justify-center",
+                                    "shrink-0 w-5 h-5 md:w-8 md:h-8 rounded-full border transition-all flex items-center justify-center",
                                     isWishlisted ? "bg-rose-500/20 border-rose-500/50 text-rose-500" : "bg-white/5 border-white/10 text-muted-foreground hover:border-white/30"
                                 )}
                             >
-                                <Heart className={cn("w-3 h-3 md:w-4 md:h-4", isWishlisted && "fill-current")} />
+                                <Heart className={cn("w-2.5 h-2.5 md:w-4 md:h-4", isWishlisted && "fill-current")} />
                             </button>
                             <div>
-                                <div className="text-xs md:text-sm font-bold text-white group-hover/row:text-primary transition-colors line-clamp-2 leading-tight">{b.branch.branch_name}</div>
+                                <div className="text-[11px] md:text-sm font-bold text-white group-hover/row:text-primary transition-colors line-clamp-1 md:line-clamp-2 leading-tight">{b.branch.branch_name}</div>
                                 <div className="hidden md:block text-[10px] text-muted-foreground font-medium mt-0.5">Bachelor of Technology</div>
                             </div>
                         </div>
                         {/* Mobile Only Probability Badge */}
                         <div className="md:hidden shrink-0">
-                            <span className={cn("text-[8px] font-bold px-1.5 py-0.5 rounded border inline-block", getLevelBg(b.level))}>
+                            <span className={cn("text-[7px] font-black px-1.5 py-0.5 rounded border inline-block uppercase tracking-tighter", getLevelBg(b.level))}>
                                 {b.probability}%
                             </span>
                         </div>
                   </div>
-                  
-                  {/* Bottom Mobile Row / Middle Desktop */}
-                  <div className="flex md:flex-[3] items-center justify-between md:justify-center gap-2 md:gap-0 pl-8 md:pl-0 mt-1 md:mt-0">
+                              {/* Bottom Mobile Row / Middle Desktop */}
+                  <div className="flex md:flex-[3] items-center justify-between md:justify-center gap-2 md:gap-0 pl-7 md:pl-0 mt-1 md:mt-0 border-t border-white/[0.03] md:border-t-0 pt-2 md:pt-0">
                       
-                      {/* Avg Package */}
-                      <div className="flex-1 flex md:flex-col items-center md:justify-center gap-1.5 md:gap-0">
-                        <span className="md:hidden text-[10px] text-muted-foreground uppercase tracking-widest">PKG (Avg)*:</span>
-                        <span className="text-xs md:text-sm font-mono font-bold text-primary">
-                            {typeof college.avg_package === 'number' ? `${college.avg_package}L` : college.avg_package}
-                        </span>
-                      </div>
-
-                      {/* Desktop Only Probability */}
-                      <div className="hidden md:flex flex-1 flex-col items-center justify-center text-center">
-                        <span className={cn("text-[10px] font-bold px-2 py-0.5 rounded border inline-block", getLevelBg(b.level))}>
-                            {b.probability}%
+                      {/* Avg Package (Desktop Only) */}
+                      <div className="hidden md:flex flex-1 flex-col items-center justify-center gap-1.5 md:gap-0">
+                        <span className="text-xs md:text-sm font-mono font-bold text-emerald-400">
+                            {typeof college.avg_package === 'number' ? `₹${college.avg_package}L` : college.avg_package}
                         </span>
                       </div>
 
                       {/* Closing Rank */}
                       <div className="flex-1 flex md:flex-col items-center md:justify-center gap-1.5 md:gap-0">
-                        <span className="md:hidden text-[10px] text-muted-foreground uppercase tracking-widest">Rank:</span>
-                        <span className="text-xs md:text-sm font-mono font-bold text-white">{b.closing_rank}</span>
+                        <span className="md:hidden text-[8px] font-black uppercase tracking-widest text-muted-foreground">Rank:</span>
+                        <span className="text-xs md:text-sm font-mono font-bold text-primary">{b.closing_rank}</span>
                       </div>
 
                       {/* Mobile Only Action */}
                       <div className="md:hidden flex-1 flex justify-end">
-                        <button onClick={() => onShowRounds(college.college_id, b.branch.branch_id, college.full_name, b.branch.branch_name)} className="text-[10px] font-bold text-primary hover:underline flex items-center gap-1.5">
-                            Details <ExternalLink className="w-3 h-3 shrink-0" strokeWidth={2.5} />
+                        <button onClick={() => onShowRounds(college.college_id, b.branch.branch_id, college.full_name, b.branch.branch_name)} className="px-3 py-1.5 bg-white/5 border border-white/10 rounded-lg text-[9px] font-black uppercase tracking-widest text-white hover:bg-white/10 flex items-center gap-1.5">
+                            Rounds <ArrowUpRight className="w-3 h-3" />
                         </button>
                       </div>
                   </div>
@@ -978,7 +1048,17 @@ export default function PredictorPage() {
   };
 
   return (
-    <div className="min-h-screen pt-20 md:pt-24 pb-12 px-3 sm:px-6 md:px-8 lg:px-12">
+    <div className="min-h-screen bg-zinc-950 text-white relative overflow-hidden">
+        {/* Background Effects */}
+        <div className="fixed inset-0 pointer-events-none overflow-hidden -z-10">
+            <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary/20 rounded-full blur-[120px] animate-pulse" />
+            <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-blue-600/10 rounded-full blur-[120px] animate-pulse delay-1000" />
+            <div className="absolute top-[30%] right-[10%] w-[20%] h-[20%] bg-rose-500/10 rounded-full blur-[100px] animate-pulse delay-2000" />
+            <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] mix-blend-overlay" />
+            <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:40px_40px]" />
+        </div>
+
+        <div className="relative z-10 pt-20 md:pt-24 pb-12 px-3 sm:px-6 md:px-8 lg:px-12">
       <RoundDetailsModal 
         isOpen={roundModal.isOpen}
         onClose={() => setRoundModal({ ...roundModal, isOpen: false })}
@@ -997,7 +1077,7 @@ export default function PredictorPage() {
         <div className="p-4 md:px-5 md:py-4 flex flex-col lg:flex-row lg:items-center gap-4 lg:gap-5">
             
             {/* 1. PRIMARY METRICS STATION */}
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 bg-white/5 p-1.5 rounded-xl border border-white/5 shrink-0">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 bg-white/5 p-2 md:p-1.5 rounded-xl border border-white/5 shrink-0">
                 <div className="flex items-center justify-between sm:justify-start gap-2 px-2 sm:border-r border-white/5">
                     <div className="flex items-center gap-2">
                         <div className="w-8 h-8 rounded-lg bg-rose-500/20 flex items-center justify-center">
@@ -1010,13 +1090,13 @@ export default function PredictorPage() {
                     </div>
                 </div>
                 
-                <div className="flex items-center justify-between sm:justify-start gap-3">
+                <div className="grid grid-cols-3 sm:flex items-center justify-between sm:justify-start gap-2 md:gap-3">
                     <div className="space-y-1">
                         <label className="block text-[8px] font-black uppercase tracking-widest text-muted-foreground ml-1">Rank</label>
                         <input
                             type="number"
                             placeholder="Rank"
-                            className="w-24 bg-zinc-900 border border-white/10 rounded-lg py-2 px-3 text-sm font-mono font-bold focus:outline-none focus:border-rose-500/50 transition-all text-rose-500 shadow-inner"
+                            className="w-full sm:w-24 bg-zinc-900 border border-white/10 rounded-lg py-2 px-3 text-xs md:text-sm font-mono font-bold focus:outline-none focus:border-rose-500/50 transition-all text-rose-500 shadow-inner"
                             value={input.rank || ''}
                             onChange={(e) => setInput({ ...input, rank: parseInt(e.target.value) || 0 })}
                         />
@@ -1026,7 +1106,7 @@ export default function PredictorPage() {
                         <input
                             type="number"
                             placeholder="180"
-                            className="w-16 bg-zinc-900 border border-white/10 rounded-lg py-2 px-2 text-sm font-mono font-bold focus:outline-none focus:border-rose-500/50 text-center shadow-inner"
+                            className="w-full sm:w-16 bg-zinc-900 border border-white/10 rounded-lg py-2 px-2 text-xs md:text-sm font-mono font-bold focus:outline-none focus:border-rose-500/50 text-center shadow-inner"
                             value={marks.kcet || ''}
                             onChange={(e) => setMarks({ ...marks, kcet: parseInt(e.target.value) || 0 })}
                         />
@@ -1036,7 +1116,7 @@ export default function PredictorPage() {
                         <input
                             type="number"
                             placeholder="300"
-                            className="w-16 bg-zinc-900 border border-white/10 rounded-lg py-2 px-2 text-sm font-mono font-bold focus:outline-none focus:border-rose-500/50 text-center shadow-inner"
+                            className="w-full sm:w-16 bg-zinc-900 border border-white/10 rounded-lg py-2 px-2 text-xs md:text-sm font-mono font-bold focus:outline-none focus:border-rose-500/50 text-center shadow-inner"
                             value={marks.pcm || ''}
                             onChange={(e) => setMarks({ ...marks, pcm: parseInt(e.target.value) || 0 })}
                         />
@@ -1046,12 +1126,12 @@ export default function PredictorPage() {
 
             {/* 2. COUNSELING & FILTERS STATION */}
             <div className="flex-1 flex flex-col sm:flex-row items-stretch sm:items-center gap-4 min-w-0">
-                <div className="flex items-center justify-between sm:justify-start gap-3 sm:pr-4 sm:border-r border-white/10 shrink-0">
-                    <div className="space-y-1">
+                <div className="flex items-center justify-between sm:justify-start gap-2 sm:pr-4 sm:border-r border-white/10 shrink-0">
+                    <div className="space-y-1 flex-1 sm:flex-none">
                         <label className="block text-[8px] font-black uppercase tracking-widest text-muted-foreground ml-1">Category</label>
                         <div className="relative w-full sm:w-24">
                             <select
-                                className="w-full sm:w-24 bg-zinc-900 border border-white/10 rounded-lg py-2 px-3 pr-8 text-[11px] font-bold focus:outline-none focus:border-rose-500/50 cursor-pointer appearance-none text-center shadow-inner hover:bg-zinc-800 transition-colors"
+                                className="w-full sm:w-24 bg-zinc-900 border border-white/10 rounded-lg py-2 px-2 sm:px-3 pr-7 text-[10px] sm:text-[11px] font-bold focus:outline-none focus:border-rose-500/50 cursor-pointer appearance-none text-center shadow-inner hover:bg-zinc-800 transition-colors"
                                 value={input.category}
                                 onChange={(e) => setInput({ ...input, category: e.target.value as Category })}
                             >
@@ -1060,11 +1140,11 @@ export default function PredictorPage() {
                             <ChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 w-3 h-3 text-muted-foreground pointer-events-none opacity-50" />
                         </div>
                     </div>
-                    <div className="space-y-1">
+                    <div className="space-y-1 flex-1 sm:flex-none">
                         <label className="block text-[8px] font-black uppercase tracking-widest text-muted-foreground ml-1">Round</label>
                         <div className="relative w-full sm:w-20">
                             <select
-                                className="w-full sm:w-20 bg-zinc-900 border border-white/10 rounded-lg py-2 px-3 pr-8 text-[11px] font-bold focus:outline-none focus:border-rose-500/50 cursor-pointer appearance-none text-center shadow-inner hover:bg-zinc-800 transition-colors"
+                                className="w-full sm:w-20 bg-zinc-900 border border-white/10 rounded-lg py-2 px-2 sm:px-3 pr-7 text-[10px] sm:text-[11px] font-bold focus:outline-none focus:border-rose-500/50 cursor-pointer appearance-none text-center shadow-inner hover:bg-zinc-800 transition-colors"
                                 value={input.round}
                                 onChange={(e) => setInput({ ...input, round: parseInt(e.target.value) as Round })}
                             >
@@ -1170,6 +1250,13 @@ export default function PredictorPage() {
                             {option.label}
                         </button>
                     ))}
+                    <button
+                        onClick={() => results && exportPredictorToPDF(results, input)}
+                        className="px-4 py-2 rounded-xl bg-rose-500/10 border border-rose-500/30 text-[10px] font-black text-rose-500 hover:bg-rose-500 hover:text-white transition-all flex items-center gap-2 group shadow-lg shadow-rose-500/5"
+                    >
+                        <FileDown className="w-3.5 h-3.5 group-hover:scale-110 transition-transform" />
+                        EXPORT PDF
+                    </button>
                 </div>
             </div>
           )}
@@ -1365,6 +1452,7 @@ export default function PredictorPage() {
         onClose={() => setShowAuthModal(false)} 
         allowSkip={true}
       />
+      </div>
     </div>
   );
 }

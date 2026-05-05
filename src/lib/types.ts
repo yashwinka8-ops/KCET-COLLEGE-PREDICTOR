@@ -68,4 +68,7 @@ export interface PredictorInput {
   regions: string[];  // Region names
   round: Round;
 }
-
+export interface GroupedResult {
+  college: College;
+  branches: PredictionResult[];
+}

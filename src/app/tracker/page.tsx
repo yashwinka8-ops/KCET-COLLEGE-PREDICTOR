@@ -61,21 +61,116 @@ const milestones = [
 ];
 
 export default function KEATrackerPage() {
-  const [notifications, setNotifications] = React.useState<any[]>([]);
+  const [notifications, setNotifications] = React.useState<any[]>(latestNotifications);
   const [loading, setLoading] = React.useState(true);
   const [lastSync, setLastSync] = React.useState<string>("");
+
+  const translateClientSide = async (text: string) => {
+    try {
+      const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=kn&tl=en&dt=t&q=${encodeURIComponent(text)}`;
+      const res = await fetch(url);
+      if (!res.ok) return text;
+      const textResponse = await res.text();
+      try {
+        const data = JSON.parse(textResponse);
+        return data[0].map((item: any) => item[0]).join('');
+      } catch (e) {
+        console.warn("Translation JSON parse failed:", textResponse.substring(0, 50));
+        return text;
+      }
+    } catch (err) {
+      return text;
+    }
+  };
 
   const fetchLatest = async () => {
     setLoading(true);
     try {
+      // 1. Try Local API First
       const res = await fetch('/api/tracker/sync');
-      const json = await res.json();
-      if (json.success) {
-        setNotifications(json.data);
-        setLastSync(new Date(json.timestamp).toLocaleTimeString());
+      if (res.ok) {
+        const textResponse = await res.text();
+        try {
+            const json = JSON.parse(textResponse);
+            if (json.success && json.data?.length > 0) {
+              setNotifications(json.data);
+              setLastSync(new Date(json.timestamp).toLocaleTimeString());
+              setLoading(false);
+              return;
+            }
+        } catch (e) {
+            console.error("Local API JSON parse failed");
+        }
       }
-    } catch (err) {
-      console.error("Failed to sync with KEA");
+    } catch (apiErr) {
+      console.warn("Local API sync unavailable, trying client-side proxy...");
+    }
+
+    // 2. Client-Side Scraping Fallback (via AllOrigins CORS Proxy)
+    try {
+      const targetUrl = 'https://cetonline.karnataka.gov.in/kea/ugcet2026';
+      const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(targetUrl)}`;
+      
+      const proxyRes = await fetch(proxyUrl);
+      const proxyJson = await proxyRes.json();
+      const html = proxyJson.contents;
+
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, 'text/html');
+      const rawNotifications: any[] = [];
+
+      // Query all potential link containers
+      const selectors = 'button.btn-link, .card a, #ContentPlaceHolder1_req_accordion a';
+      const elements = doc.querySelectorAll(selectors);
+
+      elements.forEach((el: any) => {
+        let text = el.textContent?.trim() || "";
+        let href = el.querySelector('a')?.getAttribute('href') || el.getAttribute('href');
+
+        if (!text) {
+          text = el.querySelector('h5, span, p')?.textContent?.trim() || "";
+        }
+
+        if (text && href && !text.includes('Back') && !href.startsWith('javascript') && text.length > 5) {
+          rawNotifications.push({ originalText: text, href });
+        }
+      });
+
+      if (rawNotifications.length > 0) {
+        // Translation for the first 10 items
+        const combinedText = rawNotifications.slice(0, 10).map(n => n.originalText).join(' ||| ');
+        const translatedCombined = await translateClientSide(combinedText);
+        const translatedTitles = translatedCombined.split(' ||| ');
+
+        const finalNotifications = rawNotifications.slice(0, 10).map((n, i) => {
+          const translatedTitle = translatedTitles[i]?.trim() || n.originalText;
+          const dateMatch = n.originalText.match(/(\d{2}-\d{2}-\d{4})/);
+          
+          let fullHref = n.href;
+          if (n.href.startsWith('..')) {
+            fullHref = `https://cetonline.karnataka.gov.in/kea/${n.href.replace('../', '')}`;
+          } else if (n.href.startsWith('/')) {
+            fullHref = `https://cetonline.karnataka.gov.in${n.href}`;
+          } else if (!n.href.startsWith('http')) {
+            fullHref = `https://cetonline.karnataka.gov.in/kea/${n.href}`;
+          }
+
+          return {
+            title: translatedTitle.replace(/\(\s*\d{2}-\d{2}-\d{4}\s*\)/, '').trim(),
+            date: dateMatch ? dateMatch[0] : 'Latest',
+            link: fullHref,
+            category: translatedTitle.toLowerCase().includes('result') ? 'Result' : 
+                      translatedTitle.toLowerCase().includes('ticket') ? 'Admit Card' :
+                      translatedTitle.toLowerCase().includes('schedule') ? 'Schedule' : 'Notification'
+          };
+        });
+
+        setNotifications(finalNotifications);
+        setLastSync(new Date().toLocaleTimeString());
+      }
+    } catch (fallbackErr) {
+      console.error("Critical: Tracker sync failed completely.", fallbackErr);
+      // Fallback to hardcoded defaults is already set as initial state
     } finally {
       setLoading(false);
     }

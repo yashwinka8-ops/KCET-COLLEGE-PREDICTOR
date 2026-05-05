@@ -1,15 +1,20 @@
 import { NextResponse } from 'next/server';
-import * as cheerio from 'cheerio';
+import { load } from 'cheerio';
 
 async function translateText(text: string): Promise<string> {
   try {
     const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=kn&tl=en&dt=t&q=${encodeURIComponent(text)}`;
     const response = await fetch(url);
-    const data = await response.json();
+    if (!response.ok) return text;
     
-    // Google Translate returns a nested array: [[["translated", "original", ...]]]
-    // We need to stitch the translated parts back together
-    return data[0].map((item: any) => item[0]).join('');
+    const textResponse = await response.text();
+    try {
+      const data = JSON.parse(textResponse);
+      return data[0].map((item: any) => item[0]).join('');
+    } catch (e) {
+      console.warn("[API Sync] Translation parse failed:", textResponse.substring(0, 50));
+      return text;
+    }
   } catch (error) {
     console.error('Translation Error:', error);
     return text; // Fallback to original if translation fails
@@ -31,18 +36,36 @@ export async function GET() {
     if (!response.ok) throw new Error('Failed to fetch KEA portal');
 
     const html = await response.text();
-    const $ = cheerio.load(html);
+    console.log(`[KEA Sync] Fetched HTML size: ${html.length} bytes`);
+    
+    const $ = load(html);
     const rawNotifications: any[] = [];
 
     // Step 1: Extract raw Kannada notifications
-    $('#ContentPlaceHolder1_req_accordion .card a').each((i, el) => {
-      const originalText = $(el).text().trim();
-      const href = $(el).attr('href');
+    // KEA updated structure uses buttons with links inside
+    const selectors = 'button.btn-link, .card a, #ContentPlaceHolder1_req_accordion a';
+    $(selectors).each((i, el) => {
+      const $el = $(el);
+      let originalText = $el.text().trim();
+      let href = $el.find('a').attr('href') || $el.attr('href');
       
-      if (originalText && href && !originalText.includes('Back')) {
+      if (!originalText) {
+        originalText = $el.find('h5, span, p').text().trim();
+      }
+
+      if (originalText && href && 
+          !originalText.includes('Back') && 
+          !href.startsWith('javascript') &&
+          originalText.length > 5) {
         rawNotifications.push({ originalText, href });
       }
     });
+
+    console.log(`[KEA Sync] Found ${rawNotifications.length} raw notifications`);
+
+    if (rawNotifications.length === 0) {
+      return NextResponse.json({ success: true, data: [], timestamp: new Date().toISOString() });
+    }
 
     // Step 2: Batch translate all titles for speed (using ||| as a delimiter)
     const combinedText = rawNotifications.map(n => n.originalText).join(' ||| ');
@@ -79,6 +102,8 @@ export async function GET() {
       .filter(n => n?.title && n.title.length > 5)
       .slice(0, 15);
 
+    console.log(`[KEA Sync] Returning ${uniqueNotifications.length} unique notifications`);
+
     return NextResponse.json({ 
       success: true, 
       data: uniqueNotifications, 
@@ -87,6 +112,10 @@ export async function GET() {
 
   } catch (error: any) {
     console.error('KEA AI Sync Error:', error);
-    return NextResponse.json({ success: false, error: error.message }, { status: 500 });
+    return NextResponse.json({ 
+      success: false, 
+      error: error.message,
+      stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
+    }, { status: 500 });
   }
 }

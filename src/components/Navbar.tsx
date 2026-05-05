@@ -5,13 +5,18 @@ import Link from 'next/link';
 import { Zap, Heart, LogOut, User as UserIcon, Menu, X, ChevronDown } from "lucide-react";
 import { useAuth } from "@/lib/contexts/AuthContext";
 import { AnimatePresence, motion } from 'framer-motion';
+import { usePathname } from 'next/navigation';
+import { cn } from '@/lib/utils';
 
 export function Navbar() {
   const { user, logout, isAdmin } = useAuth();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [guideHovered, setGuideHovered] = useState(false);
+  const pathname = usePathname();
 
   const closeMenu = () => setMobileMenuOpen(false);
+
+  if (pathname === '/simulator') return null;
 
   return (
     <>
@@ -85,6 +90,25 @@ export function Navbar() {
                       <Link href="/documents" className="flex flex-col p-3 rounded-xl hover:bg-white/5 transition-colors group">
                         <span className="text-white text-[11px] font-bold">Document Vault</span>
                         <span className="text-[8px] text-muted-foreground group-hover:text-emerald-400 transition-colors uppercase font-black tracking-widest">Full Checklist</span>
+                      </Link>
+                      <Link 
+                        href="/simulator" 
+                        className="flex flex-col p-3 rounded-xl transition-colors group border-t border-white/5 hover:bg-primary/10"
+                      >
+                        <div className="flex items-center justify-between">
+                            <span className="text-white text-[11px] font-bold">
+                              Counseling Simulator
+                            </span>
+                            <span className={cn(
+                              "text-[6px] px-1 py-0.5 rounded border",
+                              isAdmin ? "bg-primary/20 text-primary border-primary/30" : "bg-rose-500/20 text-rose-500 border-rose-500/30"
+                            )}>
+                              {isAdmin ? "MOCK" : "LIVE SOON"}
+                            </span>
+                        </div>
+                        <span className="text-[8px] text-muted-foreground group-hover:text-primary transition-colors uppercase font-black tracking-widest">
+                          Option Entry Prep
+                        </span>
                       </Link>
                     </div>
                   </motion.div>
@@ -160,6 +184,19 @@ export function Navbar() {
                 </Link>
                 <Link href="/guide" onClick={closeMenu} className="py-3 pl-4 hover:text-primary transition-colors">Roadmap 2025</Link>
                 <Link href="/documents" onClick={closeMenu} className="py-3 pl-4 hover:text-emerald-400 transition-colors">Document Vault</Link>
+                <Link 
+                  href="/simulator" 
+                  onClick={closeMenu} 
+                  className="py-3 pl-4 text-primary flex items-center justify-between transition-colors"
+                >
+                  Counseling Simulator
+                  <span className={cn(
+                    "text-[8px] px-2 py-0.5 rounded-full border mr-4",
+                    isAdmin ? "bg-primary/20 border-primary/30 text-primary" : "bg-rose-500/20 border-rose-500/30 text-rose-500"
+                  )}>
+                    {isAdmin ? "MOCK" : "LIVE SOON"}
+                  </span>
+                </Link>
               </div>
 
               <Link href="/instructions" onClick={closeMenu} className="py-3 border-b border-white/10 hover:text-primary transition-colors">Instructions</Link>
