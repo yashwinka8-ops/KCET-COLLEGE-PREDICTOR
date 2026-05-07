@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { Zap, Heart, LogOut, User as UserIcon, Menu, X, ChevronDown } from "lucide-react";
+import { Zap, Heart, LogOut, User as UserIcon, Menu, X, ChevronDown, MapPin, Sparkles } from "lucide-react";
 import { useAuth } from "@/lib/contexts/AuthContext";
 import { AnimatePresence, motion } from 'framer-motion';
 import { usePathname } from 'next/navigation';
@@ -49,6 +49,9 @@ export function Navbar() {
             <Link href="/cutoffs" className="hover:text-white transition-colors">Cutoffs</Link>
             <Link href="/compare" className="hover:text-white transition-colors">Compare</Link>
             <Link href="/trends" className="hover:text-white transition-colors">Trends</Link>
+            <Link href="/commute" className="hover:text-white transition-colors flex items-center gap-1">
+              <MapPin className="w-3 h-3" /> Map
+            </Link>
             
             <Link href="/tracker" className="hover:text-white transition-colors flex items-center gap-1.5 relative group">
               Tracker
@@ -175,6 +178,9 @@ export function Navbar() {
               <Link href="/cutoffs" onClick={closeMenu} className="py-3 border-b border-white/10 hover:text-primary transition-colors">Cutoff Explorer</Link>
               <Link href="/compare" onClick={closeMenu} className="py-3 border-b border-white/10 hover:text-primary transition-colors">Compare Colleges</Link>
               <Link href="/trends" onClick={closeMenu} className="py-3 border-b border-white/10 hover:text-primary transition-colors">Trends</Link>
+              <Link href="/commute" onClick={closeMenu} className="py-3 border-b border-white/10 hover:text-primary transition-colors flex items-center gap-2">
+                <MapPin className="w-4 h-4" /> Commute Map
+              </Link>
               
               <div className="flex flex-col border-b border-white/10">
                 <span className="text-xs font-black uppercase tracking-widest text-muted-foreground mt-4 mb-2">Counselling Hub</span>

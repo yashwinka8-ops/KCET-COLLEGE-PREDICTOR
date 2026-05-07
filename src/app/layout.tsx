@@ -7,6 +7,8 @@ import { AuthProvider } from "@/lib/contexts/AuthContext";
 import { CollegeProvider } from "@/lib/contexts/CollegeContext";
 import { Navbar } from "@/components/Navbar";
 
+import AICounselor from "@/components/AICounselor";
+
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const outfit = Outfit({ subsets: ["latin"], variable: "--font-outfit" });
 
@@ -54,6 +56,7 @@ export default function RootLayout({
                             <Link href="/cutoffs" className="hover:text-white transition-colors">Cutoffs</Link>
                             <Link href="/compare" className="hover:text-white transition-colors">Compare</Link>
                             <Link href="/trends" className="hover:text-white transition-colors">Trends</Link>
+                            <Link href="/commute" className="hover:text-white transition-colors">Commute Map</Link>
                             <Link href="/instructions" className="hover:text-white transition-colors">Instructions</Link>
                             <Link href="/wishlist" className="hover:text-white transition-colors">Wishlist</Link>
                             <Link href="/privacy" className="hover:text-white transition-colors">Privacy & Disclaimer</Link>
